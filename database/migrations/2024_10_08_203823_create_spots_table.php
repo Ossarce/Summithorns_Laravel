@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->boolean('bus')->default(0);
-            $table->boolean('auto')->default(0);
+            $table->boolean('car')->default(0);
             $table->boolean('bike')->default(0);
             $table->longText('description');
             $table->timestamps();
