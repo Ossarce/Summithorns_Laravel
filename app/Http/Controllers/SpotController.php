@@ -129,11 +129,9 @@ class SpotController extends Controller
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
         $spot->description = $request->input('spot.description');
 
-        dd($request->all(), $spot);
+        $spot->save();
 
-        // $spot->save();
-
-        // return redirect()->route('spots.index');
+        return redirect()->route('spots.index');
     }
 
     /**

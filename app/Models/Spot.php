@@ -23,26 +23,30 @@ class Spot extends Model
     //     ])->validate();
     // }
 
-    public function setImage($image) {
+    public function setImage($image)
+    {
         if($this->image) {
             $this->deleteImage();
         }
         $this->image = $image;
     }
 
-    public function deleteImage() {
-        if($this->image && Storage::disk('public')->exists('spots/' . $this->image)) {
-            Storage::disk('public')->delete('spots/' . $this->image);
+    public function deleteImage()
+    {
+        if($this->image && Storage::disk('public')->exists('images/spots/' . $this->image)) {
+            Storage::disk('public')->delete('images/spots/' . $this->image);
         }
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->deleteImage();
         return parent::delete();
     }
 
     // *** Relationships ***
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
