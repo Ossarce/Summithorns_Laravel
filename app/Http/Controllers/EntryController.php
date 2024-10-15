@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entry;
+use App\Models\EntryCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class EntryController extends Controller
 {
@@ -22,7 +26,8 @@ class EntryController extends Controller
      */
     public function create()
     {
-        return view('admin.entries.create');
+        $categories = EntryCategory::all();
+        return view('admin.entries.create', compact('categories'));
     }
 
     /**
@@ -30,7 +35,34 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+                'entry.title' => 'required|string',
+                'entry.category_id' => 'required|integer',
+                'entry.image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'entry.description' => 'required|string|min:50'
+        ]);
+
+        if($request->hasFile('entry.image')) {
+            $image = $request->file('entry.image');
+            $imageName = md5(uniqid(rand(), true)) . '.jpg';
+
+            $img = Image::read($image);
+            $img->cover(800,600);
+            Storage::disk('public')->put('images/blog/' . $imageName, (string) $img->encode());
+        }else {
+            return response()->json(['error' => 'Hubo un error al procesar las imagen!']);
+        };
+
+        $entry = new Entry();
+        $entry->user_id = Auth::id();
+        $entry->title = $request->input('entry.title');
+        $entry->category_id = $request->input('entry.category_id');
+        $entry->setImage($imageName);
+        $entry->description = $request->input('entry.description');
+
+        $entry->save();
+
+        return redirect()->route('entries.index');
     }
 
     /**
@@ -38,7 +70,6 @@ class EntryController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -46,7 +77,14 @@ class EntryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = EntryCategory::all();
+        $entry = Entry::find($id);
+
+        if($entry === NULL) {
+            return redirect()->route('entries.index');
+        }
+
+        return view('admin.entries.edit', compact('categories','entry'));
     }
 
     /**
@@ -54,7 +92,35 @@ class EntryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'entry.title' => 'required|string',
+            'entry.category_id' => 'required|integer',
+            'entry.image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'entry.description' => 'required|string|min:50'
+        ]);
+
+        $entry = Entry::findOrFail($id);
+
+        if($request->file('entry.image')) {
+            $entry->deleteImage();
+
+            $image = $request->file('entry.image');
+            $imageName = md5(uniqid(rand(), true)) . '.jpg';
+
+            $img = Image::read($image);
+            $img->cover(800,600);
+            Storage::disk('public')->put('images/blog/' . $imageName, (string) $img->encode());
+
+            $entry->setImage($imageName);
+        };
+
+        $entry->title = $request->input('entry.title');
+        $entry->category_id = $request->input('entry.category_id');
+        $entry->description = $request->input('entry.description');
+
+        $entry->save();
+
+        return redirect()->route('entries.index');
     }
 
     /**
@@ -62,6 +128,10 @@ class EntryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $entry = Entry::findOrFail($id);
+
+        $entry->delete();
+
+        return redirect()->route('entries.index');
     }
 }

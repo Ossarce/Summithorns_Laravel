@@ -5,9 +5,9 @@
 
     <input type="text" name="spot[name]" placeholder="Name">
 
-    <input type="file" name="spot[image]" required>
+    <input type="file" name="spot[image]">
 
-    <textarea name="spot[description]" placeholder="Description"></textarea>
+    <textarea name="spot[description]" cols="30" rows="10"></textarea>
 
     <label>
         <input type="checkbox" name="spot[bus]" value="1"> Accessible by Bus

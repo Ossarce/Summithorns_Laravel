@@ -25,8 +25,8 @@ class Entry extends Model
 
     public function deleteImage()
     {
-        if($this->image && Storage::disk('public')->exists('images/entries/' . $this->image)) {
-            Storage::disk('public')->delete('images/entries/' . $this->image);
+        if($this->image && Storage::disk('public')->exists('images/blog/' . $this->image)) {
+            Storage::disk('public')->delete('images/blog/' . $this->image);
         }
     }
 

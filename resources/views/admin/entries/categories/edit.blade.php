@@ -6,5 +6,5 @@
 
     <input type="text" name="category[category_name]" value="{{$category->category_name}}">
 
-    <button type="submit">Crear Categoría</button>
+    <button type="submit">Editar Categoría</button>
 </form>

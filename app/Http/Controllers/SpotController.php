@@ -6,6 +6,7 @@ use App\Models\Spot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
 
@@ -49,14 +50,9 @@ class SpotController extends Controller
             $image = $request->file('spot.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
 
-            $path = public_path('images/spots/');
-            if(!file_exists($path)) {
-                mkdir($path, 0755, true);
-            }
-
             $img = Image::read($image);
             $img->cover(800,600);
-            $img->save(public_path('images/spots/' . $imageName));
+            Storage::disk('public')->put('images/spots/' . $imageName, (string) $img->encode());
         }else {
             return response()->json(['error' => 'Hubo un error al procesar la imagen!'], 400);
         };
@@ -64,7 +60,7 @@ class SpotController extends Controller
         $spot = new Spot();
         $spot->user_id = Auth::id();
         $spot->name = $request->input('spot.name');
-        $spot->image = $imageName;
+        $spot->setImage($imageName);
         $spot->bus = $request->has('spot.bus') ? 1 : 0;
         $spot->car = $request->has('spot.car') ? 1 : 0;
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
@@ -118,9 +114,9 @@ class SpotController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            $img->save(public_path('images/spots/' . $imageName));
+            Storage::disk('public')->put('images/spots/' . $imageName, (string) $img->encode());
 
-            $spot->image = $imageName;
+            $spot->setImage($imageName);
         }
 
         $spot->name = $request->input('spot.name');

@@ -8,7 +8,7 @@
 
     <input type="file" name="spot[image]">
     @if ($spot->image)
-        <img src="{{asset('images/spots/' . $spot->image)}}" alt="Imagen {{$spot->name}}">
+        <img src="{{asset('storage/images/spots/' . $spot->image)}}" alt="Imagen {{$spot->name}}">
     @endif
 
     <textarea name="spot[description]">{{$spot->description}}</textarea>
