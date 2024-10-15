@@ -49,4 +49,8 @@ class Spot extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function zones() {
+        return $this->hasMany(Zone::class);
+    }
 }

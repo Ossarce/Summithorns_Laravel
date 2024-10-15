@@ -1,4 +1,4 @@
-<h1>Crear nuevo spot</h1>
+<h1>Editar spot</h1>
 <a href="{{route('spots.index')}}">Volver</a>
 <form action="{{ route('spots.update', $spot->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -25,5 +25,5 @@
         <input type="checkbox" name="spot[bike]" value="1" {{$spot->bike ? 'checked' : ''}}> Accessible by Bike
     </label>
 
-    <button type="submit">Create Spot</button>
+    <button type="submit">Editar Spot</button>
 </form>

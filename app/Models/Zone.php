@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
+class Zone extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['spot_id', 'name', 'image', 'details'];
+
+    // *** Helper Methods ***
+
+    public function setImage($image) {
+        if($this->image) {
+            $this->deleteImage();
+        }
+        $this->image = $image;
+    }
+
+    public function deleteImage() {
+        if($this->image && Storage::disk('public')->exists('images/spots/zones' . $this->image)) {
+            Storage::disk('public')->delete('images/spots/zones/' . $this->image);
+        }
+    }
+
+    public function delete() {
+        $this->deleteImage();
+        return parent::delete();
+    }
+
+    public function spot() {
+        return $this->belongsTo(Spot::class);
+    }
+}
