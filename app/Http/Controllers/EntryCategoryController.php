@@ -15,7 +15,7 @@ class EntryCategoryController extends Controller
     {
         $categories = EntryCategory::all();
 
-        return view('admin.entries.categories.index', compact('categories'));
+        return view('admin.admin_only.entry_categories.index', compact('categories'));
     }
 
     /**
@@ -23,7 +23,7 @@ class EntryCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.entries.categories.create');
+        return view('admin.admin_only.entry_categories.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class EntryCategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('entry-categories.index');
     }
 
     /**
@@ -59,10 +59,10 @@ class EntryCategoryController extends Controller
         $category = EntryCategory::find($id);
 
         if($category === NULL) {
-            return redirect()->route('categories.index');
+            return redirect()->route('entry-categories.index');
         }
 
-        return view('admin.entries.categories.edit', compact('category'));
+        return view('admin.admin_only.entry_categories.edit', compact('category'));
     }
 
     /**
@@ -71,7 +71,11 @@ class EntryCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'category.category_name' => ['required', 'string', Rule::unique('entry_categories', 'category_name')->ignore($id)]
+            'category.category_name' => [
+                'required',
+                'string',
+                Rule::unique('entry_categories', 'category_name')->ignore($id)
+            ]
         ]);
 
         $category = EntryCategory::findOrFail($id);
@@ -80,7 +84,7 @@ class EntryCategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('entry-categories.index');
     }
 
     /**
@@ -92,6 +96,6 @@ class EntryCategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('entry-categories.index');
     }
 }

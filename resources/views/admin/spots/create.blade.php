@@ -6,6 +6,14 @@
     <label for="spot-name">Nombre Spot</label>
     <input id="spot-name" type="text" name="spot[name]" placeholder="Name">
 
+    <label for="spot-climbing-type">Tipo de Escalada</label>
+    <select id="spot-climbing-type" name="spot[climbing_type_id]">
+        <option value="" selected disabled>-- Selecciona Uno --</option>
+        @foreach ($climbingTypes as $climbingType)
+            <option value="{{$climbingType->id}}">{{$climbingType->name}}</option>
+        @endforeach
+    </select>
+
     <label for="spot-image">Imagen del Spot</label>
     <input id="spot-image" type="file" name="spot[image]">
 

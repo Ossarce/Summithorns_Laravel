@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BoulderGradeController;
+use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ProfileController;
@@ -26,8 +28,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+Route::resource('/admin/climbing-types', ClimbingTypeController::class);
+Route::resource('/admin/entry-categories', EntryCategoryController::class);
+Route::resource('/admin/boulder-grades', BoulderGradeController::class);
+
 Route::resource('/admin/spots', SpotController::class);
-Route::resource('/admin/entries/categories', EntryCategoryController::class);
+
 Route::resource('/admin/entries', EntryController::class);
 
 Route::prefix('/admin/spots/{spot}/zones')->group(function () {
@@ -37,6 +44,11 @@ Route::prefix('/admin/spots/{spot}/zones')->group(function () {
     Route::get('/{zone}/edit', [ZoneController::class, 'edit'])->name('zones.edit');
     Route::put('/{zone}', [ZoneController::class, 'update'])->name('zones.update');
     Route::delete('/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
+});
+
+Route::prefix('/admin/spots/{spot}/zones/{zone}/')->group(function () {
+    //Rutas Boulders
+    Route::get('/boulders')->name('boulders.index');
 });
 
 

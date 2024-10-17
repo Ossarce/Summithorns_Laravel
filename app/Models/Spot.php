@@ -10,7 +10,7 @@ class Spot extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'image', 'bus', 'car', 'bike', 'description'];
+    protected $fillable = ['user_id', 'name','climbing_type_id' , 'image', 'bus', 'car', 'bike', 'description'];
 
     // *** Helper Methods ***
 
@@ -45,9 +45,12 @@ class Spot extends Model
     }
 
     // *** Relationships ***
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function climbingType() {
+        return $this->belongsTo(ClimbingType::class);
     }
 
     public function zones() {

@@ -9,7 +9,7 @@
 
     <label for="entry-category">Categoria</label>
     <select name="entry[category_id]" id="entry-category-id">
-        <option selected value="">-- Escoje una categoria --</option>
+        <option selected value="" disabled>-- Escoje una categoria --</option>
         @foreach ($categories as $category)
         <option value="{{$category->id}}" {{$entry->category_id === $category->id ? 'selected' : ''}}>{{$category->category_name}}</option>
         @endforeach

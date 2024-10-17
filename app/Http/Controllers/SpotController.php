@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClimbingType;
 use App\Models\Spot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,9 @@ class SpotController extends Controller
     public function create()
     {
         $tabHeader = 'Crear nuevo Spot';
+        $climbingTypes = ClimbingType::all();
 
-        return view('admin.spots.create', compact('tabHeader'));
+        return view('admin.spots.create', compact('tabHeader', 'climbingTypes'));
     }
 
     /**
@@ -60,6 +62,7 @@ class SpotController extends Controller
         $spot = new Spot();
         $spot->user_id = Auth::id();
         $spot->name = $request->input('spot.name');
+        $spot->climbing_type_id = $request->input('spot.climbing_type_id');
         $spot->setImage($imageName);
         $spot->bus = $request->has('spot.bus') ? 1 : 0;
         $spot->car = $request->has('spot.car') ? 1 : 0;
@@ -84,13 +87,14 @@ class SpotController extends Controller
      */
     public function edit(string $id)
     {
+        $climbingTypes = ClimbingType::all();
         $spot = Spot::find($id);
 
         if($spot === null){
             return redirect()->route('spots.index');
         }
 
-        return view('admin.spots.edit', compact('spot'));
+        return view('admin.spots.edit', compact('climbingTypes', 'spot'));
     }
 
     /**
@@ -120,6 +124,7 @@ class SpotController extends Controller
         }
 
         $spot->name = $request->input('spot.name');
+        $spot->climbing_type_id = $request->input('spot.climbing_type_id');
         $spot->bus = $request->has('spot.bus') ? 1 : 0;
         $spot->car = $request->has('spot.car') ? 1 : 0;
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
