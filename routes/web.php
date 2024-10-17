@@ -5,6 +5,7 @@ use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RouteGradeController;
 use App\Http\Controllers\SpotController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +33,9 @@ Route::middleware('auth')->group(function () {
 Route::resource('/admin/climbing-types', ClimbingTypeController::class);
 Route::resource('/admin/entry-categories', EntryCategoryController::class);
 Route::resource('/admin/boulder-grades', BoulderGradeController::class);
+Route::resource('/admin/route-grades', RouteGradeController::class);
 
 Route::resource('/admin/spots', SpotController::class);
-
 Route::resource('/admin/entries', EntryController::class);
 
 Route::prefix('/admin/spots/{spot}/zones')->group(function () {
