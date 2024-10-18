@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoulderController;
 use App\Http\Controllers\BoulderGradeController;
 use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
@@ -49,7 +50,12 @@ Route::prefix('/admin/spots/{spot}/zones')->group(function () {
 
 Route::prefix('/admin/spots/{spot}/zones/{zone}/')->group(function () {
     //Rutas Boulders
-    Route::get('/boulders')->name('boulders.index');
+    Route::get('/boulders', [BoulderController::class, 'index'])->name('boulders.index');
+    Route::get('/boulders/create', [BoulderController::class, 'create'])->name('boulders.create');
+    Route::post('/boulders', [BoulderController::class, 'store'])->name('boulders.store');
+    Route::get('/boulders/{boulder}/edit', [BoulderController::class, 'edit'])->name('boulders.edit');
+    Route::put('/boulders/{boulder}', [BoulderController::class, 'update'])->name('boulders.update');
+    Route::delete('/boulders/{boulder}', [BoulderController::class, 'destroy'])->name('boulders.destroy');
 });
 
 

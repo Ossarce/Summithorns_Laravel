@@ -49,7 +49,7 @@ class ZoneController extends Controller
 
         $zone->save();
 
-        return redirect()->route('zones.index' , $spot);
+        return redirect()->route('zones.index' , compact('spot'));
     }
 
     public function edit(Spot $spot, Zone $zone) {
@@ -83,12 +83,12 @@ class ZoneController extends Controller
 
         $zone->save();
 
-        return redirect()->route('zones.index', $spot);
+        return redirect()->route('zones.index', compact('spot'));
     }
 
     public function destroy(Spot $spot, Zone $zone) {
         $zone->delete();
 
-        return redirect()->route('zones.index', $spot);
+        return redirect()->route('zones.index', compact('spot'));
     }
 }
