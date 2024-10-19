@@ -9,7 +9,7 @@
             <a href="{{route('boulders.index', [$spot, $zone])}}"><p>Ver Boulders</p></a>
             @break
         @case('Deportiva')
-            <a href="/"><p>Ver Vías (Ahora no lleva a ninguna parrrrte)</p></a>
+            <a href="{{route('routes.index', [$spot, $zone])}}"><p>Ver Vías</p></a>
         @break
         @default
             <p>Ha ocurrido un error al mostrar las zonas. Comunícate con soporte si el problema persiste.</p>

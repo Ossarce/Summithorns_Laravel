@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoulderController;
 use App\Http\Controllers\BoulderGradeController;
+use App\Http\Controllers\ClimbingRouteController;
 use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
@@ -48,7 +49,7 @@ Route::prefix('/admin/spots/{spot}/zones')->group(function () {
     Route::delete('/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
 });
 
-Route::prefix('/admin/spots/{spot}/zones/{zone}/')->group(function () {
+Route::prefix('/admin/spots/{spot}/zones/{zone}')->group(function () {
     //Rutas Boulders
     Route::get('/boulders', [BoulderController::class, 'index'])->name('boulders.index');
     Route::get('/boulders/create', [BoulderController::class, 'create'])->name('boulders.create');
@@ -56,6 +57,14 @@ Route::prefix('/admin/spots/{spot}/zones/{zone}/')->group(function () {
     Route::get('/boulders/{boulder}/edit', [BoulderController::class, 'edit'])->name('boulders.edit');
     Route::put('/boulders/{boulder}', [BoulderController::class, 'update'])->name('boulders.update');
     Route::delete('/boulders/{boulder}', [BoulderController::class, 'destroy'])->name('boulders.destroy');
+
+    // Rutas Deportiva
+    Route::get('/routes', [ClimbingRouteController::class, 'index'])->name('routes.index');
+    Route::get('/routes/create', [ClimbingRouteController::class, 'create'])->name('routes.create');
+    Route::post('/routes', [ClimbingRouteController::class, 'store'])->name('routes.store');
+    Route::get('/routes/{climbingRoute}/edit', [ClimbingRouteController::class, 'edit'])->name('routes.edit');
+    Route::put('/routes/{climbingRoute}', [ClimbingRouteController::class, 'update'])->name('routes.update');
+    Route::delete('/routes/{climbingRoute}', [ClimbingRouteController::class, 'destroy'])->name('routes.destroy');
 });
 
 

@@ -96,7 +96,7 @@ class BoulderController extends Controller
             'boulder.grade' => 'required|exists:boulder_grades,id',
             'boulder.image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             'boulder.details' => 'nullable|string',
-              // 'boulder.setter' El seteador/abridor se implementara en un futuro cercano.
+            // 'boulder.setter' El seteador/abridor se implementara en un futuro cercano.
         ]);
 
         if($request->hasFile('boulder.image')) {
@@ -105,7 +105,7 @@ class BoulderController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/boulders' . $imageName, (string) $img->encode());
+            Storage::disk('public')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
 
             $boulder->setImage($imageName);
         }
@@ -127,6 +127,6 @@ class BoulderController extends Controller
     {
         $boulder->delete();
 
-        return redirect()->route('boulders.index', compact('spot', 'zone', 'boulder'));
+        return redirect()->route('boulders.index', compact('spot', 'zone'));
     }
 }
