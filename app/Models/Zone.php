@@ -41,4 +41,8 @@ class Zone extends Model
     public function boulders() {
         return $this->hasMany(Boulder::class);
     }
+
+    public function climbingRoutes() {
+        return $this->hasMany(ClimbingRoute::class);
+    }
 }

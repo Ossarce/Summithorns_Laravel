@@ -17,7 +17,8 @@ class ClimbingRouteController extends Controller
      */
     public function index(Spot $spot, Zone $zone)
     {
-        $climbingRoutes = ClimbingRoute::all();
+        // $climbingRoutes = ClimbingRoute::where('zone_id', $zone->id)->get();
+        $climbingRoutes = $zone->climbingRoutes;
 
         return view('admin.spots.zones.climbing_routes.index', compact('spot', 'zone', 'climbingRoutes'));
     }
