@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -46,6 +46,9 @@ class User extends Authenticatable
     }
 
     // *** Relationships ***
+    public function profile() {
+        return $this->hasOne(Profile::class);
+    }
 
     public function spots()
     {
@@ -56,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Entry::class);
     }
+
+   //climbinglogs
+   //comments
+   //favorites
 }

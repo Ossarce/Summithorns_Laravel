@@ -1,4 +1,4 @@
-<h1>Administrar Boulders</h1>
+<h1>Administrar Boulders de {{$spot->name}} en sector {{$zone->name}}</h1>
 <a href="{{route('zones.index', [$spot])}}"><p>Volver</p></a>
 @foreach ($boulders as $boulder)
     <h2>Nombre del Boulder</h2>

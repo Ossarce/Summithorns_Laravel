@@ -1,36 +1,67 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="es">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{isset($title) ? "$title | Summit Horns" : "Summit Horns"}}</title>
+        @vite('resources/scss/app.scss')
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+    <body>
+        <header class="header sticky {{ request()->is('/') ? 'inicio' : '' }}">
+            <div class="contenedor contenido-header sticky-header">
+                <div class="barra">
+                    <a href="{{ url('/') }}">
+                        <img class="logo-header" src="{{asset('images/base/logo.svg')}}" alt="Logo Summit Horns">
+                    </a>
+                    <div class="mobile-menu">
+                        <i class='bx bx-menu hamburger'></i>
+                        <i class='bx bx-x close-hamburger hide-menu'></i>
                     </div>
-                </header>
-            @endisset
+                    <nav class="nav-bar">
+                        <a href="{{ url('/us') }}">Us</a>
+                        <a href="{{ url('/spots') }}">Spots</a>
+                        <a href="{{ url('/blog') }}">Blog</a>
+                        <a href="{{ url('/contact') }}">Contact</a>
+                        <div class="auth-container">
+                            @auth
+                                <a class="profile-link" href="{{ url('/profile', ['id' => auth()->user()->id]) }}">
+                                    <img src="{{asset('images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
+                                    {{ auth()->user()->username }}
+                                </a>
+                                <a class="auth-button sign-out" href="{{ route('logout') }}">Logout</a>
+                            @else
+                                <a class="auth-button" href="{{ route('login') }}">Log In</a>
+                                <a class="auth-button sign-up" href="{{ route('register') }}">Sign Up</a>
+                            @endauth
+                        </div>
+                    </nav>
+                </div>
+                <div class="slogan-div">
+                    @if (Request::is('/'))
+                        <h2>Pinnacles Explored, Triumphs Shared</h2>
+                    @endif
+                </div>
+            </div>
+        </header>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        @yield('content')
+
+        <footer class="footer seccion">
+            <div class="contenedor contenedor-footer">
+                <nav class="nav-bar">
+                    <a href="{{ url('/us') }}">Us</a>
+                    <a href="{{ url('/spots') }}">Spots</a>
+                    <a href="{{ url('/blog') }}">Blog</a>
+                    <a href="{{ url('/contact') }}">Contact</a>
+                </nav>
+                <p class="copy">OSSVRC &copy;</p>
+            </div>
+        </footer>
+
+        <script>
+            const isLoggedIn = {{ json_encode(Auth::check()) }};
+        </script>
+        @vite('resources/js/app.js')
     </body>
 </html>

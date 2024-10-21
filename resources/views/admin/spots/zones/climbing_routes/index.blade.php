@@ -1,4 +1,4 @@
-<h1>Administrar Vías</h1>
+<h1>Administrar Vías de {{$spot->name}} en sector {{$zone->name}}</h1>
 <a href="{{route('zones.index', [$spot])}}"><p>Volver</p></a>
 @foreach ($climbingRoutes as $climbingRoute)
     <h2>Nombre de la Vía</h2>

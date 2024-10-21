@@ -13,7 +13,7 @@ use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('public.home');
 });
 
 Route::get('/admin', function() {
@@ -24,10 +24,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('future.profile');
 
+Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
