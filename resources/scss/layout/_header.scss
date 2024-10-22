@@ -1,0 +1,80 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.header {
+    background-color: v.$negro;
+    padding: 1rem 0;
+    &.inicio {
+        background-image: url('/storage/app/public/images/base/header.webp');
+        background-position: center center;
+        background-size: cover;
+        transition: height .3s ease-in;
+        @include m.tablet {
+            min-height: 20rem;
+        }
+        .contenido-header {
+            @include m.tablet {
+                min-height: 20rem; /* Adjust min-height for tablet */
+            }
+        }
+    }
+    .contenido-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: height .3s ease-in;
+        h2 {
+            color: v.$blanco;
+            text-align: center;
+            font-weight: v.$bold;
+            max-width: 50rem;
+            font-size: 1.5rem;
+            margin: .5rem auto;
+            transition: font-size .3s ease-in;
+            @include m.tablet {
+                font-size: 2.5rem;
+                margin: 10rem auto 0 auto; /* Adjust margin for tablet */
+            }
+        }
+    }
+    &.sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 99;
+        min-height: unset;
+        height: auto;
+        box-shadow: 0 .5rem .5rem v.$dnegro;
+        background-color: v.$tnegro;
+
+        transition: min-height 0.3s ease-in-out; // Mover aquí
+
+        @include m.tablet {
+            .contenido-header h2 {
+                font-size: 1.8rem;
+                margin: 0 auto 10rem auto;
+            }
+        }
+
+        &.inicio {
+            @include m.tablet {
+                height: 9rem;
+                box-shadow: 0 .5rem .5rem v.$dnegro;
+            }
+        }
+
+        .contenido-header.sticky-header {
+            @include m.tablet {
+                min-height: unset;
+                height: auto;
+                h2 {
+                    font-size: 1.8rem;
+                    margin: 0 auto 10rem auto;
+                    position: absolute;
+                    top: 6rem;
+                }
+            }
+        }
+    }
+}

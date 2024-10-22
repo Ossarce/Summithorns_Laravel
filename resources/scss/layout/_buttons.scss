@@ -1,0 +1,44 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.yellow-button-block {
+    @include m.button(v.$amarillo, v.$blackbtn, block)
+}
+.yellow-button {
+    @include m.button(v.$amarillo, v.$blackbtn, inline-block)
+}
+.yellow-button-block-spot {
+    @include m.button(v.$amarillo, v.$blackbtn, block)
+}
+
+.blue-button {
+    @include m.button(v.$blue, v.$blanco, inline-block)
+}
+.btn {
+    width: 100%;
+    margin: auto;
+    font-size: 2rem;
+    @include m.tablet {
+        width: 70%;
+    }
+}
+.contact-btn {
+    width: 100%;
+    margin: .5rem auto;
+}
+.red-button-block {
+    @include m.button(v.$error, v.$blanco, block);
+    width: 90%
+}
+.green-button-block {
+    @include m.button(v.$success, v.$blanco, block);
+    width: 90%;
+}
+
+.detail-btn {
+    @include m.button(v.$verde, v.$blanco, block);
+    width: 90%;
+    font-size: 1.2rem;
+    margin: 1rem auto 0 auto;
+    padding: .5rem 2rem;
+}

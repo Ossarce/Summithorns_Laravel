@@ -1,0 +1,38 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+// Fuentes
+$fuente_principal: 'Lato', sans-serif;
+
+// Tamaño de Media Queries
+$telefono: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+
+// Colores
+$negro: #3b566a;
+$dnegro : color.scale($negro, $lightness: -10%);
+$tnegro: rgba(59,86,106, .97);
+$blackbtn: #212120;
+$amarillo: #EA8427;
+$lamarillo: rgba(234, 132, 39, 0.7);
+$tamarillo: rgba(234, 132, 39, 0.3);
+
+$verde: #69c4ae;
+$blanco: #fffcfa;
+$gris: #e1e1e1;
+$grisOscuro: color.scale($negro, $lightness: 20%);
+$blue: #1875c2;
+$lblue: rgba(24, 117, 194, 0.7);
+$tblue: rgba(24, 117, 194, 0.3);
+$body: #e0e1dd;
+$error: rgba(217, 4, 41, .7);
+$success: rgba(76, 175, 80, .7);
+
+$separacion: 5rem;
+
+// Fuentes
+$delgada: 300;
+$regular : 400;
+$bold: 700;
+$black: 900;

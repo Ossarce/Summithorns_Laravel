@@ -1,0 +1,28 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.footer {
+    background-color: v.$negro;
+    margin: 2rem 0 0 0;
+    .contenedor-footer {
+        padding: 1rem;
+        @include m.tablet {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-bar {
+            visibility: visible;
+            opacity: 1;
+            a {
+                font-size: 1.4rem;
+            }
+        }
+    }
+    .copy {
+        color: v.$blanco;
+        text-align: center;
+        font-size: 1.2rem;
+        margin: 0 1rem 0 0;
+    }
+}

@@ -16,7 +16,7 @@
                     </a>
                     <div class="mobile-menu">
                         <i class='bx bx-menu hamburger'></i>
-                        <i class='bx bx-x close-hamburger hide-menu'></i>
+                        {{-- <i class='bx bx-x close-hamburger hide-menu'></i> --}}
                     </div>
                     <nav class="nav-bar">
                         <a href="{{ url('/us') }}">Us</a>

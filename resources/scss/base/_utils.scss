@@ -1,0 +1,21 @@
+@use 'variables' as v;
+.seccion {
+    margin-top: calc(v.$separacion / 2);
+    margin-bottom: calc(v.$separacion / 2);
+}
+.contenido-centrado {
+    max-width: 90rem;
+}
+.alinear-derecha {
+    display: flex;
+    justify-content: flex-end;
+}
+.w-100 {
+    width: 100%;
+}
+
+.section-title {
+    color: v.$negro;
+    font-weight: 400;
+    // text-decoration: underline;
+}

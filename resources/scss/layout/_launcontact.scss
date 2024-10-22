@@ -1,0 +1,22 @@
+@use '../base/variables' as v;
+
+.launchment-contact {
+    background-image: url('/storage/app/public/images/base/encuentra.webp');
+    background-position: center center;
+    background-size: cover;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        font-size: 3rem;
+        font-weight: 900;
+        color: v.$lblue;
+    }
+    p {
+        font-size: 1.8rem;
+        color: v.$blanco;
+        padding: 1rem;
+    }
+}
