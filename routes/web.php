@@ -13,6 +13,7 @@ use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    notyf()->ripple(false)->dismissible(true)->success('Probando el sistema de notificaciones!');
     return view('public.home');
 });
 

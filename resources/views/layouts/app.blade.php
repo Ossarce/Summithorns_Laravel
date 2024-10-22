@@ -39,7 +39,7 @@
                 </div>
                 <div class="slogan-div">
                     @if (Request::is('/'))
-                        <h2>Pinnacles Explored, Triumphs Shared</h2>
+                        <h2>Rutas Escaladas, Logros Compartidos</h2>
                     @endif
                 </div>
             </div>
