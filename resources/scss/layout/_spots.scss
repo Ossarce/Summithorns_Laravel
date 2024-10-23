@@ -1,0 +1,91 @@
+@use "sass:color";
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+@include m.tablet {
+    .contenedor-spots {
+        @include m.grid(3,2);
+    }
+}
+
+.spot {
+    margin: 1rem;
+    background-color: color.scale($color: v.$gris, $lightness: 5%);
+    border: .1rem solid color.scale($color: v.$gris, $lightness: -10%);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .mini-pic img {
+        height: 20rem;
+        border-radius: 1rem 1rem 0 0;
+    }
+    .contenido-spot {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        .favorite-name-container,
+        p,
+        .guide-icons {
+            flex: 1;
+        }
+    }
+
+    h3, p {
+        color: v.$negro;
+        margin: 0;
+    }
+}
+
+.spot-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    @include m.tablet {
+        flex-direction: row;
+    }
+}
+
+.favorite-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h3 {
+        font-weight: v.$regular;
+        color: v.$negro;
+        margin: 1rem 0;
+    }
+    .like-icon {
+        margin-left: 1rem;
+        padding: 1.5rem;
+        display: inline-block;
+        cursor: pointer;
+        background-size: cover;
+        width: 1.8rem;
+        height: 1.8rem;
+        background-image: url('/storage/app/public/images/base/unliked.svg');
+
+        &.liked {
+            background-image: url('/storage/app/public/images/base/liked.svg');
+        }
+    }
+}
+
+.guide-icons {
+    display: flex;
+    list-style: none;
+    padding: 1rem;
+    justify-content: space-evenly;
+    li {
+        img {
+            width: 4rem;
+            margin-right: 1rem;
+        }
+    }
+}
+.displayed-pic img {
+    width: 90%;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 1rem;
+}

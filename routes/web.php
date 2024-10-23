@@ -7,23 +7,20 @@ use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\RouteGradeController;
 use App\Http\Controllers\SpotController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    notyf()->ripple(false)->dismissible(true)->success('Probando el sistema de notificaciones!');
-    return view('public.home');
-});
-
-Route::get('/admin', function() {
-    return view('admin.index');
-})->name('admin.panel');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('future.profile');
+// Rutas Públicas
+Route::get('/', [PublicPageController::class, 'home'])->name('public.home');
+Route::get('/nosotros', [PublicPageController::class, 'us'])->name('public.us');
+Route::get('/spots', [PublicPageController::class, 'spots'])->name('public.spots');
+Route::get('/spots/{spot}', [PublicPageController::class, 'spot'])->name('public.spot');
+Route::get('/blog', [PublicPageController::class, 'blog'])->name('public.blog');
+Route::get('/entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
+Route::get('/contact', [PublicPageController::class, 'contact'])->name('public.contact');
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::middleware('auth')->group(function () {
@@ -33,6 +30,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// Rutas Admin y Colaboradores
+Route::get('/admin', function() {
+    return view('admin.index');
+})->name('admin.panel');
 
 Route::resource('/admin/climbing-types', ClimbingTypeController::class);
 Route::resource('/admin/entry-categories', EntryCategoryController::class);

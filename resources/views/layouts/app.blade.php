@@ -12,21 +12,21 @@
             <div class="contenedor contenido-header sticky-header">
                 <div class="barra">
                     <a href="{{ url('/') }}">
-                        <img class="logo-header" src="{{asset('images/base/logo.svg')}}" alt="Logo Summit Horns">
+                        <img class="logo-header" src="{{asset('storage/images/base/logo.svg')}}" alt="Logo Summit Horns">
                     </a>
                     <div class="mobile-menu">
                         <i class='bx bx-menu hamburger'></i>
                         {{-- <i class='bx bx-x close-hamburger hide-menu'></i> --}}
                     </div>
                     <nav class="nav-bar">
-                        <a href="{{ url('/us') }}">Us</a>
-                        <a href="{{ url('/spots') }}">Spots</a>
-                        <a href="{{ url('/blog') }}">Blog</a>
-                        <a href="{{ url('/contact') }}">Contact</a>
+                        <a href="{{ route('public.spots') }}">Spots</a>
+                        <a href="{{ route('public.blog') }}">Blog</a>
+                        <a href="{{ route('public.contact') }}">Contacto</a>
+                        <a href="{{ route('public.us') }}">Nosotros</a>
                         <div class="auth-container">
                             @auth
                                 <a class="profile-link" href="{{ url('/profile', ['id' => auth()->user()->id]) }}">
-                                    <img src="{{asset('images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
+                                    <img src="{{asset('storage/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
                                     {{ auth()->user()->username }}
                                 </a>
                                 <a class="auth-button sign-out" href="{{ route('logout') }}">Logout</a>
@@ -50,10 +50,10 @@
         <footer class="footer seccion">
             <div class="contenedor contenedor-footer">
                 <nav class="nav-bar">
-                    <a href="{{ url('/us') }}">Us</a>
-                    <a href="{{ url('/spots') }}">Spots</a>
-                    <a href="{{ url('/blog') }}">Blog</a>
-                    <a href="{{ url('/contact') }}">Contact</a>
+                    <a href="{{ route('public.spots') }}">Spots</a>
+                    <a href="{{ route('public.blog') }}">Blog</a>
+                    <a href="{{ route('public.contact') }}">Contacto</a>
+                    <a href="{{ route('public.us') }}">Nosotros</a>
                 </nav>
                 <p class="copy">OSSVRC &copy;</p>
             </div>
