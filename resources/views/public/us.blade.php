@@ -8,7 +8,7 @@
             <picture>
                 {{-- <source src="{{asset('images/base/nosotros.webp')}}" type="image/webp">
                 <source src="build/img/nosotros.jpg" type="image/jpg"> --}}
-                <img loading="lazy" src="{{asset('storage/images/base/nosotros.webp')}}" alt="About Us Image">
+                <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/nosotros.webp') }}" alt="About Us Image">
             </picture >
         </div>
         <div class="us-text">
@@ -26,17 +26,17 @@
     <h2 class="section-title">Summit Horns</h2>
     <div class="us-icons">
         <div class="icon">
-            <img src="{{asset('storage/images/base/iconcompass.svg')}}" alt="compass icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/iconcompass.svg') }}" alt="compass icon" loading="lazy">
             <h3>Ubicaciones</h3>
             <p>Encuentra los mejores spots de escalada para todos los niveles.</p>
         </div>
         <div class="icon">
-            <img src="{{asset('storage/images/base/iconcarabiner.svg')}}" alt="carabiner icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/iconcarabiner.svg') }}" alt="carabiner icon" loading="lazy">
             <h3>Reseña de Equipos</h3>
             <p>Reseñas para mantenerte seguro, preparado e informado.</p>
         </div>
         <div class="icon">
-            <img src="{{asset('storage/images/base/icontent.svg')}}" alt="tent icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/icontent.svg') }}" alt="tent icon" loading="lazy">
             <h3>Consejos Varios</h3>
             <p>Consejos útiles para mejorar tu escalada y cuidar el entorno.</p>
         </div>

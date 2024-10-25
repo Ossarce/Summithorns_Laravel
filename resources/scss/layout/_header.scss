@@ -5,7 +5,7 @@
     background-color: v.$negro;
     padding: 1rem 0;
     &.inicio {
-        background-image: url('/storage/app/public/images/base/header.webp');
+        background-image: url("#{v.$s3-url}/images/base/header.webp");
         background-position: center center;
         background-size: cover;
         transition: height .3s ease-in;

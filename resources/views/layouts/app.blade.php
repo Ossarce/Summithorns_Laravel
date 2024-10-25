@@ -12,7 +12,7 @@
             <div class="contenedor contenido-header sticky-header">
                 <div class="barra">
                     <a href="{{ url('/') }}">
-                        <img class="logo-header" src="{{asset('storage/images/base/logo.svg')}}" alt="Logo Summit Horns">
+                        <img class="logo-header" src="{{ Storage::disk('s3')->url('images/base/logo.svg')}}" alt="Logo Summit Horns">
                     </a>
                     <div class="mobile-menu">
                         <i class='bx bx-menu hamburger'></i>
@@ -26,7 +26,7 @@
                         <div class="auth-container">
                             @auth
                                 <a class="profile-link" href="{{ url('/profile', ['id' => auth()->user()->id]) }}">
-                                    <img src="{{asset('storage/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
+                                    <img src="{{asset('storage/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt=""> {{-- cambiar en cuanto estén operativas las sesiones a lectura desde S3 --}}
                                     {{ auth()->user()->username }}
                                 </a>
                                 <a class="auth-button sign-out" href="{{ route('logout') }}">Logout</a>

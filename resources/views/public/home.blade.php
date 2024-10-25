@@ -5,17 +5,17 @@
     <h1>Summit Horns</h1>
     <div class="us-icons">
         <div class="icon">
-            <img src="{{asset('storage/images/base/iconcompass.svg')}}" alt="compass icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/iconcompass.svg') }}" alt="compass icon" loading="lazy">
             <h3>Ubicaciones</h3>
             <p>Encuentra los mejores spots de escalada para todos los niveles.</p>
         </div>
         <div class="icon">
-            <img src="{{asset('storage/images/base/iconcarabiner.svg')}}" alt="carabiner icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/iconcarabiner.svg') }}" alt="carabiner icon" loading="lazy">
             <h3>Reseña de Equipos</h3>
             <p>Reseñas para mantenerte seguro, preparado e informado.</p>
         </div>
         <div class="icon">
-            <img src="{{asset('storage/images/base/icontent.svg')}}" alt="tent icon" loading="lazy">
+            <img src="{{ Storage::disk('s3')->url('images/base/icontent.svg') }}" alt="tent icon" loading="lazy">
             <h3>Consejos Varios</h3>
             <p>Consejos útiles para mejorar tu escalada y cuidar el entorno.</p>
         </div>
@@ -28,7 +28,7 @@
         @foreach ($spots as $spot)
         <div class="spot">
             <picture class="mini-pic">
-                <img loading="lazy" src="{{asset('storage/images/spots/' . $spot->image)}}" alt="{{$spot->name}} Imagen">
+                <img loading="lazy" src="{{ Storage::disk('s3')->url('images/spots/' . $spot->image) }}" alt="{{$spot->name}} Imagen">
             </picture>
             <div class="contenido-spot contenido-centrado">
                 <div class="favorite-name-container">
@@ -39,18 +39,18 @@
                 <ul class="guide-icons">
                     @if($spot->bus == '1')
                         <li>
-                            <img loading="lazy" src="{{asset('storage/images/base/iconbus.svg')}}" alt="Ícono Bus">
+                            <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconbus.svg') }}" alt="Ícono Bus">
                         </li>
                     @endif
 
                     @if($spot->car == '1')
                         <li>
-                            <img loading="lazy" src="{{asset('storage/images/base/iconcar.svg')}}" alt="Ícono Auto">
+                            <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconcar.svg') }}" alt="Ícono Auto">
                         </li>
                     @endif
                     @if($spot->bike == '1')
                         <li>
-                            <img loading="lazy" src="{{asset('storage/images/base/iconobicicleta.svg')}}" alt="Ícono Bicicleta">
+                            <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconobicicleta.svg') }}" alt="Ícono Bicicleta">
                         </li>
                     @endif
                 </ul>
@@ -78,7 +78,7 @@
             @foreach($entries as $entry)
             <article class="blog-entry">
                 <div class="imagen">
-                    <img class="mini-pic" loading="lazy" src="{{asset('storage/images/blog/' . $entry->image)}}" alt="Imagen Entrada: {{$entry->title}}">
+                    <img class="mini-pic" loading="lazy" src="{{ Storage::disk('s3')->url('images/blog/' . $entry->image) }}" alt="Imagen Entrada: {{$entry->title}}">
                 </div>
                 <div class="entry-text">
                 <a class="entry-container" href="{{route('public.entry', $entry)}}"><h4>{{$entry->title}}</h4></a>
