@@ -15,32 +15,48 @@ class PublicPageController extends Controller
             $spot->short_description = Str::limit($spot->description, 200, '...');
         }
 
-        $entries = Entry::latest()->take(2)->get();
+        $entries = Entry::with(['user', 'entryCategory'])->latest()->take(2)->get();
         foreach($entries as $entry) {
             $entry->short_description = Str::limit($entry->description, 150, '...');
         }
 
-        notyf()->ripple(false)->dismissible(true)->warning('Recuerda mover los listados de spots y entries a sus propios archivos!');
         return view('public.home', compact('spots', 'entries'));
     }
 
     public function spots() {
-        notyf()->ripple(false)->info('En breve podrás ver aqui los spots disponibles!');
-        return view('public.spots');
+        $spots = Spot::latest()->paginate(6);
+        foreach($spots as $spot) {
+            $spot->short_description = Str::limit($spot->description, 150, '...');
+        }
+
+        return view('public.spots', compact('spots'));
     }
 
-    // public function spot(Spot $spot) {
+    public function spot(string $id) {
+        $spot = Spot::findOrFail($id);
 
-    // }
+        notyf()->ripple(false)->info('Hay que estilizar esta vista y agregar los campos faltantes, zonas, etc.');
+
+        return view('public.spot', compact('spot'));
+    }
 
     public function blog() {
-        notyf()->ripple(false)->info('En breve podrás ver aqui las entradas disponibles!');
-        return view('public.blog');
+        $entries = Entry::with(['user', 'entryCategory'])->latest()->paginate(2);
+        // $entries = Entry::latest()->get();
+        foreach($entries as $entry) {
+            $entry->short_description = Str::limit($entry->description, 200, '...');
+        }
+
+        return view('public.blog', compact('entries'));
     }
 
-    // public function entry(string $id) {
+    public function entry(string $id) {
+        $entry = Entry::findOrFail($id);
 
-    // }
+        notyf()->ripple(false)->info('Hay que estilizar por el amor de todo lo divino y sagrado!');
+
+        return view('public.entry', compact('entry'));
+    }
 
     public function contact() {
         notyf()->ripple(false)->warning('El formulario no está funcionando y se deben aplicar los estilos correspondientes');

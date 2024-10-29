@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Tamo Traajando para usté</h1>
+<main class="seccion contenedor">
+    <h2 class="section-title">Spots de Escalada</h2>
+    @include('public.spotslisting')
+    <x-pagination :items="$spots" />
+</main>
 @endsection

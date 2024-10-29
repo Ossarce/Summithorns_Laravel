@@ -1,0 +1,61 @@
+@use '../base/variables' as v;
+
+.pagination {
+    margin: 2rem 0;
+
+    &__list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        gap: 0.5rem;
+    }
+
+    &__item {
+        &--disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        &--active {
+            .pagination__link {
+                background-color: v.$lblue;
+                color: v.$blanco;
+                border-color: v.$tblue;
+                padding: 0.5rem 1rem;
+                min-width: 3rem;
+            }
+        }
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        min-width: 3rem;
+        border: .1rem solid #ddd;
+        border-radius: 4px;
+        text-decoration: none;
+        color: v.$grisOscuro;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: v.$lblue;
+            color: v.$blue;
+            border-color: v.$tblue;
+        }
+    }
+
+    @media (max-width: 768px) {
+        &__list {
+            flex-wrap: wrap;
+        }
+
+        &__link {
+            padding: 0.5rem;
+            min-width: 3rem;
+        }
+    }
+}

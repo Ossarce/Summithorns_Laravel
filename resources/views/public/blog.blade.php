@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Trabalhando pra vocé</h1>
+<main class="seccion contenedor contenido-centrado">
+    <h2 class="section-title">Más allá de las Cumbres</h2>
+    @include('public.bloglisting')
+    <x-pagination :items="$entries" />
+</main>
+
 @endsection

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PublicPageController::class, 'home'])->name('public.home');
 Route::get('/nosotros', [PublicPageController::class, 'us'])->name('public.us');
 Route::get('/spots', [PublicPageController::class, 'spots'])->name('public.spots');
-Route::get('/spots/{spot}', [PublicPageController::class, 'spot'])->name('public.spot');
+Route::get('/spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
 Route::get('/blog', [PublicPageController::class, 'blog'])->name('public.blog');
 Route::get('/entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
 Route::get('/contact', [PublicPageController::class, 'contact'])->name('public.contact');

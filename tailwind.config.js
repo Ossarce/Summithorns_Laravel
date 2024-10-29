@@ -7,6 +7,7 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/js/**/*.js', // Asegúrate de que tus archivos JS también están incluidos si usas clases de Tailwind allí.
     ],
 
     theme: {
