@@ -10,19 +10,19 @@
                 <source src="build/img/nosotros.jpg" type="image/jpg"> --}}
                 <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/nosotros.webp') }}" alt="About Us Image">
             </picture >
-        </div>
-        <div class="us-text">
             <blockquote>
                 Comenzando un Camino para Mejorar las Experiencias de Escalada y Fortalecer la Comunidad
             </blockquote>
-            <p>La razón de este sitio es el afán personal mío y de un amigo por documentar todos los lugares de escalada que podamos, de la manera que nos agrade tanto visual como funcionalmente. Buscamos crear un espacio donde los amantes de la escalada no se queden como meros observadores, sino que puedan aportar tanto en la sección de lugares como en el blog del sitio, compartiendo así sus saberes y experiencias.</p>
+        </div>
+        <div class="us-text">
+            <p>La razón de este sitio es el afán de un grupo de amigos por documentar todos los lugares de escalada que podamos, de la manera que nos agrade tanto visual como funcionalmente. Buscamos crear un espacio donde los amantes de la escalada no se queden como meros observadores, sino que puedan aportar tanto en la sección de lugares como en el blog del sitio, compartiendo así sus saberes y experiencias.</p>
 
             <p>Te invitamos a ser parte activa de esta comunidad. Si tienes lugares que deseas documentar o historias que contar, ¡no dudes en colaborar con nosotros! Juntos, podemos enriquecer este espacio y hacer de Summit Horns un recurso valioso para todos los escaladores.</p>
         </div>
     </div>
 </main>
 
-<section class="contenedor seccion">
+{{-- <section class="contenedor seccion">
     <h2 class="section-title">Summit Horns</h2>
     <div class="us-icons">
         <div class="icon">
@@ -41,5 +41,5 @@
             <p>Consejos útiles para mejorar tu escalada y cuidar el entorno.</p>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection

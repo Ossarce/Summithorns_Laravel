@@ -1,0 +1,39 @@
+@use '../base/mixins' as m;
+
+.us-content {
+    display: flex;
+    flex-direction: column;
+
+    @include m.desktop {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .image {
+        margin: 0 auto;
+        max-width: 100rem;
+        picture img {
+            border-radius: .5rem;
+            @include m.tablet {
+                width: 70rem;
+            }
+        }
+        blockquote {
+            font-size: 1.2rem;
+            margin: 1rem;
+        }
+    }
+}
+
+.us-text {
+    display: flex;
+    flex-direction: column;
+    p {
+        padding: 0 1rem;
+        margin: auto 1rem;
+
+        &:last-of-type {
+            margin-top: 1rem;
+        }
+    }
+}
