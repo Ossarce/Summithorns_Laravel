@@ -21,6 +21,7 @@ Route::get('/spots/{id}', [PublicPageController::class, 'spot'])->name('public.s
 Route::get('/blog', [PublicPageController::class, 'blog'])->name('public.blog');
 Route::get('/entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
 Route::get('/contact', [PublicPageController::class, 'contact'])->name('public.contact');
+Route::post('/contact', [PublicPageController::class, 'submit'])->name('public.submit');
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::middleware('auth')->group(function () {

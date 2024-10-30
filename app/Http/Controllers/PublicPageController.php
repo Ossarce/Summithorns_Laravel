@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMail;
+use App\Mail\ContactMailable;
 use App\Models\Entry;
 use App\Models\Spot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class PublicPageController extends Controller
@@ -59,8 +62,27 @@ class PublicPageController extends Controller
     }
 
     public function contact() {
-        notyf()->ripple(false)->warning('El formulario no está funcionando y se deben aplicar los estilos correspondientes');
+        notyf()->ripple(false)->warning('Formulario funcionando asincrónicamente desde Database, tener cuidado con la carga en el servidor');
         return view('public.contact');
+    }
+
+    public function submit(Request $request) {
+        $request->validate([
+            'contact.name' => 'required|string',
+            'contact.email' => 'required|email',
+            'contact.purpose' => 'required|string',
+            'contact.message' => 'required|string'
+        ]);
+
+        $contactData = $request->input('contact');
+        $mailable = new ContactMailable($contactData);
+        $recipient = 'noresponder@summithorns.helioho.st';
+
+        SendMail::dispatch($mailable, $recipient);
+
+        notyf('Nos pondremos en contacto a la brevedad!');
+
+        return redirect()->route('public.contact');
     }
 
     public function us() {

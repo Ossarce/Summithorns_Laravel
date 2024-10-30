@@ -1,3 +1,11 @@
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        @php
+            notyf()->error($error);
+        @endphp
+    @endforeach
+@endif
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
