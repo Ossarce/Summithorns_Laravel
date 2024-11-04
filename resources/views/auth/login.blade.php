@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +44,32 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('layouts.app')
+
+@section('content')
+
+<main class="contenedor seccion contenido-centrado">
+    <h1 class="section-title">Inicia Sesión</h1>
+    <form method="POST" class="form" action="{{ route('login') }}">
+        @csrf
+        <div class="beauty-form">
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus autocomplete="username" />
+
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" type="password" name="password" autocomplete="current-password" />
+
+            <div class="auth-section auth-flex">
+                <a href="{{route('register')}}">Nuevo aquí? Crea una cuenta.</a>
+                <a href="{{route('password.request')}}">Forgot your password?</a>
+            </div>
+
+            <input type="submit" value="Iniciar Sesión" class="button blue-button">
+        </div>
+    </form>
+</main>
+
+@endsection

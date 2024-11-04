@@ -47,6 +47,30 @@ function eventListeners() { // Add them as parameters
     // if (document.querySelector('#spot_description')) {
     //     initializeQuill('#spot_description', '#spot_description_hidden', spotDescription);
     // }
+
+    const logoutBtn = document.querySelector('.sign-out');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const url = this.href;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(res => {
+                if (res.ok) {
+                    window.location.href = '/';
+                } else {
+                    console.error('Error en el cierre de sesión webong!');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
 }
 
 function responsiveNav() {

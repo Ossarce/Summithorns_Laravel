@@ -1,0 +1,29 @@
+@use "sass:color";
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.auth-section {
+    margin: 0 .5rem .5rem 0;
+    padding: .8rem;
+    a {
+        color: v.$blue;
+        text-decoration: underline;
+        margin: 1rem auto;
+
+        @include m.tablet {
+            margin: .5rem;
+        }
+        &:hover {
+            color: color.scale($color: v.$amarillo, $lightness: -10%);
+        }
+    }
+}
+.auth-flex {
+    display: flex;
+    flex-direction: column;
+
+    @include m.tablet {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

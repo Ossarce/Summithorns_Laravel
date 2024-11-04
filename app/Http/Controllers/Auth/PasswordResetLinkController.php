@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMail;
+use App\Mail\PasswordResetMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class PasswordResetLinkController extends Controller
 {
@@ -29,16 +32,26 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $user = Password::getUser(['email' => $request->email]);
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+        if ($user) {
+            $token = Password::createToken($user);
+
+            // Log the token to verify if it's created correctly
+            // Log::info('Token generado para restablecimiento de contraseña: ' . $token);
+
+            if (!$token) {
+                // Log::error('Error: El token de restablecimiento de contraseña no se generó.');
+                return back()->withErrors(['email' => 'Error generando el token de restablecimiento']);
+            }
+
+            // Crear el Mailable y enviar el Job
+            $mailable = new PasswordResetMail($token);
+            SendMail::dispatch($mailable, $request->email);
+
+            notyf()->ripple(false)->success('Si la cuenta existe, recibirás un correo con instrucciones.');
+        }
+
+        return redirect()->route('login');
     }
 }

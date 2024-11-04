@@ -11,6 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{isset($title) ? "$title | Summit Horns" : "Summit Horns"}}</title>
         <link rel="icon" type="image/png" sizes="32x32" href="{{ Storage::disk('s3')->url('images/base/favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ Storage::disk('s3')->url('images/base/favicon/favicon-16x16.png') }}">
@@ -25,7 +26,7 @@
         <header class="header sticky {{ request()->is('/') ? 'inicio' : '' }}">
             <div class="contenedor contenido-header sticky-header">
                 <div class="barra">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ route('public.home') }}">
                         <img class="logo-header" src="{{ Storage::disk('s3')->url('images/base/logo.svg')}}" alt="Logo Summit Horns">
                     </a>
                     <div class="mobile-menu">
@@ -39,7 +40,7 @@
                         <a href="{{ route('public.us') }}">Nosotros</a>
                         <div class="auth-container">
                             @auth
-                                <a class="profile-link" href="{{ url('/profile', ['id' => auth()->user()->id]) }}">
+                                <a class="profile-link" href="{{ route('profile.index', ['id' => auth()->user()->id]) }}">
                                     <img src="{{asset('storage/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt=""> {{-- cambiar en cuanto estén operativas las sesiones a lectura desde S3 --}}
                                     {{ auth()->user()->username }}
                                 </a>
