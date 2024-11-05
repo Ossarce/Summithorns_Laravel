@@ -8,6 +8,7 @@
 <body>
     <p>Hola,</p>
     <p>Puedes restablecer tu contraseña haciendo clic en el siguiente enlace:</p>
-    <a href="{{ url('/reset-password?token=' . $token) }}">Restablece tu contraseña</a>
+    <a href="{{ route('password.reset', $token) }}?email={{ urlencode($email) }}">Restablece tu contraseña</a>
     <p>Si no solicitaste un cambio de contraseña, ignora este correo.</p>
-<
+</body>
+

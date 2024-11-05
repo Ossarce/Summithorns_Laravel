@@ -63,8 +63,8 @@
             <x-text-input id="password" type="password" name="password" autocomplete="current-password" />
 
             <div class="auth-section auth-flex">
-                <a href="{{route('register')}}">Nuevo aquí? Crea una cuenta.</a>
-                <a href="{{route('password.request')}}">Forgot your password?</a>
+                <a href="{{route('register')}}">Nuevo aquí? Crea una cuenta</a>
+                <a href="{{route('password.request')}}">Olvidaste tu contraseña?</a>
             </div>
 
             <input type="submit" value="Iniciar Sesión" class="button blue-button">

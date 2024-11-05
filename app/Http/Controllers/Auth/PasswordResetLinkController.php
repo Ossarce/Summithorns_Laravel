@@ -46,12 +46,11 @@ class PasswordResetLinkController extends Controller
             }
 
             // Crear el Mailable y enviar el Job
-            $mailable = new PasswordResetMail($token);
+            $mailable = new PasswordResetMail($token, $request->email);
             SendMail::dispatch($mailable, $request->email);
-
-            notyf()->ripple(false)->success('Si la cuenta existe, recibirás un correo con instrucciones.');
         }
 
+        notyf()->ripple(false)->success('Si la cuenta existe, recibirás un correo con instrucciones.');
         return redirect()->route('login');
     }
 }

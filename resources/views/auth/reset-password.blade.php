@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,4 +36,29 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('layouts.app')
+
+@section('content')
+
+<main class="contenedor seccion contenido-centrado">
+    <h1 class="section-title">Reset Your password</h1>
+    <form method="POST" action="{{ route('password.store') }}">
+        @csrf
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        <input type="hidden" name="email" value="{{ old('email', $request->email) }}">
+
+        <div class="beauty-form">
+            <x-input-label for="password" :value="__('Password')" />
+            <x-text-input id="password" type="password" name="password" />
+
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-text-input id="password_confirmation" type="password" name="password_confirmation" />
+
+            <input type="submit" value="Cambiar Contraseña" class="button blue-button">
+        </div>
+    </form>
+</main>
+
+@endsection

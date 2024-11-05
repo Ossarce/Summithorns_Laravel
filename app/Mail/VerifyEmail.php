@@ -3,29 +3,26 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 
-class PasswordResetMail extends Mailable
+class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
-    public $email;
+
+    public $verificationUrl;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($token, $email)
+    public function __construct($user)
     {
-        // Log para confirmar que el token se está recibiendo
-        // Log::info('Token en PasswordResetMail: ' . $token);
-
-        $this->token = $token;
-        $this->email = $email;
+        $this->verificationUrl = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['id' => $user->id, 'hash' => sha1($user->email)]);
     }
 
     /**
@@ -34,7 +31,7 @@ class PasswordResetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Recupera tu contraseña',
+            subject: 'Verifica tu cuenta',
         );
     }
 
@@ -44,7 +41,7 @@ class PasswordResetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.reset-password',
+            view: 'emails.verify-email',
         );
     }
 
