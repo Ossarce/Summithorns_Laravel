@@ -28,6 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        notyf("Que bueno verte por acá {$request->user()->username}!");
         return redirect()->intended(route('public.home'));
     }
 
