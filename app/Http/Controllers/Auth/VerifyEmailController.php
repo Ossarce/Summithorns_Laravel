@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
@@ -24,9 +25,16 @@ class VerifyEmailController extends Controller
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
 
-            // Actualizar la columna `is_verified` a 1
             $user->is_verified = true;
             $user->save();
+
+            $profile = Profile::create([
+                'user_id' => $user->id,
+                'first_name' => $user->username,
+            ]);
+
+
+
             notyf()->ripple(false)->success('Cuenta verificada con exito!');
         }
 

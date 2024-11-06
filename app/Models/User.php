@@ -60,7 +60,10 @@ class User extends Authenticatable
         return $this->hasMany(Entry::class);
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
    //climbinglogs
    //comments
-   //favorites
 }

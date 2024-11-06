@@ -1,0 +1,136 @@
+@use "sass:color";
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.profile-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: color.scale($color: v.$gris, $lightness: -5%);
+    border: .1rem solid color.scale($color: v.$gris, $lightness: -10%);
+    border-radius: 1rem;
+    h3 {
+        margin: 1rem 1.5rem;
+        font-weight: 400;
+        line-height: 3.5rem;
+        color: v.$negro;
+    }
+    p {
+        margin: 0;
+        font-size: inherit;
+    }
+    @include m.tablet {
+        margin-top: auto;
+        justify-content: space-evenly;
+        h3 {
+            font-size: 3.4rem;
+            margin-bottom: 2rem;
+        }
+        p {
+            font-size: 2rem;
+        }
+    }
+}
+.socials-container {
+    display: flex;
+    justify-content: space-evenly;
+    line-height: 2rem;
+    // border: .1rem solid black;
+    .socials {
+        margin: 0 .5rem;
+        width: 4rem;
+    }
+}
+
+.profile-pic {
+    width: 16rem;
+    border-radius: .5rem;
+    margin: 0 auto;
+    @include m.tablet {
+        width: 20rem;
+    }
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    h4 {
+        color: v.$negro;
+        font-size: 2rem;
+        margin: 0;
+    }
+    // border: .1rem solid black;
+
+    .social-count {
+        p {
+            font-size: 1.8rem;
+            margin: .5rem;
+        }
+    }
+}
+
+.profile-content {
+    // border: .1rem solid black;
+    margin: .5rem;
+    a p {
+        font-size: 1.5rem;
+        color: v.$negro;
+    }
+    &.bio {
+        p {
+            text-align: left;
+            font-size: 1.4rem;
+            margin: 0 1rem 1rem 1rem;
+            padding: 0 .5rem .5rem .5rem;
+        }
+    }
+    @include m.tablet {
+        a p {
+            font-size: 1.8rem;
+        }
+        &.bio p {
+            font-size: 1.7rem;
+        }
+        &.socials-container {
+            margin-top: 2rem;
+            }
+    }
+}
+
+.fav-border {
+    border-right: .1rem solid v.$lblue;
+    // align-self: normal;
+    li a {
+        color: v.$negro;
+    }
+    @include m.tablet {
+        border: none;
+    }
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filler-card {
+    margin: 1rem;
+    img {
+        border-radius: 1rem;
+        height: 20rem;
+    }
+    @include m.tablet {
+        display: none;
+    }
+}
+
+.user-panel {
+    display: flex;
+    flex-direction: column;
+    @include m.tablet {
+        flex-direction: row;
+    }
+}

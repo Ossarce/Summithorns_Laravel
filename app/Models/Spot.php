@@ -56,4 +56,9 @@ class Spot extends Model
     public function zones() {
         return $this->hasMany(Zone::class);
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }

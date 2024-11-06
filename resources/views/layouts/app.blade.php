@@ -41,7 +41,7 @@
                         <div class="auth-container">
                             @auth
                                 <a class="profile-link" href="{{ route('profile.index', ['id' => auth()->user()->id]) }}">
-                                    <img src="{{asset('storage/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt=""> {{-- cambiar en cuanto estén operativas las sesiones a lectura desde S3 --}}
+                                    <img src="{{ Storage::disk('s3')->url('/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
                                     {{ auth()->user()->username }}
                                 </a>
                                 <a class="auth-button sign-out" href="{{ route('logout') }}">Logout</a>
