@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Jobs\SendMail;
 use App\Mail\ContactMailable;
 use App\Models\Entry;
+use App\Models\Favorite;
 use App\Models\Spot;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PublicPageController extends Controller
 {
@@ -18,29 +21,47 @@ class PublicPageController extends Controller
             $spot->short_description = Str::limit($spot->description, 200, '...');
         }
 
+        $userId = Auth::id();
+        $userFavorites = [];
+        if($userId !== null) {
+            $user = User::with('favorites')->find($userId);
+            $userFavorites = $user->favorites->pluck('spot_id')->toArray();
+        }
+
         $entries = Entry::with(['user', 'entryCategory'])->latest()->take(2)->get();
         foreach($entries as $entry) {
             $entry->short_description = Str::limit($entry->description, 150, '...');
         }
 
-        return view('public.home', compact('spots', 'entries'));
+        return view('public.home', compact('spots', 'entries', 'userFavorites'));
     }
 
     public function spots() {
         $spots = Spot::latest()->paginate(6);
+
+        $userId = Auth::id();
+        $userFavorites = [];
+        if($userId !== null) {
+            $user = User::with('favorites')->find($userId);
+            $userFavorites = $user->favorites->pluck('spot_id')->toArray();
+        }
+
         foreach($spots as $spot) {
             $spot->short_description = Str::limit($spot->description, 150, '...');
         }
 
-        return view('public.spots', compact('spots'));
+        return view('public.spots', compact('spots', 'userFavorites'));
     }
 
     public function spot(string $id) {
         $spot = Spot::findOrFail($id);
 
+        $userId = Auth::id();
+        $isFavorite = $userId ? Favorite::where('user_id', $userId)->where('spot_id', $spot->id)->exists() : false;
+
         notyf()->ripple(false)->info('Hay que estilizar esta vista y agregar los campos faltantes, zonas, etc.');
 
-        return view('public.spot', compact('spot'));
+        return view('public.spot', compact('spot', 'isFavorite'));
     }
 
     public function blog() {

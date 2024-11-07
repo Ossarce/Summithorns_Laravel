@@ -16,5 +16,8 @@
         "sass": "^1.80.3",
         "tailwindcss": "^3.4.14",
         "vite": "^5.4.8"
+    },
+    "dependencies": {
+        "notyf": "^3.10.0"
     }
 }

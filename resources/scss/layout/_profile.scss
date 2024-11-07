@@ -45,10 +45,12 @@
 
 .profile-pic {
     width: 16rem;
+    height: 16rem;
     border-radius: .5rem;
     margin: 0 auto;
     @include m.tablet {
         width: 20rem;
+        height: 20rem;
     }
 }
 
@@ -133,4 +135,17 @@
     @include m.tablet {
         flex-direction: row;
     }
+}
+
+
+.avatar-edit {
+    width: 15rem;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }

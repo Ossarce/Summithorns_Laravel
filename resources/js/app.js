@@ -1,4 +1,5 @@
 import './bootstrap';
+import { Notyf } from 'notyf';
 
 import Alpine from 'alpinejs';
 
@@ -33,12 +34,13 @@ function eventListeners() { // Add them as parameters
         mobileMenu.addEventListener('click', responsiveNav);
     }
 
-    // const likeButtons = document.querySelectorAll('.like-icon');
-    // likeButtons.forEach(button => {
-    //     button.addEventListener('click', function(e) {
-    //         toggleSpotLikeButton(e.currentTarget);
-    //     });
-    // });
+
+    const likeButtons = document.querySelectorAll('.like-icon');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            toggleSpotLikeButton(e.currentTarget);
+        });
+    });
 
     // Quill Handling
     // if (document.querySelector('#entry_description')) {
@@ -139,37 +141,49 @@ function toggleStickyHeader() {
     }
 }
 
-// function toggleSpotLikeButton(Button) {
-//     if (!isLoggedIn) {
-//         console.log('User not logged in!');
-//         return;
-//     }
+function toggleSpotLikeButton(Button) {
+    if (!isLoggedIn) {
+        console.log('User not logged in!');
+        const notyf = new Notyf({
+            duration: 2000,       // Duración de la notificación
+            ripple: false,          // Añadir efecto ripple
+            icon: {
+                tagName: 'i',                // Tag del icono (opcional)
+            }
+        });
+        notyf.open({
+            type: 'warning',
+            message: 'Inicia Sesión Para Acceder a Esta Función',
+            background: '#f59e0b',
+        });
 
-//     const spotId = Button.dataset.spotId;
-//     const action = Button.classList.contains('liked') ? 'unlike' : 'like';
+        return;
+    }
 
-//     // AJAX request
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('POST', action === 'like' ? '/spot/like' : '/spot/unlike', true);
-//     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//     xhr.onload = function() {
-//         if (xhr.status === 200) {
-//             console.log('Raw response:', xhr.responseText);  // Log the raw response
-//             try {
-//                 const response = JSON.parse(xhr.responseText);
-//                 if (response.status === 'success') {
-//                     Button.classList.toggle('liked');
-//                     console.log(response.message);
-//                 } else {
-//                     console.log(response.message);
-//                 }
-//             } catch (e) {
-//                 console.error('Failed to parse JSON:', e);
-//             }
-//         }
-//     };
-//     xhr.send(`spot_id=${spotId}`);
-// }
+    const spotId = Button.dataset.spotId;
+    const action = Button.classList.contains('liked') ? 'unlike' : 'like';
+    Button.classList.toggle('liked');
+
+    // AJAX request
+    fetch(`/spots/${spotId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ action: action })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'liked') {
+            Button.classList.add('liked');
+        } else {
+            Button.classList.remove('liked');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+
+}
 
 // function initializeQuill(editorSelector, hiddenInputSelector, initialContent = '') {
 //     const quill = new Quill(editorSelector, {

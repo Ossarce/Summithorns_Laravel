@@ -4,7 +4,7 @@
 <main class="contenedor seccion contenido-centrado">
     <h1>{{$entry->title}}</h1>
     <picture>
-        <img loading="lazy" src="{{Storage::disk('s3')->url('images/blog/' . $entry->image)}}" alt="Imagen Entrada: {{$entry->title}}">
+        <img loading="lazy" src="{{Storage::disk('s3')->url('summithorns/summithorns/images/blog/' . $entry->image)}}" alt="Imagen Entrada: {{$entry->title}}">
     </picture>
     <div class="meta-info">
         <p>Autor:<a href="#"><span>{{$entry->user->username}}</span></a></p>

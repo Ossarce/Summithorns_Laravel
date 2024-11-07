@@ -2,12 +2,12 @@
     @foreach ($spots as $spot)
     <div class="spot">
         <picture class="mini-pic">
-            <img loading="lazy" src="{{ Storage::disk('s3')->url('images/spots/' . $spot->image) }}" alt="{{$spot->name}} Imagen">
+            <img loading="lazy" src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/spots/' . $spot->image) }}" alt="{{$spot->name}} Imagen">
         </picture>
         <div class="contenido-spot contenido-centrado">
             <div class="favorite-name-container">
                 <h3>{{$spot->name}}</h3>
-                {{-- <span class="like-icon <?php echo in_array($spot->id_spot, $favSpots) ? 'liked' : '' ?>" data-spot-id = "<?php echo $spot->id_spot ?>" ></span> --}}
+                <span class="like-icon {{ in_array($spot->id, $userFavorites) ? 'liked' : '' }} " data-spot-id="{{ $spot->id }}"></span>
             </div>
             <p>{{$spot->short_description}}</p>
             <ul class="guide-icons">

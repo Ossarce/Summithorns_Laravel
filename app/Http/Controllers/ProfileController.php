@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -22,27 +25,59 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+    public function edit(string $id) {
+        $user = User::with('profile')->findOrFail($id);
+
+        $profile = $user->profile;
+
+        return view('profile.edit', compact('user', 'profile'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request, string $id)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'profile.first_name' => 'required|string|max:200',
+            'profile,last_name' => 'nullable|string|max:200',
+            'profile.avatar' => 'nullable|image|mimes:png,jpg, jpeg|max:2048',
+            'profile.location' => 'nullable|string|max:255',
+            'profile.bio' => 'nullable|string|max:300',
+            'profile.website' => 'nullable|url|max:200',
+            'profile.instagram' => 'nullable|url|max:300',
+            'profile.facebook' => 'nullable|url|max:300',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = User::with('profile')->findOrFail($id);
+
+        $profile = $user->profile;
+
+        if($request->hasFile('profile.avatar')) {
+            $image = $request->file('profile.avatar');
+            $imageName = md5(uniqid(rand(), true)) . '.jpg';
+
+            $img = Image::read($image);
+            $img->cover(800,600);
+            Storage::disk('s3')->put('images/profiles/avatars/' . $imageName, (string) $img->encode());
+
+            $profile->setImage($imageName);
         }
 
-        $request->user()->save();
+        $profile->first_name = $request->input('profile.first_name');
+        $profile->last_name = $request->input('profile.last_name');
+        $profile->is_private = $request->has('profile.private') ? 1 : 0;
+        $profile->location = $request->input('profile.location');
+        $profile->website = $request->input('profile.website');
+        $profile->instagram = $request->input('profile.instagram');
+        $profile->facebook = $request->input('profile.facebook');
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // dd($request->all(), $profile);
+
+        $profile->save();
+
+        notyf()->ripple(false)->success('Perfil editado con exito!');
+        return redirect()->route('profile.index', $profile);
     }
 
     /**

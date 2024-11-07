@@ -5,7 +5,11 @@
 <main class="contenedor seccion contenido-centrado">
     <div class="profile-container">
         <div class="profile-column">
-            <img class="profile-pic" src="{{ $user->profile->avatar ? Storage::disk('s3')->url('images/profiles/' . $user->profile->avatar) : Storage::disk('s3')->url('images/base/avatar-default.png') }}" alt="Avatar de {{ $user->username }}">
+            <img class="profile-pic"
+            src="{{ $user->profile->avatar
+                  ? Storage::disk('s3')->url('summithorns/summithorns/images/profiles/avatars/' . $user->profile->avatar)
+                  : Storage::disk('s3')->url('images/base/avatar-default.png') }}"
+            alt="Avatar de {{ $user->username }}">
             <div class="profile-content  socials-container">
                 @if ($user->profile->instagram)
                     <a class="socials" href="#" target="_blank"><i class='bx bxl-instagram'></i></a>
@@ -16,7 +20,7 @@
             </div>
             <div class="profile-content">
                 @if ($user->profile->website)
-                    <a href="#" target="_blank"><p>{{ $user->profile->website }}</p></a>
+                    <a href="{{ $user->profile->website }}" target="_blank"><p>{{ $user->profile->website }}</p></a>
                 @endif
             </div>
             <div class="profile-column fav-border">
@@ -51,7 +55,7 @@
                 </div>
             </div>
             <div class="profile-content bio">
-                <p>{{ $user->profile->bio }}</p>
+                <p>{{ $user->profile->bio ? $user->profile->bio  : 'No hay bio aún! Personalízala con tu historia de escalada o déjala en blanco. Hazla única!'}}</p>
             </div>
             <div class="profile-column">
             <h4>Achievements</h4>
@@ -70,7 +74,7 @@
 
     @if(Auth::id() === $user->id)
         <div class="user-panel">
-            <a class="yellow-button" href="{{ route('profile.edit', ['id' => $user->id]) }}">EditarPerfil</a>
+            <a class="yellow-button" href="{{ route('profile.edit', ['id' => $user->id]) }}">Editar Perfil</a>
             @if(Auth::user()->role_id === 1)
                 <a class="blue-button" href="{{ route('admin.panel') }}">Panel de Administración</a>
             @endif

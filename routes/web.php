@@ -6,6 +6,7 @@ use App\Http\Controllers\ClimbingRouteController;
 use App\Http\Controllers\ClimbingTypeController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\RouteGradeController;
@@ -15,18 +16,21 @@ use Illuminate\Support\Facades\Route;
 
 // Rutas Públicas
 Route::get('/', [PublicPageController::class, 'home'])->name('public.home');
-Route::get('/nosotros', [PublicPageController::class, 'us'])->name('public.us');
-Route::get('/spots', [PublicPageController::class, 'spots'])->name('public.spots');
-Route::get('/spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
-Route::get('/blog', [PublicPageController::class, 'blog'])->name('public.blog');
-Route::get('/entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
-Route::get('/contact', [PublicPageController::class, 'contact'])->name('public.contact');
-Route::post('/contact', [PublicPageController::class, 'submit'])->name('public.submit');
+Route::get('nosotros', [PublicPageController::class, 'us'])->name('public.us');
+Route::get('spots', [PublicPageController::class, 'spots'])->name('public.spots');
+Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
+Route::get('blog', [PublicPageController::class, 'blog'])->name('public.blog');
+Route::get('entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
+Route::get('contact', [PublicPageController::class, 'contact'])->name('public.contact');
+Route::post('contact', [PublicPageController::class, 'submit'])->name('public.submit');
+
+
+Route::post('/spots/{id}/like', [LikeController::class, 'toggleLikeSpot'])->name('spots.like');
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

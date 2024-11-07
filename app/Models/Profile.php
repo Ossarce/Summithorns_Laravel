@@ -27,15 +27,15 @@ class Profile extends Model
     // *** Helper Methods ***
 
     public function setImage($image) {
-        if($this->image) {
+        if($this->avatar) {
             $this->deleteImage();
         }
-        $this->image = $image;
+        $this->avatar = $image;
     }
 
     public function deleteImage() {
-        if($this->image && Storage::disk('public')->exists('images/profiles/avatars/' . $this->image)) {
-            Storage::disk('public')->delete('images/profiles/avatars/' . $this->image);
+        if($this->image && Storage::disk('s3')->exists('/images/profiles/avatars/' . $this->image)) {
+            Storage::disk('s3')->delete('/images/profiles/avatars/' . $this->image);
         }
     }
 

@@ -2,7 +2,7 @@
     @foreach($entries as $entry)
     <article class="blog-entry">
         <div class="imagen">
-            <img class="mini-pic" loading="lazy" src="{{ Storage::disk('s3')->url('images/blog/' . $entry->image) }}" alt="Imagen Entrada: {{$entry->title}}">
+            <img class="mini-pic" loading="lazy" src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/blog/' . $entry->image) }}" alt="Imagen Entrada: {{$entry->title}}">
         </div>
         <div class="entry-text">
         <a class="entry-container" href="{{route('public.entry', $entry)}}"><h4>{{$entry->title}}</h4></a>

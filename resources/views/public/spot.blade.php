@@ -5,7 +5,7 @@
     <div class="spot-head">
         <div class="favorite-name-container">
             <h3>{{$spot->name}}</h3>
-            {{-- <span class="like-icon <?php echo $isLiked ? 'liked' : ''?>" data-spot-id = "<?php echo $spot->id_spot ?>"></span> --}}
+            <span class="like-icon {{ $isFavorite ? 'liked' : '' }}" data-spot-id="{{ $spot->id }}"></span>
         </div>
         <ul class="guide-icons">
             @if($spot->bus == '1')
@@ -28,7 +28,7 @@
     </div>
 
     <picture class="displayed-pic">
-        <img loading="lazy" src="{{Storage::disk('s3')->url('images/spots/'. $spot->image)}}" alt="{{$spot->name}} Imagen">
+        <img loading="lazy" src="{{Storage::disk('s3')->url('summithorns/summithorns/images/spots/'. $spot->image)}}" alt="{{$spot->name}} Imagen">
     </picture>
     <p class="spot-info">{{$spot->description}}</p>
     <div class="alinear-derecha">

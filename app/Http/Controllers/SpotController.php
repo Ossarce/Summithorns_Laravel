@@ -54,7 +54,7 @@ class SpotController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/' . $imageName, (string) $img->encode());
         }else {
             return response()->json(['error' => 'Hubo un error al procesar la imagen!'], 400);
         };

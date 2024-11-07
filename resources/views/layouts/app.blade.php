@@ -21,6 +21,7 @@
         <link rel="manifest" href="{{ Storage::disk('s3')->url('images/base/favicon/manifest.json') }}">
         @vite('resources/scss/app.scss')
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     </head>
     <body>
         <header class="header sticky {{ request()->is('/') ? 'inicio' : '' }}">
@@ -74,6 +75,7 @@
             </div>
         </footer>
 
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
         <script>
             const isLoggedIn = {{ json_encode(Auth::check()) }};
         </script>
