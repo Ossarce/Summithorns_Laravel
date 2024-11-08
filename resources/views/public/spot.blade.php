@@ -30,9 +30,27 @@
     <picture class="displayed-pic">
         <img loading="lazy" src="{{Storage::disk('s3')->url('summithorns/summithorns/images/spots/'. $spot->image)}}" alt="{{$spot->name}} Imagen">
     </picture>
-    <p class="spot-info">{{$spot->description}}</p>
-    <div class="alinear-derecha">
+
+
+    <div class="spot-info">
+        <div class="spot-data">
+            <p>Zonas: {{ $zones->count() }}</p>
+            @if ($spot->climbingType->name === 'Deportiva')
+                <p>Vías: {{ $zones->climbingRoutes()->count() }}</p>
+            @endif
+            @if ($spot->climbingType->name === 'Boulder')
+                <p> Boulders: {{ $zones->boulders()->count() }}</p>
+            @endif
+        </div>
+        <p>{{$spot->description}}</p>
+        <div class="zones-info">
+            {{ $dataTable->table() }}
+        </div>
+    </div>
+
+    <div class="alinear-derecha spot-button">
         <a href="{{route('public.spots')}}" class="blue-button">View All Spots</a>
     </div>
 </main>
+{{ $dataTable->scripts() }}
 @endsection

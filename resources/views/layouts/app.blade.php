@@ -22,6 +22,9 @@
         @vite('resources/scss/app.scss')
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
         <header class="header sticky {{ request()->is('/') ? 'inicio' : '' }}">

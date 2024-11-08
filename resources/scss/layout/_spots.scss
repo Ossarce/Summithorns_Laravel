@@ -89,3 +89,24 @@
     margin: 0 auto 1.5rem auto;
     border-radius: 1rem;
 }
+
+.spot-info {
+    p {
+        padding: 2rem;
+        margin: .5rem;
+    }
+
+    .spot-data {
+        display: flex;
+        justify-content: space-around;
+        p {
+            font-size: 1.5rem;
+            margin: .5rem;
+            padding: 0;
+        }
+    }
+}
+
+.spot-button {
+    margin-top: 2rem;
+}

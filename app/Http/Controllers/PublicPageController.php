@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ZoneDataTable;
+use App\DataTables\ZonesTableDataTable;
 use App\Jobs\SendMail;
 use App\Mail\ContactMailable;
 use App\Models\Entry;
 use App\Models\Favorite;
 use App\Models\Spot;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -54,14 +57,19 @@ class PublicPageController extends Controller
     }
 
     public function spot(string $id) {
-        $spot = Spot::findOrFail($id);
+        $spot = Spot::with('zones', 'climbingType')->findOrFail($id);
+        $zones = Zone::find($spot->id);
+
 
         $userId = Auth::id();
         $isFavorite = $userId ? Favorite::where('user_id', $userId)->where('spot_id', $spot->id)->exists() : false;
 
+        $dataTable = new ZoneDataTable($spot->id);
+
         notyf()->ripple(false)->info('Hay que estilizar esta vista y agregar los campos faltantes, zonas, etc.');
 
-        return view('public.spot', compact('spot', 'isFavorite'));
+        return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones'));
+        // return view('public.spot', compact('spot', 'isFavorite', 'zones'));
     }
 
     public function blog() {
