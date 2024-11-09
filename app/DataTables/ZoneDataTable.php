@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Spot;
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -28,7 +29,13 @@ class ZoneDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'zone.action')
+            ->addColumn('climbingRoutes_count', function (Zone $zone) {
+                return $zone->climbingRoutes()->count();
+            })
+            ->addColumn('boulders_count', function (Zone $zone) {
+                return $zone->boulders()->count();
+            })
+            ->addColumn('action', 'Ver')
             ->setRowId('id');
     }
 
@@ -39,6 +46,7 @@ class ZoneDataTable extends DataTable
     {
         return $model->newQuery()
         ->where('spot_id', $this->spotId)
+        ->withCount(['climbingRoutes', 'boulders'])
         ->select(['id', 'spot_id', 'name', 'image', 'details', 'created_at', 'updated_at']);
     }
 
@@ -61,7 +69,28 @@ class ZoneDataTable extends DataTable
                         Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
-                    ]);
+                    ])
+                    ->language([
+                        'processing' => 'Procesando...',
+                        'search' => 'Buscar:',
+                        'lengthMenu' => 'Mostrar _MENU_',
+                        'info' => '',
+                        'infoEmpty' => '',
+                        'infoFiltered' => '(filtrado de un total de _MAX_ registros)',
+                        'loadingRecords' => 'Cargando...',
+                        'zeroRecords' => 'No se encontraron resultados',
+                        'emptyTable' => 'Ningún dato disponible en esta tabla',
+                        'paginate' => [
+                            'first' => '<<',
+                            'previous' => '<',
+                            'next' => '>',
+                            'last' => '>>'
+                        ],
+                        'aria' => [
+                            'sortAscending' => ': Activar para ordenar la columna de manera ascendente',
+                            'sortDescending' => ': Activar para ordenar la columna de manera descendente'
+                        ]
+                    ]);;
     }
 
     /**
@@ -69,18 +98,27 @@ class ZoneDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('spot_id'),
-            Column::make('name'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+        $columns = [
+            Column::make('name')->addClass('text-center')->title('Zona'),
         ];
+
+        $spot = Spot::find($this->spotId);
+        $climbingType = $spot->climbingType->name;
+
+        if($climbingType === 'Deportiva') {
+            $columns[] = Column::make('climbingRoutes_count')->addClass('text-center')->title('Vías');
+        }
+        if($climbingType === 'Boulder') {
+            $columns[] = Column::make('boulders_count')->addClass('text-center')->title('Boulders');
+        }
+
+        $columns[] = Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center');
+
+        return $columns;
     }
 
     /**

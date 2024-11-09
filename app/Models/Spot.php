@@ -61,4 +61,18 @@ class Spot extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function countRoutes()
+    {
+        return $this->climbingType->name === 'Deportiva'
+            ? $this->zones->sum(fn($zone) => $zone->climbingRoutes->count())
+            : 0;
+    }
+
+    public function countBoulders()
+    {
+        return $this->climbingType->name === 'Boulder'
+            ? $this->zones->sum(fn($zone) => $zone->boulders->count())
+            : 0;
+    }
 }

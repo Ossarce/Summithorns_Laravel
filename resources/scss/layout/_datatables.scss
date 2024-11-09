@@ -1,0 +1,55 @@
+@use '../base/variables' as v;
+
+.zones-info {
+    border: .1rem v.$tnegro solid;
+    border-radius: 1rem;
+    padding: 2rem;
+    background-color: v.$gris;
+}
+
+#zones-table {
+    background-color: v.$grisOscuro;
+    border-radius: 1rem;
+    border-collapse: collapse;
+    width: 100%;
+
+    tbody tr {
+        border-bottom: .1rem v.$gris solid;
+
+        &:nth-child(even) {
+            background-color: #DCDCDC; /* Color de fondo para filas pares */
+        }
+
+        &:hover {
+            background-color: v.$tblue;
+        }
+    }
+
+    th {
+        color: v.$dnegro;
+        text-align: left;
+    }
+
+    td {
+        color: v.$dnegro;
+        padding: 1rem 1.5rem;
+        text-align: left;
+    }
+}
+
+.dt-length label,
+.dt-search label {
+    color: v.$dnegro !important;
+    font-weight: v.$bold;
+}
+
+.dt-input {
+    background-color: v.$grisOscuro !important;
+}
+
+.dt-container .dt-paging .dt-paging-button.current {
+    border: none !important;
+    background-color: v.$lblue !important;
+    border-radius: .5rem !important;
+    padding:.5rem 1.5rem;
+}

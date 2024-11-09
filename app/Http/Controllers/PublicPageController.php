@@ -40,7 +40,7 @@ class PublicPageController extends Controller
     }
 
     public function spots() {
-        $spots = Spot::latest()->paginate(6);
+        $spots = Spot::with(['zones', 'climbingType'])->latest()->paginate(6);
 
         $userId = Auth::id();
         $userFavorites = [];
@@ -60,15 +60,15 @@ class PublicPageController extends Controller
         $spot = Spot::with('zones', 'climbingType')->findOrFail($id);
         $zones = Zone::find($spot->id);
 
+        $totalRoutes = $spot->zones->sum(fn($zone) => $zone->climbingRoutes()->count());
+        $totalBoulders = $spot->zones->sum(fn($zone) => $zone->boulders()->count());
 
         $userId = Auth::id();
         $isFavorite = $userId ? Favorite::where('user_id', $userId)->where('spot_id', $spot->id)->exists() : false;
 
         $dataTable = new ZoneDataTable($spot->id);
 
-        notyf()->ripple(false)->info('Hay que estilizar esta vista y agregar los campos faltantes, zonas, etc.');
-
-        return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones'));
+        return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones', 'totalRoutes', 'totalBoulders'));
         // return view('public.spot', compact('spot', 'isFavorite', 'zones'));
     }
 

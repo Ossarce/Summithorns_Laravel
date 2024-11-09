@@ -9,6 +9,15 @@
                 <h3>{{$spot->name}}</h3>
                 <span class="like-icon {{ in_array($spot->id, $userFavorites) ? 'liked' : '' }} " data-spot-id="{{ $spot->id }}"></span>
             </div>
+            <div class="spot-data">
+                <p>Zonas: {{ $spot->zones->count() }}</p>
+                @if ($spot->climbingType->name === 'Deportiva')
+                    <p>Vías: {{ $spot->countRoutes() }}</p>
+                @endif
+                @if ($spot->climbingType->name === 'Boulder')
+                    <p> Boulders: {{ $spot->countBoulders() }}</p>
+                @endif
+            </div>
             <p>{{$spot->short_description}}</p>
             <ul class="guide-icons">
                 @if($spot->bus == '1')

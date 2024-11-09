@@ -23,7 +23,7 @@ $tamarillo: rgba(234, 132, 39, 0.3);
 $verde: #69c4ae;
 $blanco: #fffcfa;
 $gris: #e1e1e1;
-$grisOscuro: color.scale($negro, $lightness: 20%);
+$grisOscuro: color.scale($gris, $lightness: 20%);
 $blue: #1875c2;
 $lblue: rgba(24, 117, 194, 0.7);
 $tblue: rgba(24, 117, 194, 0.3);

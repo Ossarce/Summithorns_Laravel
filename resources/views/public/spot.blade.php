@@ -34,12 +34,12 @@
 
     <div class="spot-info">
         <div class="spot-data">
-            <p>Zonas: {{ $zones->count() }}</p>
+            <p>Zonas: {{ $spot->zones()->count() }}</p>
             @if ($spot->climbingType->name === 'Deportiva')
-                <p>Vías: {{ $zones->climbingRoutes()->count() }}</p>
+                <p>Vías: {{ $totalRoutes }}</p>
             @endif
             @if ($spot->climbingType->name === 'Boulder')
-                <p> Boulders: {{ $zones->boulders()->count() }}</p>
+                <p> Boulders: {{ $totalBoulders }}</p>
             @endif
         </div>
         <p>{{$spot->description}}</p>
@@ -52,5 +52,5 @@
         <a href="{{route('public.spots')}}" class="blue-button">View All Spots</a>
     </div>
 </main>
-{{ $dataTable->scripts() }}
+{{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection
