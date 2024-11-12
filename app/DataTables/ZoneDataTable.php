@@ -35,7 +35,11 @@ class ZoneDataTable extends DataTable
             ->addColumn('boulders_count', function (Zone $zone) {
                 return $zone->boulders()->count();
             })
-            ->addColumn('action', 'Ver')
+            ->addColumn('action', function (Zone $zone) {
+                $viewZoneBtn = "<a href='".route('public.zone', ['spot' => $zone->spot_id, 'zone' => $zone->id])."' class='dt-action-link' >Ver</a>";
+
+                return $viewZoneBtn;
+            })
             ->setRowId('id');
     }
 

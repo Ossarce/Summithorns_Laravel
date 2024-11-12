@@ -17,14 +17,15 @@ use Illuminate\Support\Facades\Route;
 // Rutas Públicas
 Route::get('/', [PublicPageController::class, 'home'])->name('public.home');
 Route::get('nosotros', [PublicPageController::class, 'us'])->name('public.us');
-Route::get('spots', [PublicPageController::class, 'spots'])->name('public.spots');
-Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
 Route::get('blog', [PublicPageController::class, 'blog'])->name('public.blog');
 Route::get('entry/{id}', [PublicPageController::class, 'entry'])->name('public.entry');
 Route::get('contact', [PublicPageController::class, 'contact'])->name('public.contact');
 Route::post('contact', [PublicPageController::class, 'submit'])->name('public.submit');
+Route::get('spots', [PublicPageController::class, 'spots'])->name('public.spots');
+Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
+Route::get('spots/{spot}/zone/{zone}', [PublicPageController::class, 'zone'])->name('public.zone');
 
-
+// Rutas AJAX
 Route::post('/spots/{id}/like', [LikeController::class, 'toggleLikeSpot'])->name('spots.like');
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');

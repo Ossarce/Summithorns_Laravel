@@ -47,6 +47,28 @@
     background-color: v.$grisOscuro !important;
 }
 
+.dt-length select {
+    padding: .5rem 1rem !important;
+    color: v.$negro !important;
+}
+
+.dt-search input {
+    padding:  .8rem 1.5rem !important;
+    border: .1rem v.$tnegro solid !important;
+    &:focus, &:active {
+        border: .2rem v.$blue solid !important;
+        outline: none;
+    }
+}
+
+.dt-action-link {
+    color: v.$negro;
+    text-decoration: underline;
+    &:focus, &:active {
+        color: v.$blue;
+    }
+}
+
 .dt-container .dt-paging .dt-paging-button.current {
     border: none !important;
     background-color: v.$lblue !important;
