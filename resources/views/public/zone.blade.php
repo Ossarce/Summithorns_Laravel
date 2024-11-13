@@ -14,16 +14,23 @@
             <p>{{ $zone->details }}</p>
         @endif
 
-        <div class="climbing-info">
+        {{-- <div class="climbing-info">
             @if ($spot->climbingType->name === 'Deportiva')
                 <div class="zones-info">
-                    {{ $dataTable->table() }}
+                    {{ $climbingRoutesDataTable->table() }}
                 </div>
             @endif
 
             @if ($spot->climbingType->name === 'Boulder')
-                <p>Se Carga la tabla con boulders</p>
+                <div class="zones-info">
+                    {{ $bouldersDatatable->table() }}
+                </div>
             @endif
+        </div> --}}
+        <div class="climbing-info">
+            <div class="zones-info">
+                {{ $dataTable->table() }}
+            </div>
         </div>
     </div>
 </main>
