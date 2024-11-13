@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\BouldersDataTable;
 use App\DataTables\ClimbingRoutesDataTable;
 use App\DataTables\ZoneDataTable;
 use App\DataTables\ZonesTableDataTable;
@@ -74,9 +75,15 @@ class PublicPageController extends Controller
     }
 
     public function zone(Spot $spot, Zone $zone) {
-        $dataTable = new ClimbingRoutesDataTable($zone->id);
+        if($spot->climbingType->name === 'Deportiva') {
+            $dataTable = new ClimbingRoutesDataTable($zone->id);
+            return $dataTable->render('public.zone', compact('spot', 'zone'));
+        }
 
-        return $dataTable->render('public.zone', compact('spot', 'zone'));
+        if($spot->climbingType->name === 'Boulder') {
+            $dataTable = new  BouldersDataTable($zone->id);
+            return $dataTable->render('public.zone', compact('spot', 'zone'));
+        }
     }
 
     public function blog() {
