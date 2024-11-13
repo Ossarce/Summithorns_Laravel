@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ClimbingRoutesDataTable;
 use App\DataTables\ZoneDataTable;
 use App\DataTables\ZonesTableDataTable;
 use App\Jobs\SendMail;
@@ -70,6 +71,12 @@ class PublicPageController extends Controller
 
         return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones', 'totalRoutes', 'totalBoulders'));
         // return view('public.spot', compact('spot', 'isFavorite', 'zones'));
+    }
+
+    public function zone(Spot $spot, Zone $zone) {
+        $dataTable = new ClimbingRoutesDataTable($zone->id);
+
+        return $dataTable->render('public.zone', compact('spot', 'zone'));
     }
 
     public function blog() {

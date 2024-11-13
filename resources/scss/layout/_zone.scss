@@ -1,0 +1,20 @@
+@use '../base/variables' as v;
+
+.zone {
+    h3 {
+        font-weight: v.$regular;
+        margin: .5rem auto;
+        text-decoration: underline;
+    }
+
+    h1 {
+        margin: .5rem auto;
+    }
+}
+
+.zone-info {
+    h4 {
+        font-weight: v.$regular;
+    }
+}
+

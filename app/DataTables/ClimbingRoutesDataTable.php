@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Spot;
-use App\Models\Zone;
+use App\Models\ClimbingRoute;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,13 +12,13 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ZoneDataTable extends DataTable
+class ClimbingRoutesDataTable extends DataTable
 {
-    protected $spotId;
+    protected $zoneId;
 
-    public function __construct($spotId = null)
+    public function __construct($zoneId = null)
     {
-        $this->spotId = $spotId;
+        $this->zoneId = $zoneId;
     }
     /**
      * Build the DataTable class.
@@ -29,29 +28,23 @@ class ZoneDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('climbingRoutes_count', function (Zone $zone) {
-                return $zone->climbingRoutes()->count();
+            ->addColumn('setter_id', function(ClimbingRoute $climbingRoute) {
+                return $climbingRoute->getSetterName();
             })
-            ->addColumn('boulders_count', function (Zone $zone) {
-                return $zone->boulders()->count();
-            })
-            ->addColumn('action', function (Zone $zone) {
-                $viewZoneBtn = "<a href='".route('public.zone', ['spot' => $zone->spot_id, 'zone' => $zone->id])."' class='dt-action-link' >Ver</a>";
-
-                return $viewZoneBtn;
-            })
+            ->addColumn('action', 'climbingroutes.action')
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Zone $model): QueryBuilder
+    public function query(ClimbingRoute $model): QueryBuilder
     {
         return $model->newQuery()
-        ->where('spot_id', $this->spotId)
-        ->withCount(['climbingRoutes', 'boulders'])
-        ->select(['id', 'spot_id', 'name', 'image', 'details', 'created_at', 'updated_at']);
+        ->where('zone_id', $this->zoneId)
+        ->with(['grade', 'setter'])
+        ->leftJoin('route_grades', 'climbing_routes.grade_id', '=', 'route_grades.id')
+        ->select('climbing_routes.*', 'route_grades.route_grade as grade_name');
     }
 
     /**
@@ -60,7 +53,7 @@ class ZoneDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('zones-table')
+                    ->setTableId('climbing_routes-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -102,28 +95,11 @@ class ZoneDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        $columns = [
-            Column::make('name')->addClass('text-center')->title('Zona'),
+        return [
+            Column::make('name')->title('Nombre'),
+            Column::make('grade_name')->title('Grado')->orderSequence(['asc', 'desc'])->name('route_grades.route_grade'),
+            Column::make('setter_id')->title('Abridor'),
         ];
-
-        $spot = Spot::find($this->spotId);
-        $climbingType = $spot->climbingType->name;
-
-        if($climbingType === 'Deportiva') {
-            $columns[] = Column::make('climbingRoutes_count')->addClass('text-center')->title('Vías');
-        }
-        if($climbingType === 'Boulder') {
-            $columns[] = Column::make('boulders_count')->addClass('text-center')->title('Boulders');
-        }
-
-        $columns[] = Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center')
-                ->title('');
-
-        return $columns;
     }
 
     /**
@@ -131,6 +107,6 @@ class ZoneDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Zone_' . date('YmdHis');
+        return 'ClimbingRoutes_' . date('YmdHis');
     }
 }

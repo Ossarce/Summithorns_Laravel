@@ -4,7 +4,7 @@
 <main class="contenedor seccion contenido-centrado">
     <div class="spot-head">
         <div class="favorite-name-container">
-            <h3>{{$spot->name}}</h3>
+            <h1>{{$spot->name}}</h1>
             <span class="like-icon {{ $isFavorite ? 'liked' : '' }}" data-spot-id="{{ $spot->id }}"></span>
         </div>
         <ul class="guide-icons">
@@ -49,7 +49,7 @@
     </div>
 
     <div class="alinear-derecha spot-button">
-        <a href="{{route('public.spots')}}" class="blue-button">View All Spots</a>
+        <a href="{{route('public.spots')}}" class="blue-button">Ver todos los spots</a>
     </div>
 </main>
 {{ $dataTable->scripts(attributes: ['type' => 'module']) }}

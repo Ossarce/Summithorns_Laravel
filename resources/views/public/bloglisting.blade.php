@@ -7,7 +7,7 @@
         <div class="entry-text">
         <a class="entry-container" href="{{route('public.entry', $entry)}}"><h4>{{$entry->title}}</h4></a>
             <div class="meta-info">
-                <p>Autor:<a href="#"><span>{{$entry->user->username}}</span></a></p>
+                <p>Autor:<a href={{ route('profile.index', ['id' => $entry->user_id]) }}><span>{{$entry->user->username}}</span></a></p>
                 <p class="date">Fecha: {{$entry->created_at->format('d-m-y')}}<span></span></p>
                 <p class="category"> <a href="#">#{{$entry->entryCategory->category_name}}</a></p>
                 <a class="entry-container" href="{{route('public.entry', $entry)}}">

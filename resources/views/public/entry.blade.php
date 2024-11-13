@@ -7,7 +7,7 @@
         <img loading="lazy" src="{{Storage::disk('s3')->url('summithorns/summithorns/images/blog/' . $entry->image)}}" alt="Imagen Entrada: {{$entry->title}}">
     </picture>
     <div class="meta-info">
-        <p>Autor:<a href="#"><span>{{$entry->user->username}}</span></a></p>
+        <p>Autor:<a href="{{ route('profile.index', ['id' => $entry->user_id]) }}"><span>{{$entry->user->username}}</span></a></p>
         <p class="date">Fecha: {{$entry->created_at->format('d-m-y')}}<span></span></p>
         <p class="category"> <a href="#">#{{$entry->entryCategory->category_name}}</a></p>
     </div>

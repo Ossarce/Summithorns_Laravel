@@ -53,10 +53,10 @@
                                     <img src="{{ Storage::disk('s3')->url('/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
                                     {{ auth()->user()->username }}
                                 </a>
-                                <a class="auth-button sign-out" href="{{ route('logout') }}">Logout</a>
+                                <a class="auth-button sign-out" href="{{ route('logout') }}">Cerrar Sesión</a>
                             @else
-                                <a class="auth-button" href="{{ route('login') }}">Log In</a>
-                                <a class="auth-button sign-up" href="{{ route('register') }}">Sign Up</a>
+                                <a class="auth-button" href="{{ route('login') }}">Inicia Sesión</a>
+                                <a class="auth-button sign-up" href="{{ route('register') }}">Regístrate</a>
                             @endauth
                         </div>
                     </nav>

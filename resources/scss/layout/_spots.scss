@@ -30,7 +30,8 @@
             flex: 1;
         }
         .spot-data {
-            text-align: center;
+            display: flex;
+            margin-left: 5rem;
             p {
                 font-size: 1.5rem;
                 margin: .5rem;
@@ -59,6 +60,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    h1 {
+        font-weight: v.$regular;
+    }
     h3 {
         font-weight: v.$regular;
         color: v.$negro;
