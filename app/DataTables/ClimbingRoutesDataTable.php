@@ -98,7 +98,7 @@ class ClimbingRoutesDataTable extends DataTable
         return [
             Column::make('name')->title('Nombre'),
             Column::make('grade_name')->title('Grado')->orderSequence(['asc', 'desc'])->name('route_grades.route_grade'),
-            Column::make('setter_id')->title('Abridor'),
+            Column::make('setter_id')->title('Abridor')->orderable(false),
         ];
     }
 
