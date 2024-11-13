@@ -125,3 +125,35 @@
         }
     }
 }
+
+.entry-title {
+    display: flex;
+    flex-direction: column;
+
+    .category {
+        margin: 0 1rem;
+        text-decoration: underline;
+        color: v.$negro;
+        font-size: 1.6rem;
+    }
+
+    .section-title {
+        line-height: 5rem;
+        margin: 0 1rem 1rem;
+        text-align: left;
+    }
+}
+
+.entry {
+    padding: 1rem;
+
+    picture img {
+        width: 100%;
+        border-radius: .5rem;
+    }
+
+    .meta-info {
+        display: flex;
+        justify-content: space-between;
+    }
+}
