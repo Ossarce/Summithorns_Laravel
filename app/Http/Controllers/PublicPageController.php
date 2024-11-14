@@ -99,13 +99,11 @@ class PublicPageController extends Controller
     public function entry(string $id) {
         $entry = Entry::findOrFail($id);
 
-        notyf()->ripple(false)->info('Hay que estilizar por el amor de todo lo divino y sagrado!');
-
         return view('public.entry', compact('entry'));
     }
 
     public function contact() {
-        notyf()->ripple(false)->warning('Formulario funcionando asincrónicamente desde Database, tener cuidado con la carga en el servidor');
+
         return view('public.contact');
     }
 
