@@ -12,6 +12,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\DB;
 
 class ZoneDataTable extends DataTable
 {
@@ -29,16 +30,16 @@ class ZoneDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('climbingRoutes_count', function (Zone $zone) {
-                return $zone->climbingRoutes()->count();
-            })
-            ->addColumn('boulders_count', function (Zone $zone) {
-                return $zone->boulders()->count();
-            })
             ->addColumn('action', function (Zone $zone) {
                 $viewZoneBtn = "<a href='".route('public.zone', ['spot' => $zone->spot_id, 'zone' => $zone->id])."' class='dt-action-link' >Ver</a>";
 
                 return $viewZoneBtn;
+            })
+            ->filterColumn('climbing_routes_count', function($query, $keyword) {
+                $query->whereRaw('(SELECT COUNT(*) FROM climbing_routes WHERE climbing_routes.zone_id = zones.id) LIKE ?', ["%{$keyword}%"]);
+            })
+            ->filterColumn('boulders_count', function($query, $keyword) {
+                $query->whereRaw('(SELECT COUNT(*) FROM boulders WHERE boulders.zone_id = zones.id) LIKE ?', ["%{$keyword}%"]);
             })
             ->setRowId('id');
     }
@@ -50,8 +51,9 @@ class ZoneDataTable extends DataTable
     {
         return $model->newQuery()
         ->where('spot_id', $this->spotId)
-        ->withCount(['climbingRoutes', 'boulders'])
-        ->select(['id', 'spot_id', 'name', 'image', 'details', 'created_at', 'updated_at']);
+        // ->withCount(['climbingRoutes', 'boulders'])
+        ->select(['zones.*', DB::raw('(SELECT COUNT(*) FROM climbing_routes WHERE climbing_routes.zone_id = zones.id) as climbing_routes_count'),
+        DB::raw('(SELECT COUNT(*) FROM boulders WHERE boulders.zone_id = zones.id) as boulders_count')]);
     }
 
     /**
@@ -110,10 +112,10 @@ class ZoneDataTable extends DataTable
         $climbingType = $spot->climbingType->name;
 
         if($climbingType === 'Deportiva') {
-            $columns[] = Column::make('climbingRoutes_count')->addClass('text-center')->title('Vías');
+            $columns[] = Column::make('climbing_routes_count')->addClass('text-center')->title('Vías')->orderSequence(['asc', 'desc']);
         }
         if($climbingType === 'Boulder') {
-            $columns[] = Column::make('boulders_count')->addClass('text-center')->title('Boulders');
+            $columns[] = Column::make('boulders_count')->addClass('text-center')->title('Boulders')->orderSequence(['asc', 'desc']);
         }
 
         $columns[] = Column::computed('action')
