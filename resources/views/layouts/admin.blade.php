@@ -85,10 +85,10 @@
         <footer class="footer seccion">
             <div class="contenedor contenedor-footer">
                 <nav class="nav-bar">
-                    <a href="{{ route('public.spots') }}">Spots</a>
-                    <a href="{{ route('public.blog') }}">Blog</a>
-                    <a href="{{ route('public.contact') }}">Contacto</a>
-                    <a href="{{ route('public.us') }}">Nosotros</a>
+                    <a href="{{ route('admin.panel') }}">Dashboard</a>
+                    <a href="{{ route('spots.index') }}">Spots</a>
+                    <a href="{{ route('entries.index') }}">Blog</a>
+                    <a href="{{ route('public.home') }}">Summit Horns</a>
                 </nav>
                 <p class="copy">OSSVRC &copy;</p>
             </div>
