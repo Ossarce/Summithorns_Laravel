@@ -8,11 +8,11 @@
 
 <div class="contenedor seccion contenido-centrado">
     <div class="admin-card">
-        <h3>Administrar Spots</h3>
+        <img src="{{ Storage::disk('s3')->url('images/base/spot-admin-card.webp') }}" alt="Imagen Administración Spots">
         <a href="{{route('spots.index')}}"><p>Administrar Spots</p></a>
     </div>
     <div class="admin-card">
-        <h3>Administrar blog</h3>
+        <img src="{{ Storage::disk('s3')->url('images/base/blog-admin-card.webp') }}" alt="Imagen Administración Blog">
         <a href="{{route('entries.index')}}"><p>Administrar Blog</p></a>
     </div>
 </div>
