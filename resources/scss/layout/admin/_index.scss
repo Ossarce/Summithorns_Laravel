@@ -1,0 +1,28 @@
+@use '../../base/variables' as v;
+@use '../../base/mixins' as m;
+
+.admin-content {
+    .contenedor {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        .admin-card {
+            border: .1rem v.$tnegro solid;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            img {
+                width: 20rem;
+                border-top-left-radius: 1rem;
+                border-top-right-radius: 1rem;
+                @include m.tablet {
+                    width: 30rem;
+                }
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+    }
+}
