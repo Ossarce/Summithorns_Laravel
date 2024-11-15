@@ -34,30 +34,7 @@
         }
     }
 }
-table.spots {
-    margin-top: 3rem;
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-    thead {
-        background-color: v.$lblue;
-        th {
-            font-size: 1.5rem;
-            padding: 1rem;
-            text-align: center;
-            // border-left: .05rem solid;
-            // border-right: .05rem solid;
-            border: .1rem solid v.$negro;
-        }
-    }
-}
-table tbody {
-    margin: 1rem 0;
-    text-align: center;
-     td {
-        border: .05rem solid v.$negro;
-    }
-}
+
 .spot-image {
     width: 15rem;
     margin: .5rem auto;
@@ -82,8 +59,21 @@ table tbody {
         justify-content: space-evenly;
 
         .admin-card {
-            border: .1rem v.$negro solid;
+            border: .1rem v.$tnegro solid;
             border-radius: 1rem;
+            margin-top: 1rem;
+            img {
+                width: 20rem;
+                border-top-left-radius: 1rem;
+                border-top-right-radius: 1rem;
+                @include m.tablet {
+                    width: 30rem;
+                }
+            }
+
+            p {
+                text-align: center;
+            }
         }
     }
 }
