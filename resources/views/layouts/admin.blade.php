@@ -26,10 +26,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-
-        {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
     </head>
     <body>
         <div class="sidebar">
@@ -49,37 +45,37 @@
                 <li>
                     <a href="{{ route('admin.panel') }}">
                         <i class='bx bxs-grid'></i>
-                        <span class="nav-item">Dashboard</span>
+                        <span class="nav-item">Menu Principal</span>
                     </a>
-                    <span class="tooltip">Dashboard</span>
+                    {{-- <span class="tooltip">Menu Principal</span> --}}
                 </li>
                 <li>
                     <a href="{{ route('spots.index') }}">
                         <i class='bx bxs-map'></i>
                         <span class="nav-item">Spots</span>
                     </a>
-                    <span class="tooltip">Spots</span>
+                    {{-- <span class="tooltip">Spots</span> --}}
                 </li>
                 <li>
                     <a href="{{ route('entries.index') }}">
                         <i class='bx bxs-pencil'></i>
                         <span class="nav-item">Blog</span>
                     </a>
-                    <span class="tooltip">Blog</span>
+                    {{-- <span class="tooltip">Blog</span> --}}
                 </li>
                 <li>
-                    <a href="{{ route('public.home') }}">
+                    <a href="{{ route('public.home') }}" target="_blank">
                         <i class='bx bx-world' ></i>
-                        <span class="nav-item">Check Website</span>
+                        <span class="nav-item">Revisar Sitio</span>
                     </a>
-                    <span class="tooltip">Check Website</span>
+                    {{-- <span class="tooltip">Check Website</span> --}}
                 </li>
                 <li>
                     <a href="#">
                         <i class='bx bx-log-out' ></i>
-                        <span class="nav-item">Logout</span>
+                        <span class="nav-item">Cerrar Sesión</span>
                     </a>
-                    <span class="tooltip">Logout</span>
+                    {{-- <span class="tooltip">Logout</span> --}}
                 </li>
             </ul>
         </div>
