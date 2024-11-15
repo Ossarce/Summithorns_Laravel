@@ -1,0 +1,89 @@
+@use '../../base/variables' as v;
+@use '../../base/mixins' as m;
+
+.spot-container {
+    overflow-x: auto;
+    padding: 2rem;
+    max-width: 100%;
+}
+.admin-content {
+    margin-left: 8rem;
+    width: 80%;
+    transition: all .4s ease-in;
+    @include m.tablet {
+        margin: 0 auto;
+    }
+    h1 {
+        width: 80%;
+        padding: 0 1rem;
+        font-weight: 400;
+        font-size: 3rem;
+        margin: .5rem auto;
+        @include m.tablet {
+            margin-top: 2rem;
+        }
+    }
+    .yellow-button,
+    .blue-button {
+        font-size: 1.2rem;
+    }
+    @include m.tablet {
+        .yellow-button,
+        .blue-button {
+            font-size: 1.6rem;
+        }
+    }
+}
+table.spots {
+    margin-top: 3rem;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    thead {
+        background-color: v.$lblue;
+        th {
+            font-size: 1.5rem;
+            padding: 1rem;
+            text-align: center;
+            // border-left: .05rem solid;
+            // border-right: .05rem solid;
+            border: .1rem solid v.$negro;
+        }
+    }
+}
+table tbody {
+    margin: 1rem 0;
+    text-align: center;
+     td {
+        border: .05rem solid v.$negro;
+    }
+}
+.spot-image {
+    width: 15rem;
+    margin: .5rem auto;
+    border-radius: .3rem;
+    @include m.tablet {
+        width: 20rem;
+    }
+}
+.icon-image {
+    width: 6rem;
+    margin: 0 auto;
+}
+.small-image {
+    width: 30rem;
+    margin: 2.2rem auto;
+}
+
+.admin-content {
+    .contenedor {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        .admin-card {
+            border: .1rem v.$negro solid;
+            border-radius: 1rem;
+        }
+    }
+}

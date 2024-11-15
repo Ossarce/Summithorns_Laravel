@@ -9,26 +9,25 @@ Alpine.start();
 
 document.addEventListener('DOMContentLoaded', function() {
     eventListeners();
-    // deleteAlertMsg();
-    toggleStickyHeader(); // Call the sticky header function on page load
+    toggleStickyHeader();
 });
 
-function eventListeners() { // Add them as parameters
+function eventListeners() {
     const mobileMenu = document.querySelector('.mobile-menu');
 
-    // const sidebar = document.querySelector('.sidebar');
-    // const sidebarBtn = document.querySelector('.sidebar-menu');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarBtn = document.querySelector('.sidebar-menu');
 
-    // if(sidebarBtn) {
-    //     sidebarBtn.addEventListener('click', function() {
-    //         if(sidebarBtn.classList.contains('bx-menu')) {
-    //             sidebarBtn.classList.replace('bx-menu', 'bx-x');
-    //         } else if (sidebarBtn.classList.contains('bx-x')) {
-    //             sidebarBtn.classList.replace('bx-x', 'bx-menu');
-    //         }
-    //         sidebar.classList.toggle('active');
-    //     })
-    // }
+    if(sidebarBtn) {
+        sidebarBtn.addEventListener('click', function() {
+            if(sidebarBtn.classList.contains('bx-menu')) {
+                sidebarBtn.classList.replace('bx-menu', 'bx-x');
+            } else if (sidebarBtn.classList.contains('bx-x')) {
+                sidebarBtn.classList.replace('bx-x', 'bx-menu');
+            }
+            sidebar.classList.toggle('active');
+        })
+    }
 
     if(mobileMenu) {
         mobileMenu.addEventListener('click', responsiveNav);
@@ -91,23 +90,6 @@ function responsiveNav() {
 
 
 }
-
-// function deleteAlertMsg() {
-//     const alertMsg = document.querySelector('.success');
-//     if (alertMsg !== null) {
-//         setTimeout(function () {
-//             alertMsg.classList.add('hideAlert')
-//         }, 2500)
-
-//         setTimeout(function () {
-//             alertMsg.remove();
-//         }, 2700);
-
-//         console.log('Alert message removed with smoother animation!');
-//     } else {
-//         console.log('No alert message found.');
-//     }
-// }
 
 function toggleStickyHeader() {
     const header = document.querySelector('.header');

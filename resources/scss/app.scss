@@ -21,3 +21,7 @@
 @use 'layout/profile';
 @use 'layout/datatables';
 @use 'layout/zone';
+
+// Admin Layout
+@use 'layout/admin/sidebar';
+@use 'layout/admin/admin';

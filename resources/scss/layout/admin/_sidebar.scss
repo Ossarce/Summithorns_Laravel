@@ -1,0 +1,155 @@
+@use "sass:color";
+@use '../../base/variables' as v;
+
+.sidebar {
+    background-color: color.scale(v.$blue, $lightness: -30%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 90vh;
+    width: 8rem;
+    max-width: 15rem;
+    padding: 1rem;
+    transition: all .6s ease-in;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom-right-radius: 1rem;
+    box-shadow: .1rem .1rem 1rem v.$negro;
+    .top {
+        .logo {
+            img {
+                width: 5rem;
+                // padding-right: 1rem;
+            }
+        }
+        i {
+            font-size: 4.5rem;
+            color: v.$blanco;
+            margin-top: 1rem;
+        }
+    }
+    &.active {
+        width: 40%;
+        box-shadow: .5rem 0 1rem v.$dnegro;
+    }
+}
+
+
+.sidebar.active ~ .admin-content {
+    margin-left: 15rem;
+    width: calc(100% - 15rem);
+}
+
+// Even thougth this affects the footer it only runs when the sidebar exists so the styling goes here.
+
+.sidebar ~ .footer {
+    transition: all .4s ease-in;
+}
+// .sidebar.active ~ .footer {
+//     margin-left: 15rem;
+//     width: calc(100% - 15rem);
+// }
+
+.sidebar {
+    .admin {
+        display: flex;
+        flex-direction: column      ;
+        img {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            margin: .5rem 0;
+        }
+        p {
+            color: v.$blanco;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            margin: .5rem;
+            opacity: 0;
+            transition: all .5s ease-out;
+        }
+    }
+    &.active {
+        .admin p {
+            opacity: 1;
+        }
+    }
+}
+
+.sidebar {
+    ul {
+        margin-top: 4rem;
+        li {
+            position: relative;
+            margin: 2rem 0;
+            &:last-of-type {
+                margin-top: 0;
+            }
+            &:hover {
+                .tooltip {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .nav-item {
+        color: v.$blanco;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: all .2s ease-out;
+    }
+    ul li a i {
+        color: v.$blanco;
+        font-size: 3.5rem;
+        text-align: center;
+        line-height: 3rem;
+        height: 3rem;
+        min-width: 5rem;
+        transition: all .2s ease-out;
+    }
+    ul li a {
+        display: flex;
+        align-items: center;
+        border-radius: .5rem;
+        padding: .5rem;
+        &:hover {
+            background-color: v.$blanco;
+            color: v.$negro;
+            i, span {
+                color: v.$negro;
+            }
+        }
+    }
+    .tooltip {
+        background-color: v.$blanco;
+        left: 13rem;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 .5rem .5rem v.$negro;
+        border-radius: .5rem;
+        padding: 1rem 1.2rem;
+        line-height: 1.8rem;
+        z-index: 20;
+        opacity: 0;
+    }
+    &.active {
+        ul li {
+            .tooltip {
+                display: none;
+            }
+        }
+        ul li a i {
+            font-size: 2.5rem;
+            text-align: center;
+            line-height: 2rem;
+            height: 2rem;
+            min-width: 3.5rem;
+        }
+        .nav-item {
+            opacity: 1;
+            height: 100%;
+        }
+    }
+}

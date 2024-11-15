@@ -12,6 +12,8 @@ use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\RouteGradeController;
 use App\Http\Controllers\SpotController;
 use App\Http\Controllers\ZoneController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Rutas Públicas
@@ -38,7 +40,10 @@ Route::middleware('auth')->group(function () {
 
 // Rutas Admin y Colaboradores
 Route::get('/admin', function() {
-    return view('admin.index');
+    $userId = Auth::id();
+    $user = User::find($userId);
+
+    return view('admin.index', compact('user'));
 })->name('admin.panel');
 
 Route::resource('/admin/climbing-types', ClimbingTypeController::class);
