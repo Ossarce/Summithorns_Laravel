@@ -51,7 +51,6 @@ class ZoneDataTable extends DataTable
     {
         return $model->newQuery()
         ->where('spot_id', $this->spotId)
-        // ->withCount(['climbingRoutes', 'boulders'])
         ->select(['zones.*', DB::raw('(SELECT COUNT(*) FROM climbing_routes WHERE climbing_routes.zone_id = zones.id) as climbing_routes_count'),
         DB::raw('(SELECT COUNT(*) FROM boulders WHERE boulders.zone_id = zones.id) as boulders_count')]);
     }
