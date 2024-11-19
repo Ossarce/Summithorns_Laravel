@@ -1,9 +1,13 @@
-<h1>Administración del Blog</h1>
-<a href="{{route('admin.panel')}}"><h3>Volver al panel</h3></a>
-<a href="{{route('climbing-types.index')}}"><h4>Ver Tipos de Escalada</h4></a>
-@foreach ($entries as $entry)
-    <a href="{{route('entries.edit', $entry->id)}}">
-        <p>{{$entry->title}}</p>
-    </a>
-@endforeach
-<a href="{{route('entries.create')}}"><button>Crear Entrada</button></a>
+@extends('layouts.admin')
+
+@section('content')
+<main class="contenedor seccion admin-content">
+    <h1 class="section-title" >Administración del Blog</h1>
+    <a href="{{route('admin.panel')}}"><h3><i class='bx bx-arrow-back'></i> Volver al panel</h3></a>
+    <a href="{{route('entries.create')}}" class="yellow-button">Crear Entrada</a>
+    <div class="table-container">
+        {{ $dataTable->table() }}
+    </div>
+</main>
+{{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endsection
