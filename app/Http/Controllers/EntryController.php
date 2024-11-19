@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AdminEntriesDataTable;
 use App\Models\Entry;
 use App\Models\EntryCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -16,9 +18,12 @@ class EntryController extends Controller
      */
     public function index()
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $entries = Entry::all();
+        $dataTable = new AdminEntriesDataTable();
 
-        return view('admin.entries.index', compact('entries'));
+        return $dataTable->render('admin.entries.index', compact('entries', 'user'));
     }
 
     /**
