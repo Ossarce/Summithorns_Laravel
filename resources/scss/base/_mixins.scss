@@ -19,6 +19,13 @@
         @content;
     }
 }
+
+@mixin wide-desktop {
+    @media (min-width: #{v.$wide-desktop}) {
+        @content;
+    }
+}
+
 @mixin grid($columnas, $espaciado ) {
     display: grid;
     gap: $espaciado;
