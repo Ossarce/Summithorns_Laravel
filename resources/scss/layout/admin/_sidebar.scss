@@ -15,6 +15,7 @@
     overflow-x: hidden;
     border-bottom-right-radius: 1rem;
     box-shadow: .1rem .1rem 1rem v.$negro;
+    z-index: 99;
     .top {
         .logo {
             img {
