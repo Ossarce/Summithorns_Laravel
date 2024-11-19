@@ -28,7 +28,7 @@
             @endif
         </div> --}}
         <div class="climbing-info">
-            <div class="zones-info">
+            <div class="table-container">
                 {{ $dataTable->table() }}
             </div>
         </div>

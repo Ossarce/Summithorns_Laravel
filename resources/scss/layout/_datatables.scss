@@ -1,20 +1,23 @@
 @use '../base/variables' as v;
+@use '../base/mixins' as m;
 
-.zones-info {
+.table-container {
     border: .1rem v.$tnegro solid;
     border-radius: 1rem;
     padding: 2rem;
     background-color: v.$gris;
+    overflow-x: auto;
 }
 
 #zones-table,
 #climbing_routes-table,
-#boulders-table {
+#boulders-table,
+#entries-table {
     background-color: v.$grisOscuro;
     border-radius: 1rem;
     border-collapse: collapse;
     width: 100%;
-
+    min-width: 65rem;
     tbody tr {
         border-bottom: .1rem v.$gris solid;
 
@@ -77,4 +80,16 @@
     background-color: v.$lblue !important;
     border-radius: .5rem !important;
     padding:.5rem 1.5rem;
+}
+
+.admin-entry-actions {
+    display: flex;
+    flex-wrap: wrap;
+    @include m.tablet {
+        flex-wrap: nowrap;
+    }
+    a p {
+        margin: 0 1.5rem;
+        font-size: 3rem;
+    }
 }

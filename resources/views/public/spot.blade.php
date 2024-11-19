@@ -43,7 +43,7 @@
             @endif
         </div>
         <p>{{$spot->description}}</p>
-        <div class="zones-info">
+        <div class="table-container">
             {{ $dataTable->table() }}
         </div>
     </div>
