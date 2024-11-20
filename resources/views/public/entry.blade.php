@@ -14,10 +14,10 @@
         <p class="date">Fecha: {{$entry->created_at->format('d-m-y')}}<span></span></p>
     </div>
     <div class="body-article">
-        <p>{{$entry->description}}</p>
+        {!! $entry->description !!}
     </div>
     <div class="alinear-derecha">
-        <a href="/blog" class="blue-button">Go to Blog</a>
+        <a href="/blog" class="blue-button">Ir al Blog</a>
     </div>
 </main>
 @endsection

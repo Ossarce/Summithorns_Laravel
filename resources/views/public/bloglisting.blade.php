@@ -11,7 +11,7 @@
                 <p class="date">Fecha: {{$entry->created_at->format('d-m-y')}}<span></span></p>
                 <p class="category"> <a href="#">#{{$entry->entryCategory->category_name}}</a></p>
                 <a class="entry-container" href="{{route('public.entry', $entry)}}">
-                <p>{{$entry->short_description}}</a>
+                {!! $entry->short_description !!}</a>
             </div>
     </article>
     @endforeach
