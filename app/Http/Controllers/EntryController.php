@@ -82,6 +82,8 @@ class EntryController extends Controller
      */
     public function edit(string $id)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $categories = EntryCategory::all();
         $entry = Entry::find($id);
 
@@ -89,7 +91,7 @@ class EntryController extends Controller
             return redirect()->route('entries.index');
         }
 
-        return view('admin.entries.edit', compact('categories','entry'));
+        return view('admin.entries.edit', compact('categories','entry', 'user'));
     }
 
     /**
@@ -123,7 +125,9 @@ class EntryController extends Controller
         $entry->category_id = $request->input('entry.category_id');
         $entry->description = $request->input('entry.description');
 
-        $entry->save();
+        if($entry->save()) {
+            notyf()->ripple(false)->success('Entrada editada correctamente!');
+        }
 
         return redirect()->route('entries.index');
     }

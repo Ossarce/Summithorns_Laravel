@@ -42,9 +42,9 @@ function eventListeners() {
     });
 
     // Quill Handling
-    // if (document.querySelector('#entry_description')) {
-    //     initializeQuill('#entry_description', '#entry_description_hidden', entryDescription);
-    // }
+    if (document.querySelector('#entry_description')) {
+        initializeQuill('#entry_description', '#entry_description_hidden', entryDescription);
+    }
     // if (document.querySelector('#spot_description')) {
     //     initializeQuill('#spot_description', '#spot_description_hidden', spotDescription);
     // }
@@ -167,18 +167,18 @@ function toggleSpotLikeButton(Button) {
 
 }
 
-// function initializeQuill(editorSelector, hiddenInputSelector, initialContent = '') {
-//     const quill = new Quill(editorSelector, {
-//         theme: 'snow'
-//     });
+function initializeQuill(editorSelector, hiddenInputSelector, initialContent = '') {
+    const quill = new Quill(editorSelector, {
+        theme: 'snow'
+    });
 
-//     if (initialContent) {
-//         quill.clipboard.dangerouslyPasteHTML(initialContent);
-//     }
+    if (initialContent) {
+        quill.clipboard.dangerouslyPasteHTML(initialContent);
+    }
 
-//     const form = document.querySelector('form');
-//     form.onsubmit = function() {
-//         const hiddenInput = document.querySelector(hiddenInputSelector);
-//         hiddenInput.value = quill.root.innerHTML;  // Set Quill's content into hidden textarea
-//     };
-// }
+    const form = document.querySelector('form');
+    form.onsubmit = function() {
+        const hiddenInput = document.querySelector(hiddenInputSelector);
+        hiddenInput.value = quill.root.innerHTML;  // Set Quill's content into hidden textarea
+    };
+}

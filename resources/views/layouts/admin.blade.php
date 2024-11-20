@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     </head>
     <body>
         <div class="sidebar">
@@ -95,19 +96,19 @@
         </footer>
         <script>
             const isLoggedIn = {{ json_encode(Auth::check()) }};
-            // let entryDescription = '';
-            // let spotDescription = '';
-            // let zoneDescription = '';
-            // <?php if (isset($entry)) : ?>
-            //     entryDescription = <?php echo json_encode($entry->description); ?>;
-            // <?php elseif (isset($spot)) : ?>
-            //     spotDescription = <?php echo json_encode($spot->description) ?>;
-            // <?php elseif (isset($zone)) : ?>;
-            //     zoneDescription = <?php echo json_encode($zone->details) ?>;
-            // <?php endif; ?>
+            let entryDescription = '';
+            let spotDescription = '';
+            let zoneDescription = '';
+
+            @if (isset($entry))
+                entryDescription = {!! json_encode($entry->description) !!};
+            @elseif (isset($spot))
+                spotDescription = {!! json_encode($spot->description) !!};
+            @elseif (isset($zone))
+                zoneDescription = {!! json_encode($zone->details) !!};
+            @endif
         </script>
-        {{-- <script src="/build/js/bundle.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> --}}
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
         @vite('resources/js/app.js')
     </body>
 </html>
