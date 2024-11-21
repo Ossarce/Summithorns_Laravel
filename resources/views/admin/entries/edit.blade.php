@@ -3,7 +3,7 @@
 @section('content')
 <main class="contenedor seccion admin-content">
     <h1 class="section-title">Editar entrada</h1>
-    <a href="{{route('entries.index')}}"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
+    <a href="{{route('entries.index')}}" class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
     <form action="{{route('entries.update', $entry->id)}}" method="POST" enctype="multipart/form-data" class="form beauty-form">
         @csrf
         @method('PUT')
@@ -22,7 +22,7 @@
         <label for="entry-image">Imagen</label>
         <input id="entry-image" type="file" name="entry[image]">
         @if ($entry->image)
-            <img src="{{{asset('storage/images/blog/' . $entry->image)}}}" alt="Imagen {{$entry->title}}">
+            <img src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/blog/' . $entry->image)}}" alt="Imagen {{$entry->title}}">
         @endif
 
         <label for="entry_description">Contenido</label>
