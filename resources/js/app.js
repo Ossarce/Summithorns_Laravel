@@ -127,10 +127,10 @@ function toggleSpotLikeButton(Button) {
     if (!isLoggedIn) {
         console.log('User not logged in!');
         const notyf = new Notyf({
-            duration: 2000,       // Duración de la notificación
-            ripple: false,          // Añadir efecto ripple
+            duration: 2000,
+            ripple: false,
             icon: {
-                tagName: 'i',                // Tag del icono (opcional)
+                tagName: 'i',
             }
         });
         notyf.open({
