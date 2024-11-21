@@ -31,8 +31,10 @@ class EntryController extends Controller
      */
     public function create()
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $categories = EntryCategory::all();
-        return view('admin.entries.create', compact('categories'));
+        return view('admin.entries.create', compact('categories', 'user'));
     }
 
     /**
@@ -53,7 +55,7 @@ class EntryController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/blog/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/blog/' . $imageName, (string) $img->encode());
         }else {
             return response()->json(['error' => 'Hubo un error al procesar las imagen!']);
         };
@@ -65,7 +67,10 @@ class EntryController extends Controller
         $entry->setImage($imageName);
         $entry->description = $request->input('entry.description');
 
-        $entry->save();
+
+        if($entry->save()) {
+            notyf()->ripple(false)->success('Entrada creada con éxito!');
+        }
 
         return redirect()->route('entries.index');
     }
@@ -116,7 +121,7 @@ class EntryController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/blog/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/blog/' . $imageName, (string) $img->encode());
 
             $entry->setImage($imageName);
         };
@@ -140,6 +145,13 @@ class EntryController extends Controller
         $entry = Entry::findOrFail($id);
 
         $entry->delete();
+
+        if (request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Entrada eliminada correctamente'
+            ]);
+        }
 
         return redirect()->route('entries.index');
     }

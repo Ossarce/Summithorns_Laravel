@@ -29,7 +29,7 @@ class AdminEntriesDataTable extends DataTable
                                     <i class="bx bxs-edit bx-border"></i>
                                 </p>
                             </a>
-                            <a href="#" class="delete-btn" data-entry-id='. $entry->id .'>
+                            <a href="'. route('entries.destroy', $entry->id) .'" class="delete-item" data-id='. $entry->id .'>
                                 <p>
                                     <i class="bx bx-trash bx-border"></i>
                                 </p>
@@ -65,7 +65,7 @@ class AdminEntriesDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(3)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
