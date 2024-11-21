@@ -61,6 +61,11 @@
 }
 
 .admin-content {
+    .go-back {
+        p {
+            text-decoration: underline;
+        }
+    }
     form {
         img {
             width: 25rem;
