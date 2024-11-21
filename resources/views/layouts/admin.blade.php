@@ -27,6 +27,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         <div class="sidebar">
@@ -72,7 +73,7 @@
                     {{-- <span class="tooltip">Check Website</span> --}}
                 </li>
                 <li>
-                    <a href="#">
+                    <a class="sign-out" href="{{ route('logout') }}">
                         <i class='bx bx-log-out' ></i>
                         <span class="nav-item">Cerrar Sesión</span>
                     </a>
@@ -107,6 +108,48 @@
             @elseif (isset($zone))
                 zoneDescription = {!! json_encode($zone->details) !!};
             @endif
+        </script>
+        <script>
+             $(document).ready(function() {
+                $('body').on('click', '.delete-item', function(e) {
+                    e.preventDefault();
+                    let deleteUrl = $(this).attr('href');
+
+                    Swal.fire({
+                        title: "Estás Seguro?",
+                        text: "No podrás deshacer esta acción!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí Borralo!",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: 'DELETE',
+                                url: deleteUrl,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(data) {
+                                    if(data.status == 'success') {
+                                        Swal.fire({
+                                            title: "Borrado!",
+                                            text: "Se ha borrado con éxito",
+                                            icon: "success",
+                                        })
+                                        $(e.target).closest('.dataTable').DataTable().draw();
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log(error);
+                                }
+                            })
+                        }
+                    });
+                })
+            })
         </script>
         <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
         @vite('resources/js/app.js')
