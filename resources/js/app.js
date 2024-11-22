@@ -48,6 +48,10 @@ function eventListeners() {
     if (document.querySelector('#spot_description')) {
         initializeQuill('#spot_description', '#spot_description_hidden', spotDescription);
     }
+    if (document.querySelector('#zone_details')) {
+        initializeQuill('#zone_details', '#zone_details_hidden',
+        zoneDetails);
+    }
 
     const logoutBtn = document.querySelector('.sign-out');
     if (logoutBtn) {

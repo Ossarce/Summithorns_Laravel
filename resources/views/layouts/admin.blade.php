@@ -99,14 +99,16 @@
             const isLoggedIn = {{ json_encode(Auth::check()) }};
             let entryDescription = '';
             let spotDescription = '';
-            let zoneDescription = '';
+            let zoneDetails = '';
 
             @if (isset($entry))
                 entryDescription = {!! json_encode($entry->description) !!};
-            @elseif (isset($spot))
+            @endif
+            @if (isset($spot))
                 spotDescription = {!! json_encode($spot->description) !!};
-            @elseif (isset($zone))
-                zoneDescription = {!! json_encode($zone->details) !!};
+            @endif
+            @if (isset($zone))
+                zoneDetails = {!! json_encode($zone->details) !!};
             @endif
         </script>
         <script>
