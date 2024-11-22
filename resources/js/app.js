@@ -45,9 +45,9 @@ function eventListeners() {
     if (document.querySelector('#entry_description')) {
         initializeQuill('#entry_description', '#entry_description_hidden', entryDescription);
     }
-    // if (document.querySelector('#spot_description')) {
-    //     initializeQuill('#spot_description', '#spot_description_hidden', spotDescription);
-    // }
+    if (document.querySelector('#spot_description')) {
+        initializeQuill('#spot_description', '#spot_description_hidden', spotDescription);
+    }
 
     const logoutBtn = document.querySelector('.sign-out');
     if (logoutBtn) {
