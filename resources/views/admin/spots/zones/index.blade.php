@@ -1,20 +1,13 @@
-<h1>Zonas de {{$spot->name}}</h1>
-<a href="{{route('spots.index')}}"><p>Volver</p></a>
+@extends('layouts.admin')
 
-@foreach ($zones as $zone)
-    <h2>Nombre zona</h2>
-    <a href="{{route('zones.edit', [$spot, $zone])}}"><p>{{$zone->name}}</p></a>
-    @switch($spot->climbingType->name)
-        @case('Boulder')
-            <a href="{{route('boulders.index', [$spot, $zone])}}"><p>Ver Boulders</p></a>
-            @break
-        @case('Deportiva')
-            <a href="{{route('routes.index', [$spot, $zone])}}"><p>Ver Vías</p></a>
-        @break
-        @default
-            <p>Ha ocurrido un error al mostrar las zonas. Comunícate con soporte si el problema persiste.</p>
-    @endswitch
-@endforeach
-<br>
-<h3>Añadir Nueva Zona</h3>
-<a href="{{route('zones.create', $spot)}}"><button>Añadir Zona</button></a>
+@section('content')
+<main class="contenedor seccion admin-content">
+    <h1 class="section-title">Zonas de {{$spot->name}}</h1>
+    <a href="{{route('spots.index')}}" class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
+    <a href="{{ route('zones.create', $spot) }}" class="yellow-button">Añadir Zona</a>
+    <div class="table-container">
+        {{ $dataTable->table() }}
+    </div>
+</main>
+{{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endsection
