@@ -1,16 +1,23 @@
-<h1>Añadir Zona a {{$spot->name}}</h1>
-<a href="{{route('zones.index', $spot)}}">Volver</a>
-<form action="{{route('zones.store', $spot)}}" method="POST" enctype="multipart/form-data">
-    @csrf
+@extends('layouts.admin')
 
-    <label for="zone-name">Nombre de la zona</label>
-    <input id="zone-name" type="text" name="zone[name]">
+@section('content')
+<main class="contenedor seccion admin-content">
+    <h1 class="section title">Añadir Zona a {{$spot->name}}</h1>
+    <a href="{{route('zones.index', $spot)}}"class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
+    <form action="{{route('zones.store', $spot)}}" method="POST" enctype="multipart/form-data" class="form beauty-form">
+        @csrf
 
-    <label for="zone-image">Imagen de la zona</label>
-    <input id="zone-image" type="file" name="zone[image]">
+        <label for="zone-name">Nombre de la zona</label>
+        <input id="zone-name" type="text" name="zone[name]">
 
-    <label for="zone-details">Detalles de la zona</label>
-    <textarea id="zone-details" name="zone[details]" cols="30" rows="10"></textarea>
+        <label for="zone-image">Imagen de la zona</label>
+        <input id="zone-image" type="file" name="zone[image]">
 
-    <button type="submit">Añadir Zona</button>
-</form>
+        <label for="zone_details">Detalles</label>
+        <div id="zone_details"></div>
+        <textarea name="zone[details]" id="zone_details_hidden" style="display: none;"></textarea>
+
+        <button type="submit" class="button blue-button">Añadir Zona</button>
+    </form>
+</main>
+@endsection
