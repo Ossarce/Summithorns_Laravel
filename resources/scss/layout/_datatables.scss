@@ -12,7 +12,8 @@
 #zones-table,
 #climbing_routes-table,
 #boulders-table,
-#entries-table {
+#entries-table,
+#spots-table {
     background-color: v.$grisOscuro;
     border-radius: 1rem;
     border-collapse: collapse;
@@ -82,7 +83,7 @@
     padding:.5rem 1.5rem;
 }
 
-.admin-entry-actions {
+.datatable-actions {
     display: flex;
     flex-wrap: wrap;
     @include m.tablet {
@@ -91,5 +92,19 @@
     a p {
         margin: 0 1.5rem;
         font-size: 3rem;
+    }
+}
+
+.datatable-show-child {
+    display: flex;
+    @include m.tablet {
+        justify-content: center;
+    }
+    a {
+        padding: .5rem 1rem;
+        color: v.$negro;
+        border: .1rem v.$lamarillo solid;
+        border-radius: .5rem;
+        background-color: v.$tamarillo;
     }
 }
