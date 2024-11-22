@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AdminZonesDataTable;
 use App\Models\Spot;
+use App\Models\User;
 use App\Models\Zone;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
 class ZoneController extends Controller
 {
     public function index(Spot $spot) {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $zones = $spot->zones;
+        $dataTable = new AdminZonesDataTable($spot->id);
 
-        return view('admin.spots.zones.index', compact('spot', 'zones'));
+        return $dataTable->render('admin.spots.zones.index', compact('spot', 'zones', 'user'));
     }
 
     public function create(Spot $spot) {
-
-        return view('admin.spots.zones.create', compact('spot'));
+        $userId = Auth::id();
+        $user = User::find($userId);
+        return view('admin.spots.zones.create', compact('spot', 'user'));
     }
 
     public function store(Request $request, Spot $spot) {
@@ -34,7 +43,7 @@ class ZoneController extends Controller
 
             $img = Image::read($image);
             $img->cover(800, 600);
-            Storage::disk('public')->put('images/spots/zones/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/' . $imageName, (string) $img->encode());
         }else {
             return response()->json(['error' => 'Hubo un error al procesar la imagen!'], 400);
         };
@@ -47,13 +56,17 @@ class ZoneController extends Controller
 
         // dd($zone);
 
-        $zone->save();
+        if($zone->save()) {
+            notyf()->ripple(false)->success('Zona añadida correctamente!');
+        }
 
         return redirect()->route('zones.index' , compact('spot'));
     }
 
     public function edit(Spot $spot, Zone $zone) {
-        return view('admin.spots.zones.edit', compact('spot', 'zone'));
+        $userId = Auth::id();
+        $user = User::find($userId);
+        return view('admin.spots.zones.edit', compact('spot', 'zone', 'user'));
     }
 
     public function update(Request $request, Spot $spot, Zone $zone) {
@@ -71,7 +84,7 @@ class ZoneController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/' . $imageName, (string) $img->encode());
 
             $zone->setImage($imageName);
         }
@@ -81,13 +94,22 @@ class ZoneController extends Controller
 
         // dd($zone);
 
-        $zone->save();
+        if($zone->save()) {
+            notyf()->ripple(false)->success('Zona editada correctamente!');
+        }
 
         return redirect()->route('zones.index', compact('spot'));
     }
 
     public function destroy(Spot $spot, Zone $zone) {
         $zone->delete();
+
+        if(request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Zona eliminada correctamente'
+            ]);
+        }
 
         return redirect()->route('zones.index', compact('spot'));
     }

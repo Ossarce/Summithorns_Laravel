@@ -22,8 +22,8 @@ class Zone extends Model
     }
 
     public function deleteImage() {
-        if($this->image && Storage::disk('public')->exists('images/spots/zones/' . $this->image)) {
-            Storage::disk('public')->delete('images/spots/zones/' . $this->image);
+        if($this->image && Storage::disk('s3')->exists('images/spots/zones/' . $this->image)) {
+            Storage::disk('s3')->delete('images/spots/zones/' . $this->image);
         }
     }
 
