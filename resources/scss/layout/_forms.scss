@@ -1,0 +1,57 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.beauty-form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: .1rem v.$grisOscuro solid;
+    border-radius: .5rem;
+    background-color: rgba(241, 241, 241, 0.8);
+
+    label {
+        color: v.$negro;
+    }
+
+    input,
+    select,
+    textarea {
+        border-radius: .5rem;
+        border: .1rem v.$tnegro solid;
+        padding: 1rem 2rem;
+
+        &:focus, &:active {
+            border: .2rem v.$blue solid;
+            outline: none;
+        }
+    }
+
+    textarea {
+        margin-bottom: .5rem;
+    }
+}
+
+.ql-toolbar.ql-snow {
+    background-color: v.$blanco;
+    border-radius: 1rem 1rem 0 0;
+}
+.ql-container.ql-snow {
+    background-color: v.$blanco;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.arriving-container {
+    @include m.d-flex(column, center);
+    justify-content: space-around;
+    @include m.tablet {
+        @include m.d-flex(row, flex-end)
+    }
+
+    .img-checker {
+        display: flex;
+        label img {
+            width: 8rem;
+            cursor: pointer;
+        }
+    }
+}
