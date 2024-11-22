@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AdminSpotsDataTable;
 use App\Models\ClimbingType;
 use App\Models\Spot;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -19,11 +21,14 @@ class SpotController extends Controller
      */
     public function index()
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $tabHeader = 'Panel de Spots';
         $spots = Spot::all();
+        $dataTable = new AdminSpotsDataTable();
 
 
-        return view('admin.spots.index', compact('spots', 'tabHeader'));
+        return $dataTable->render('admin.spots.index', compact('spots', 'tabHeader', 'user'));
     }
 
     /**
@@ -31,10 +36,12 @@ class SpotController extends Controller
      */
     public function create()
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $tabHeader = 'Crear nuevo Spot';
         $climbingTypes = ClimbingType::all();
 
-        return view('admin.spots.create', compact('tabHeader', 'climbingTypes'));
+        return view('admin.spots.create', compact('tabHeader', 'climbingTypes', 'user'));
     }
 
     /**
@@ -69,8 +76,10 @@ class SpotController extends Controller
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
         $spot->description = $request->input('spot.description');
 
-        // dd($request->all(), $spot);
-        $spot->save();
+        // dd($request->all(), $spot);ç
+        if($spot->save()) {
+            notyf()->ripple(false)->success('Spot creado correctamente!');
+        }
 
         return redirect()->route('spots.index');
     }
@@ -87,6 +96,8 @@ class SpotController extends Controller
      */
     public function edit(string $id)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $climbingTypes = ClimbingType::all();
         $spot = Spot::find($id);
 
@@ -94,7 +105,7 @@ class SpotController extends Controller
             return redirect()->route('spots.index');
         }
 
-        return view('admin.spots.edit', compact('climbingTypes', 'spot'));
+        return view('admin.spots.edit', compact('climbingTypes', 'spot', 'user'));
     }
 
     /**
@@ -118,7 +129,7 @@ class SpotController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/' . $imageName, (string) $img->encode());
 
             $spot->setImage($imageName);
         }
@@ -130,7 +141,9 @@ class SpotController extends Controller
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
         $spot->description = $request->input('spot.description');
 
-        $spot->save();
+        if($spot->save()) {
+            notyf()->ripple(false)->success('Spot actualizado correctamente!');
+        }
 
         return redirect()->route('spots.index');
     }
@@ -143,6 +156,13 @@ class SpotController extends Controller
         $spot = Spot::findOrFail($id);
 
         $spot->delete();
+
+        if(request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Spot eliminado correctamente'
+            ]);
+        }
 
         return redirect()->route('spots.index');
     }

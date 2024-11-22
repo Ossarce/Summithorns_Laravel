@@ -23,7 +23,7 @@ class AdminEntriesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function(Entry $entry) {
-                return '<div class="admin-entry-actions">
+                return '<div class="datatable-actions">
                             <a href="'. route('entries.edit', $entry->id) .'" class="edit-btn">
                                 <p>
                                     <i class="bx bxs-edit bx-border"></i>
