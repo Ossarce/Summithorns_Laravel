@@ -21,9 +21,9 @@
         <label for="spot-image">Imagen del Spot</label>
         <input id="spot-image" type="file" name="spot[image]">
 
-            <label for="spot_description">Descripción</label>
-            <div id="spot_description"></div>
-            <textarea name="spot[description]" id="spot_description_hidden" style="display: none;"></textarea>
+        <label for="spot_description">Descripción</label>
+        <div id="spot_description"></div>
+        <textarea name="spot[description]" id="spot_description_hidden" style="display: none;"></textarea>
 
         <div class="arriving-container">
             <div class="img-checker">
