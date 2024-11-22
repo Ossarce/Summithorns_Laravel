@@ -33,8 +33,8 @@ class Spot extends Model
 
     public function deleteImage()
     {
-        if($this->image && Storage::disk('public')->exists('images/spots/' . $this->image)) {
-            Storage::disk('public')->delete('images/spots/' . $this->image);
+        if($this->image && Storage::disk('s3')->exists('images/spots/' . $this->image)) {
+            Storage::disk('s3')->delete('images/spots/' . $this->image);
         }
     }
 
