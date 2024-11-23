@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AdminBouldersDataTable;
 use App\Models\Boulder;
 use App\Models\BoulderGrade;
 use App\Models\Spot;
+use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -17,9 +20,12 @@ class BoulderController extends Controller
      */
     public function index(Spot $spot, Zone $zone)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $boulders = $zone->boulders;
+        $dataTable = new AdminBouldersDataTable($spot->id, $zone->id);
 
-        return view('admin.spots.zones.boulders.index', compact('spot','zone', 'boulders'));
+        return $dataTable->render('admin.spots.zones.boulders.index', compact('spot','zone', 'boulders', 'user'));
     }
 
     /**
@@ -27,9 +33,11 @@ class BoulderController extends Controller
      */
     public function create(Spot $spot, Zone $zone)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $boulderGrades = BoulderGrade::all();
 
-        return view('admin.spots.zones.boulders.create', compact('spot', 'zone', 'boulderGrades'));
+        return view('admin.spots.zones.boulders.create', compact('spot', 'zone', 'boulderGrades', 'user'));
     }
 
     /**
@@ -53,7 +61,7 @@ class BoulderController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
 
             $boulder->setImage($imageName);
         }
@@ -63,7 +71,9 @@ class BoulderController extends Controller
         $boulder->grade_id = $request->input('boulder.grade');
         $boulder->details = $request->input('boulder.details');
 
-        $boulder->save();
+        if($boulder->save()) {
+            notyf()->ripple(false)->success('Boulder añadido con éxito!');
+        }
 
         return redirect()->route('boulders.index', compact('spot', 'zone'));
     }
@@ -81,9 +91,11 @@ class BoulderController extends Controller
      */
     public function edit(Spot $spot, Zone $zone, Boulder $boulder)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $boulderGrades = BoulderGrade::all();
 
-        return view('admin.spots.zones.boulders.edit', compact('spot', 'zone', 'boulderGrades', 'boulder'));
+        return view('admin.spots.zones.boulders.edit', compact('spot', 'zone', 'boulderGrades', 'boulder', 'user'));
     }
 
     /**
@@ -105,7 +117,7 @@ class BoulderController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
 
             $boulder->setImage($imageName);
         }
@@ -115,7 +127,9 @@ class BoulderController extends Controller
         $boulder->grade_id = $request->input('boulder.grade');
         $boulder->details = $request->input('boulder.details');
 
-        $boulder->save();
+        if($boulder->save()) {
+            notyf()->ripple(false)->success('Boulder editado con éxito!');
+        }
 
         return redirect()->route('boulders.index', compact('spot', 'zone'));
     }
@@ -126,6 +140,13 @@ class BoulderController extends Controller
     public function destroy(Spot $spot, Zone $zone, Boulder $boulder)
     {
         $boulder->delete();
+
+        if(request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Boulder eliminado correctamente'
+            ]);
+        }
 
         return redirect()->route('boulders.index', compact('spot', 'zone'));
     }
