@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AdminClimbingRoutesDataTable;
 use App\Models\ClimbingRoute;
 use App\Models\RouteGrade;
 use App\Models\Spot;
+use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -17,10 +20,12 @@ class ClimbingRouteController extends Controller
      */
     public function index(Spot $spot, Zone $zone)
     {
-        // $climbingRoutes = ClimbingRoute::where('zone_id', $zone->id)->get();
+        $userId = Auth::id();
+        $user = User::find($userId);
         $climbingRoutes = $zone->climbingRoutes;
+        $dataTable = new AdminClimbingRoutesDataTable($spot->id, $zone->id);
 
-        return view('admin.spots.zones.climbing_routes.index', compact('spot', 'zone', 'climbingRoutes'));
+        return $dataTable->render('admin.spots.zones.climbing_routes.index', compact('spot', 'zone', 'climbingRoutes', 'user'));
     }
 
     /**
@@ -28,9 +33,11 @@ class ClimbingRouteController extends Controller
      */
     public function create(Spot $spot, Zone $zone)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $routeGrades = RouteGrade::all();
 
-        return view('admin.spots.zones.climbing_routes.create', compact('spot', 'zone', 'routeGrades'));
+        return view('admin.spots.zones.climbing_routes.create', compact('spot', 'zone', 'routeGrades', 'user'));
     }
 
     /**
@@ -54,7 +61,7 @@ class ClimbingRouteController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
 
             $climbingRoute->setImage($imageName);
         }
@@ -64,7 +71,10 @@ class ClimbingRouteController extends Controller
         $climbingRoute->grade_id = $request->input('route.grade');
         $climbingRoute->details = $request->input('route.details');
 
-        $climbingRoute->save();
+
+        if($climbingRoute->save()) {
+            notyf()->ripple(false)->success('Vía añadida con éxito!');
+        }
 
         return redirect()->route('routes.index', compact('spot', 'zone'));
     }
@@ -82,9 +92,11 @@ class ClimbingRouteController extends Controller
      */
     public function edit(Spot $spot, Zone $zone, ClimbingRoute $climbingRoute)
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $routeGrades = RouteGrade::all();
 
-        return view('admin.spots.zones.climbing_routes.edit', compact('spot', 'zone', 'routeGrades', 'climbingRoute'));
+        return view('admin.spots.zones.climbing_routes.edit', compact('spot', 'zone', 'routeGrades', 'climbingRoute', 'user'));
     }
 
     /**
@@ -106,7 +118,7 @@ class ClimbingRouteController extends Controller
 
             $img = Image::read($image);
             $img->cover(800,600);
-            Storage::disk('public')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
+            Storage::disk('s3')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
 
             $climbingRoute->setImage($imageName);
         }
@@ -116,7 +128,9 @@ class ClimbingRouteController extends Controller
         $climbingRoute->grade_id = $request->input('route.grade');
         $climbingRoute->details = $request->input('route.details');
 
-        $climbingRoute->save();
+        if($climbingRoute->save()) {
+            notyf()->ripple(false)->success('Vía editada con éxito!');
+        }
 
         return redirect()->route('routes.index', compact('spot', 'zone'));
     }
@@ -127,6 +141,13 @@ class ClimbingRouteController extends Controller
     public function destroy(Spot $spot, Zone $zone, ClimbingRoute $climbingRoute)
     {
         $climbingRoute->delete();
+
+        if (request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Vía eliminada correctamente'
+            ]);
+        }
 
         return redirect()->route('routes.index', compact('spot', 'zone'));
     }
