@@ -111,7 +111,7 @@ class AdminClimbingRoutesDataTable extends DataTable
     {
         return [
             Column::make('name')->title('Nombre'),
-            Column::make('grade_name')->title('Grado')->orderSequence(['asc', 'desc']),
+            Column::make('grade_name')->title('Grado')->orderSequence(['asc', 'desc'])->name('route_grades.route_grade'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
