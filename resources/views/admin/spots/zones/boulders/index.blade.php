@@ -1,8 +1,13 @@
-<h1>Administrar Boulders de {{$spot->name}} en sector {{$zone->name}}</h1>
-<a href="{{route('zones.index', [$spot])}}"><p>Volver</p></a>
-@foreach ($boulders as $boulder)
-    <h2>Nombre del Boulder</h2>
-    <a href="{{route('boulders.edit', [$spot, $zone, $boulder])}}"><p>{{$boulder->name}}</p></a>
-@endforeach
-<a href="{{route('boulders.create', [$spot, $zone])}}"><button>Añadir Boulder</button></a>
+@extends('layouts.admin')
 
+@section('content')
+<main class="contenedor seccion admin-content">
+    <h1 class="section-title">Administrar Boulders de {{$spot->name}} en sector {{$zone->name}}</h1>
+    <a href="{{route('zones.index', [$spot])}}" class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
+    <a href="{{route('boulders.create', [$spot, $zone])}}" class="yellow-button">Añadir Boulder</a>
+    <div class="table-container">
+        {{ $dataTable->table() }}
+    </div>
+</main>
+{{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endsection
