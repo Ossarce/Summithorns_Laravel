@@ -69,7 +69,7 @@ class AdminBouldersDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy([0, 'asc'])
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -108,6 +108,7 @@ class AdminBouldersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('line')->title('Número'),
             Column::make('name')->title('Nombre'),
             Column::make('grade_name')->title('Grado')
             ->orderSequence(['asc', 'desc'])->name('boulder_grades.boulder_grade'),

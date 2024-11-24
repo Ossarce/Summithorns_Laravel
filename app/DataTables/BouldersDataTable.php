@@ -97,6 +97,7 @@ class BouldersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('line')->title('')->orderable(false),
             Column::make('name')->title('Nombre'),
             Column::make('grade_name')->title('Grado')
             ->orderSequence(['asc', 'desc'])->name('boulder_grades.boulder_grade'),
