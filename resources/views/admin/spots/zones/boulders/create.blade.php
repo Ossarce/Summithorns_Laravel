@@ -6,6 +6,10 @@
     <a href="{{route('boulders.index', [$spot, $zone])}}"class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
     <form action="{{route('boulders.store', [$spot,  $zone])}}" method="POST" enctype="multipart/form-data" class="form beauty-form">
         @csrf
+
+        <label for="boulder-line">Número</label>
+        <input id="boulder-line" type="number" name="boulder[line]">
+
         <label for="boulder-name">Nombre del Boulder</label>
         <input id="boulder-name" type="text" name="boulder[name]">
 

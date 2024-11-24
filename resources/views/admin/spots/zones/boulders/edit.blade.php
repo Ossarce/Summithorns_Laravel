@@ -7,6 +7,10 @@
     <form action="{{route('boulders.update', [$spot, $zone, $boulder])}}" method="POST" class="form beauty-form">
         @csrf
         @method('PUT')
+
+        <label for="boulder-line">Número</label>
+        <input id="boulder-line" type="number" name="boulder[line]" value="{{ $boulder->line }}">
+
         <label for="boulder-name">Nombre del Boulder</label>
         <input id="boulder-name" type="text" name="boulder[name]" value="{{$boulder->name}}">
 
