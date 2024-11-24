@@ -71,7 +71,7 @@ class AdminClimbingRoutesDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -110,6 +110,7 @@ class AdminClimbingRoutesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('line')->title('Número')->orderable(false),
             Column::make('name')->title('Nombre'),
             Column::make('grade_name')->title('Grado')->orderSequence(['asc', 'desc'])->name('route_grades.route_grade'),
             Column::computed('action')
