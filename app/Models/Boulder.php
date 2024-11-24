@@ -10,7 +10,7 @@ class Boulder extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['zone_id', 'name', 'image', 'grade_id', 'setter_id', 'details'];
+    protected $fillable = ['zone_id', 'name', 'image', 'grade_id', 'setter_id', 'details', 'line'];
 
     // *** Helper Methods ***
 
