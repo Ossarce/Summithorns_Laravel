@@ -46,6 +46,7 @@ class ClimbingRouteController extends Controller
     public function store(Request $request, Spot $spot, Zone $zone)
     {
         $request->validate([
+            'route.line' => 'required|integer',
             'route.name' => 'required|string',
             'route.grade' => 'required|exists:route_grades,id',
             'route.image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
@@ -67,6 +68,7 @@ class ClimbingRouteController extends Controller
         }
 
         $climbingRoute->zone_id = $zone->id;
+        $climbingRoute->line = $request->input('route.line');
         $climbingRoute->name = $request->input('route.name');
         $climbingRoute->grade_id = $request->input('route.grade');
         $climbingRoute->details = $request->input('route.details');
@@ -105,6 +107,7 @@ class ClimbingRouteController extends Controller
     public function update(Request $request, Spot $spot, Zone $zone, ClimbingRoute $climbingRoute)
     {
         $request->validate([
+            'route.line' => 'required|integer',
             'route.name' => 'required|string',
             'route.grade' => 'required|exists:route_grades,id',
             'route.image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
@@ -124,6 +127,7 @@ class ClimbingRouteController extends Controller
         }
 
         $climbingRoute->zone_id = $zone->id;
+        $climbingRoute->line = $request->input('route.line');
         $climbingRoute->name = $request->input('route.name');
         $climbingRoute->grade_id = $request->input('route.grade');
         $climbingRoute->details = $request->input('route.details');
