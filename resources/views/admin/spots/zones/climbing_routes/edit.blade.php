@@ -7,6 +7,10 @@
     <form action="{{route('routes.update', [$spot, $zone, $climbingRoute])}}" method="POST" class="form beauty-form">
         @csrf
         @method('PUT')
+
+        <label for="route-line">Número</label>
+        <input id="route-line" type="number" name="route[line]" value="{{ $climbingRoute->line }}">
+
         <label for="route-name">Nombre del route</label>
         <input id="route-name" type="text" name="route[name]" value="{{$climbingRoute->name}}">
 

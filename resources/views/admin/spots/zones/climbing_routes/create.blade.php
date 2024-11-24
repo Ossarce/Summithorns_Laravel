@@ -6,6 +6,10 @@
     <a href="{{route('routes.index', [$spot, $zone])}}" class="go-back"><p><i class='bx bx-arrow-back'></i> Volver</p></a>
     <form action="{{route('routes.store', [$spot, $zone])}}" method="POST" enctype="multipart/form-data" class="form beauty-form">
         @csrf
+
+        <label for="route-line">Número</label>
+        <input id="route-line" type="number" name="route[line]">
+
         <label for="route-name">Nombre de la Vía</label>
         <input id="route-name" type="text" name="route[name]">
 
