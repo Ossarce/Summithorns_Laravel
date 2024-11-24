@@ -46,6 +46,7 @@ class BoulderController extends Controller
     public function store(Request $request, Spot $spot, Zone $zone)
     {
         $request->validate([
+            'boulder.line' => 'required|integer',
             'boulder.name' => 'required|string',
             'boulder.grade' => 'required|exists:boulder_grades,id',
             'boulder.image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
@@ -67,6 +68,7 @@ class BoulderController extends Controller
         }
 
         $boulder->zone_id = $zone->id;
+        $boulder->line = $request->input('boulder.line');
         $boulder->name = $request->input('boulder.name');
         $boulder->grade_id = $request->input('boulder.grade');
         $boulder->details = $request->input('boulder.details');
@@ -104,6 +106,7 @@ class BoulderController extends Controller
     public function update(Request $request, Spot $spot, Zone $zone, Boulder $boulder)
     {
         $request->validate([
+            'boulder.line' => 'required|integer',
             'boulder.name' => 'required|string',
             'boulder.grade' => 'required|exists:boulder_grades,id',
             'boulder.image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
@@ -123,6 +126,7 @@ class BoulderController extends Controller
         }
 
         $boulder->zone_id = $zone->id;
+        $boulder->line = $request->input('boulder.line');
         $boulder->name = $request->input('boulder.name');
         $boulder->grade_id = $request->input('boulder.grade');
         $boulder->details = $request->input('boulder.details');
