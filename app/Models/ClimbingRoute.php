@@ -10,7 +10,7 @@ class ClimbingRoute extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['zone_id', 'name', 'image', 'grade_id', 'setter_id', 'details']; //agregar prontamente equipamiendo minimo para una via tanto aqui como en tabla respectiva en la base de datos.
+    protected $fillable = ['zone_id', 'name', 'image', 'grade_id', 'setter_id', 'details', 'line']; //agregar prontamente equipamiendo minimo para una via tanto aqui como en tabla respectiva en la base de datos.
 
     // *** Helper Methods ***
     public function getGradeName() {
