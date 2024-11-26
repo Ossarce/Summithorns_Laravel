@@ -8,6 +8,10 @@
         @csrf
         @method('PUT')
 
+        <div class="zone-image">
+            <img src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/spots/zones/' . $zone->image) }}" alt="{{ $zone->name }} Imagen">
+        </div>
+
         <label for="boulder-line">Número</label>
         <input id="boulder-line" type="number" name="boulder[line]" value="{{ $boulder->line }}">
 

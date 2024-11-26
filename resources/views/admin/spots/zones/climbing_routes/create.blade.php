@@ -7,6 +7,10 @@
     <form action="{{route('routes.store', [$spot, $zone])}}" method="POST" enctype="multipart/form-data" class="form beauty-form">
         @csrf
 
+        <div class="zone-image">
+            <img src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/spots/zones/' . $zone->image) }}" alt="{{ $zone->name }} Imagen">
+        </div>
+
         <label for="route-line">Número</label>
         <input id="route-line" type="number" name="route[line]">
 

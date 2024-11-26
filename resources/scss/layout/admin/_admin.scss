@@ -80,3 +80,16 @@
     }
 }
 
+.admin-content {
+    .zone-image img {
+        width: 25rem;
+        margin: .5rem auto;
+        // border-radius: .8rem;
+        @include m.tablet {
+            width: 40rem;
+        }
+        @include m.wide-desktop {
+            width: 50rem;
+        }
+    }
+}
