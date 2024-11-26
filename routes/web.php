@@ -37,49 +37,52 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // Rutas Admin y Colaboradores
-Route::get('/admin', function() {
-    $userId = Auth::id();
-    $user = User::find($userId);
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin', function() {
+        $userId = Auth::id();
+        $user = User::find($userId);
 
-    return view('admin.index', compact('user'));
-})->name('admin.panel');
+        return view('admin.index', compact('user'));
+    })->name('admin.panel');
 
-Route::resource('/admin/climbing-types', ClimbingTypeController::class);
-Route::resource('/admin/entry-categories', EntryCategoryController::class);
-Route::resource('/admin/boulder-grades', BoulderGradeController::class);
-Route::resource('/admin/route-grades', RouteGradeController::class);
+    Route::resource('/admin/climbing-types', ClimbingTypeController::class);
+    Route::resource('/admin/entry-categories', EntryCategoryController::class);
+    Route::resource('/admin/boulder-grades', BoulderGradeController::class);
+    Route::resource('/admin/route-grades', RouteGradeController::class);
 
-Route::resource('/admin/spots', SpotController::class);
-Route::resource('/admin/entries', EntryController::class);
+    Route::resource('/admin/spots', SpotController::class);
+    Route::resource('/admin/entries', EntryController::class);
 
-Route::prefix('/admin/spots/{spot}/zones')->group(function () {
-    Route::get('/', [ZoneController::class, 'index'])->name('zones.index');
-    Route::get('/create', [ZoneController::class, 'create'])->name('zones.create');
-    Route::post('/', [ZoneController::class, 'store'])->name('zones.store');
-    Route::get('/{zone}/edit', [ZoneController::class, 'edit'])->name('zones.edit');
-    Route::put('/{zone}', [ZoneController::class, 'update'])->name('zones.update');
-    Route::delete('/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
+    Route::prefix('/admin/spots/{spot}/zones')->group(function () {
+        Route::get('/', [ZoneController::class, 'index'])->name('zones.index');
+        Route::get('/create', [ZoneController::class, 'create'])->name('zones.create');
+        Route::post('/', [ZoneController::class, 'store'])->name('zones.store');
+        Route::get('/{zone}/edit', [ZoneController::class, 'edit'])->name('zones.edit');
+        Route::put('/{zone}', [ZoneController::class, 'update'])->name('zones.update');
+        Route::delete('/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
+    });
+
+    Route::prefix('/admin/spots/{spot}/zones/{zone}')->group(function () {
+        //Rutas Boulders
+        Route::get('/boulders', [BoulderController::class, 'index'])->name('boulders.index');
+        Route::get('/boulders/create', [BoulderController::class, 'create'])->name('boulders.create');
+        Route::post('/boulders', [BoulderController::class, 'store'])->name('boulders.store');
+        Route::get('/boulders/{boulder}/edit', [BoulderController::class, 'edit'])->name('boulders.edit');
+        Route::put('/boulders/{boulder}', [BoulderController::class, 'update'])->name('boulders.update');
+        Route::delete('/boulders/{boulder}', [BoulderController::class, 'destroy'])->name('boulders.destroy');
+
+        // Rutas Deportiva
+        Route::get('/routes', [ClimbingRouteController::class, 'index'])->name('routes.index');
+        Route::get('/routes/create', [ClimbingRouteController::class, 'create'])->name('routes.create');
+        Route::post('/routes', [ClimbingRouteController::class, 'store'])->name('routes.store');
+        Route::get('/routes/{climbingRoute}/edit', [ClimbingRouteController::class, 'edit'])->name('routes.edit');
+        Route::put('/routes/{climbingRoute}', [ClimbingRouteController::class, 'update'])->name('routes.update');
+        Route::delete('/routes/{climbingRoute}', [ClimbingRouteController::class, 'destroy'])->name('routes.destroy');
+    });
 });
 
-Route::prefix('/admin/spots/{spot}/zones/{zone}')->group(function () {
-    //Rutas Boulders
-    Route::get('/boulders', [BoulderController::class, 'index'])->name('boulders.index');
-    Route::get('/boulders/create', [BoulderController::class, 'create'])->name('boulders.create');
-    Route::post('/boulders', [BoulderController::class, 'store'])->name('boulders.store');
-    Route::get('/boulders/{boulder}/edit', [BoulderController::class, 'edit'])->name('boulders.edit');
-    Route::put('/boulders/{boulder}', [BoulderController::class, 'update'])->name('boulders.update');
-    Route::delete('/boulders/{boulder}', [BoulderController::class, 'destroy'])->name('boulders.destroy');
 
-    // Rutas Deportiva
-    Route::get('/routes', [ClimbingRouteController::class, 'index'])->name('routes.index');
-    Route::get('/routes/create', [ClimbingRouteController::class, 'create'])->name('routes.create');
-    Route::post('/routes', [ClimbingRouteController::class, 'store'])->name('routes.store');
-    Route::get('/routes/{climbingRoute}/edit', [ClimbingRouteController::class, 'edit'])->name('routes.edit');
-    Route::put('/routes/{climbingRoute}', [ClimbingRouteController::class, 'update'])->name('routes.update');
-    Route::delete('/routes/{climbingRoute}', [ClimbingRouteController::class, 'destroy'])->name('routes.destroy');
-});
 
 
 require __DIR__.'/auth.php';
