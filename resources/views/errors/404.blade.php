@@ -4,7 +4,7 @@
 <main class="contenedor seccion">
     <h1 class="section-title">¡Ups! Página no encontrada</h1>
     <div class="container-error">
-        <img src="{{Storage::disk('s3')->url('images/base/404-logos_transparent.webp')}}">
+        <img src="{{ asset('images/base/404-logos_transparent.webp')}}">
         <div class="error-text">
             <p>La ruta de escalada que buscas no existe aquí. No te preocupes; incluso los mejores escaladores se desvían a veces.</p>
             <p>Volvamos a encaminarte:</p>
