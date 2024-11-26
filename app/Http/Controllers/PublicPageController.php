@@ -127,7 +127,6 @@ class PublicPageController extends Controller
     }
 
     public function us() {
-        notyf()->ripple(false)->warning('Se deben mejorar las reglas de stilos usadas aqui aaaaagghhh!!!');
         return view('public.us');
     }
 }
