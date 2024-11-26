@@ -10,18 +10,18 @@
         <ul class="guide-icons">
             @if($spot->bus == '1')
                 <li>
-                    <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconbus.svg') }}" alt="Ícono Bus">
+                    <img loading="lazy" src="{{ asset('images/base/iconbus.svg') }}" alt="Ícono Bus">
                 </li>
             @endif
 
             @if($spot->car == '1')
                 <li>
-                    <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconcar.svg') }}" alt="Ícono Auto">
+                    <img loading="lazy" src="{{ asset('images/base/iconcar.svg') }}" alt="Ícono Auto">
                 </li>
             @endif
             @if($spot->bike == '1')
                 <li>
-                    <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/iconobicicleta.svg') }}" alt="Ícono Bicicleta">
+                    <img loading="lazy" src="{{ asset('images/base/iconobicicleta.svg') }}" alt="Ícono Bicicleta">
                 </li>
             @endif
         </ul>
@@ -42,7 +42,7 @@
                 <p> Boulders: {{ $totalBoulders }}</p>
             @endif
         </div>
-        <p>{{$spot->description}}</p>
+        {!! $spot->description !!}
         <div class="table-container">
             {{ $dataTable->table() }}
         </div>

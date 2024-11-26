@@ -33,7 +33,7 @@
             <div class="contenedor contenido-header sticky-header">
                 <div class="barra">
                     <a href="{{ route('public.home') }}">
-                        <img class="logo-header" src="{{ Storage::disk('s3')->url('images/base/logo.svg')}}" alt="Logo Summit Horns">
+                        <img class="logo-header" src="{{ asset('images/base/logo.svg')}}" alt="Logo Summit Horns">
                     </a>
                     <div class="mobile-menu">
                         <i class='bx bx-menu hamburger'></i>
@@ -47,7 +47,7 @@
                         <div class="auth-container">
                             @auth
                                 <a class="profile-link" href="{{ route('profile.index', ['id' => auth()->user()->id]) }}">
-                                    <img src="{{ Storage::disk('s3')->url('/images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
+                                    <img src="{{ asset('images/base/climb-person-people-climber-svgrepo-com-orange.svg')}}" alt="">
                                     {{ auth()->user()->username }}
                                 </a>
                                 <a class="auth-button sign-out" href="{{ route('logout') }}">Cerrar Sesión</a>

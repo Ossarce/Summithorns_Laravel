@@ -5,7 +5,7 @@
     <h1 class="section-title">¿Conversemos?</h1>
     <div class="contact-content">
         <picture>
-            <img src="{{Storage::disk('s3')->url('images/base/contact.webp')}}" alt="Contactátanos Imagen" class="contact-img">
+            <img src="{{asset('images/base/contact.webp')}}" alt="Contactátanos Imagen" class="contact-img">
         </picture>
         <form action="{{route('public.submit')}}" method="POST" class="form beauty-form">
             @csrf

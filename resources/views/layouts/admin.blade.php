@@ -34,7 +34,7 @@
             <div class="top">
                 <div class="logo">
                     <a href="{{ route('admin.panel') }}">
-                        <img src="{{ Storage::disk('s3')->url('images/base/Summit Horns-logos_transparent_mini.webp') }}" alt="Mini Logo SummitHorns">
+                        <img src="{{ asset('images/base/Summit Horns-logos_transparent_mini.webp') }}" alt="Mini Logo SummitHorns">
                     </a>
                 </div>
                 <i class='bx bx-menu sidebar-menu'></i>

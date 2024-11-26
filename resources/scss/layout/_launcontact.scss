@@ -1,7 +1,7 @@
 @use '../base/variables' as v;
 
 .launchment-contact {
-    background-image: url('#{v.$s3-url}/images/base/encuentra.webp');
+    background-image: url('/public/images/base/encuentra.webp');
     background-position: center center;
     background-size: cover;
     padding: 2rem 0;

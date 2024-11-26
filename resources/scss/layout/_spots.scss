@@ -76,10 +76,10 @@
         background-size: cover;
         width: 1.8rem;
         height: 1.8rem;
-        background-image: url('/storage/app/public/images/base/unliked.svg');
+        background-image: url('/public/images/base/unliked.svg');
 
         &.liked {
-            background-image: url('/storage/app/public/images/base/liked.svg');
+            background-image: url('/public/images/base/liked.svg');
         }
     }
 }

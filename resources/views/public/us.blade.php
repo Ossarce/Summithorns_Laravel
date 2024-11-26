@@ -8,7 +8,7 @@
             <picture>
                 {{-- <source src="{{asset('images/base/nosotros.webp')}}" type="image/webp">
                 <source src="build/img/nosotros.jpg" type="image/jpg"> --}}
-                <img loading="lazy" src="{{ Storage::disk('s3')->url('images/base/nosotros.webp') }}" alt="About Us Image">
+                <img loading="lazy" src="{{ asset('images/base/nosotros.webp') }}" alt="About Us Image">
             </picture >
             <blockquote>
                 Comenzando un Camino para Mejorar las Experiencias de Escalada y Fortalecer la Comunidad
