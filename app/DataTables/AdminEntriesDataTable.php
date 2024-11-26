@@ -107,7 +107,7 @@ class AdminEntriesDataTable extends DataTable
             Column::make('title')->title('Título'),
             Column::make('author')->title('Autor')->orderSequence(['asc', 'desc'])->name('users.username'),
             Column::make('category_name')->title('Categoría')->orderSequence(['asc', 'desc'])->name('entry_categories.category_name'),
-            Column::make('created_at')->title('Fecha'),
+            Column::make('created_at')->title('Creada'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
