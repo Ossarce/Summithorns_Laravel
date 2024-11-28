@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     // *** Relationships ***
     public function profile() {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'id');
     }
 
     public function spots()
