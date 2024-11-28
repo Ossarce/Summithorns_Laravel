@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendMail;
 use App\Mail\VerifyEmail;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -29,25 +31,30 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:' .User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+    public function store(Request $request): RedirectResponse {
+    $request->validate([
+        'username' => ['required', 'string', 'max:255', 'unique:users'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
+    DB::transaction(function () use ($request) {
         $user = User::create([
             'username' => $request->username,
-            'email' => $request->email,
+            'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
         ]);
 
-        SendMail::dispatch(new VerifyEmail($user), $user->email);
+        Profile::create([
+            'id' => $user->id,
+            'first_name' => $user->username,
+        ]);
 
+        SendMail::dispatch(new VerifyEmail($user), $user->email);
         event(new Registered($user));
         Auth::login($user);
+    });
 
-        return redirect()->route('verification.notice');
-    }
+    return redirect()->route('verification.notice');
+}
 }

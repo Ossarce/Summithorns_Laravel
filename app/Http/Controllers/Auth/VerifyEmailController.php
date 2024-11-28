@@ -23,18 +23,6 @@ class VerifyEmailController extends Controller
         }
 
         if ($user->markEmailAsVerified()) {
-            event(new Verified($user));
-
-            $user->is_verified = true;
-            $user->save();
-
-            $profile = Profile::create([
-                'user_id' => $user->id,
-                'first_name' => $user->username,
-            ]);
-
-
-
             notyf()->ripple(false)->success('Cuenta verificada con exito!');
         }
 
