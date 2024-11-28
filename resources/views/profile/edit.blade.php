@@ -41,7 +41,7 @@
             <input type="text" name="profile[facebook]" id="facebook" value="{{ old('profile.facebook', $profile->facebook) }}">
 
         </div>
-        <input type="submit" value="Editar Perfil" class="button blue-button">
+        <input type="submit" value="Actualizar Perfil" class="button blue-button">
     </form>
 </main>
 

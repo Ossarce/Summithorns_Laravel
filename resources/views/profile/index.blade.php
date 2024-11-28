@@ -8,7 +8,7 @@
             <img class="profile-pic"
             src="{{ $user->profile->avatar
                   ? Storage::disk('s3')->url('summithorns/summithorns/images/profiles/avatars/' . $user->profile->avatar)
-                  : Storage::disk('s3')->url('images/base/avatar-default.png') }}"
+                  : asset('images/base/avatar-default.png') }}"
             alt="Avatar de {{ $user->username }}">
             <div class="profile-content  socials-container">
                 @if ($user->profile->instagram)
