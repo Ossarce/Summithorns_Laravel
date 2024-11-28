@@ -11,7 +11,7 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'id',
         'first_name',
         'last_name',
         'avatar',
@@ -48,6 +48,6 @@ class Profile extends Model
     // *** Relationships ***
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id');
     }
 }
