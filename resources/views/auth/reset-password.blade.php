@@ -3,7 +3,7 @@
 @section('content')
 
 <main class="contenedor seccion contenido-centrado">
-    <h1 class="section-title">Reset Your password</h1>
+    <h1 class="section-title">Reseta tu contraseña</h1>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
