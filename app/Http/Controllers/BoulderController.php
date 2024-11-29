@@ -64,7 +64,7 @@ class BoulderController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
 
-            $boulder->setImage($imageName);
+            $boulder->image = $imageName;
         }
 
         $boulder->zone_id = $zone->id;
@@ -115,6 +115,9 @@ class BoulderController extends Controller
         ]);
 
         if($request->hasFile('boulder.image')) {
+            if($boulder->image) {
+                Storage::disk('s3')->delete('images/spots/zones/boulders/' . $boulder->image);
+            }
             $image = $request->file('boulder.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
 
@@ -122,7 +125,7 @@ class BoulderController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/zones/boulders/' . $imageName, (string) $img->encode());
 
-            $boulder->setImage($imageName);
+            $boulder->image = $imageName;
         }
 
         $boulder->zone_id = $zone->id;

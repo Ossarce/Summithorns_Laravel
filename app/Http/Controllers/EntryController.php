@@ -64,7 +64,7 @@ class EntryController extends Controller
         $entry->user_id = Auth::id();
         $entry->title = $request->input('entry.title');
         $entry->category_id = $request->input('entry.category_id');
-        $entry->setImage($imageName);
+        $entry->image = $imageName;
         $entry->description = $request->input('entry.description');
 
 
@@ -114,7 +114,9 @@ class EntryController extends Controller
         $entry = Entry::findOrFail($id);
 
         if($request->file('entry.image')) {
-            $entry->deleteImage();
+            if($entry->image) {
+                Storage::disk('s3')->delete('/images/blog/' . $entry->image);
+            }
 
             $image = $request->file('entry.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
@@ -123,7 +125,7 @@ class EntryController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/blog/' . $imageName, (string) $img->encode());
 
-            $entry->setImage($imageName);
+            $entry->image = $imageName;
         };
 
         $entry->title = $request->input('entry.title');

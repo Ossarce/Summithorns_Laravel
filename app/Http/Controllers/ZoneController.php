@@ -51,7 +51,7 @@ class ZoneController extends Controller
         $zone = new Zone();
         $zone->spot_id = $spot->id;
         $zone->name = $request->input('zone.name');
-        $zone->setImage($imageName);
+        $zone->image = $imageName;
         $zone->details = $request->input('zone.details');
 
         // dd($zone);
@@ -77,7 +77,9 @@ class ZoneController extends Controller
         ]);
 
         if($request->hasFile('zone.image')) {
-            $zone->deleteImage();
+            if($zone->image) {
+                Storage::disk('s3')->delete('images/spots/zones/' . $zone->image);
+            }
 
             $image = $request->file('zone.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
@@ -86,7 +88,7 @@ class ZoneController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/zones/' . $imageName, (string) $img->encode());
 
-            $zone->setImage($imageName);
+            $zone->image = $imageName;
         }
 
         $zone->name = $request->input('zone.name');

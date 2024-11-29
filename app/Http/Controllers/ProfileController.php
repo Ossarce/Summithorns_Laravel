@@ -54,6 +54,10 @@ class ProfileController extends Controller
         $profile = $user->profile;
 
         if($request->hasFile('profile.avatar')) {
+            if($profile->avatar) {
+                Storage::disk('s3')->delete('images/profiles/avatars/' . $profile->avatar);
+            }
+
             $image = $request->file('profile.avatar');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
 
@@ -61,7 +65,7 @@ class ProfileController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/profiles/avatars/' . $imageName, (string) $img->encode());
 
-            $profile->setImage($imageName);
+            $profile->avatar = $imageName;
         }
 
         $profile->first_name = $request->input('profile.first_name');

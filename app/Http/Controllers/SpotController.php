@@ -70,7 +70,7 @@ class SpotController extends Controller
         $spot->user_id = Auth::id();
         $spot->name = $request->input('spot.name');
         $spot->climbing_type_id = $request->input('spot.climbing_type_id');
-        $spot->setImage($imageName);
+        $spot->image = $imageName;
         $spot->bus = $request->has('spot.bus') ? 1 : 0;
         $spot->car = $request->has('spot.car') ? 1 : 0;
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
@@ -122,7 +122,9 @@ class SpotController extends Controller
         $spot = Spot::findOrFail($id);
 
         if($request->hasFile('spot.image')) {
-            $spot->deleteImage();
+            if($spot->image) {
+                Storage::disk('s3')->delete('images/spots/' . $spot->image);
+            }
 
             $image = $request->file('spot.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
@@ -131,7 +133,7 @@ class SpotController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/' . $imageName, (string) $img->encode());
 
-            $spot->setImage($imageName);
+            $spot->image = $imageName;
         }
 
         $spot->name = $request->input('spot.name');

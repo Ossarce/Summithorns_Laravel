@@ -64,7 +64,7 @@ class ClimbingRouteController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
 
-            $climbingRoute->setImage($imageName);
+            $climbingRoute->image = $imageName;
         }
 
         $climbingRoute->zone_id = $zone->id;
@@ -116,6 +116,10 @@ class ClimbingRouteController extends Controller
         ]);
 
         if($request->hasFile('route.image')) {
+            if($climbingRoute->image) {
+                Storage::disk('s3')->delete('images/spots/zones/routes/' . $climbingRoute->image);
+            }
+
             $image = $request->file('route.image');
             $imageName = md5(uniqid(rand(), true)) . '.jpg';
 
@@ -123,7 +127,7 @@ class ClimbingRouteController extends Controller
             $img->cover(800,600);
             Storage::disk('s3')->put('images/spots/zones/routes/' . $imageName, (string) $img->encode());
 
-            $climbingRoute->setImage($imageName);
+            $climbingRoute->image = $imageName;
         }
 
         $climbingRoute->zone_id = $zone->id;
