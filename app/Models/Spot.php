@@ -12,38 +12,6 @@ class Spot extends Model
 
     protected $fillable = ['user_id', 'name','climbing_type_id' , 'image', 'bus', 'car', 'bike', 'description'];
 
-    // *** Helper Methods ***
-
-    // La validación está comentada por el momento de llegar a utilizar APIs o similares se puede desconmentar
-    // public static function validate($data) {
-    //     return validator($data, [
-    //         'name' => 'required|string|max:255',
-    //         'image' => 'required|string|',
-    //         'description' => 'required|string|min:50'
-    //     ])->validate();
-    // }
-
-    public function setImage($image)
-    {
-        if($this->image) {
-            $this->deleteImage();
-        }
-        $this->image = $image;
-    }
-
-    public function deleteImage()
-    {
-        if($this->image && Storage::disk('s3')->exists('images/spots/' . $this->image)) {
-            Storage::disk('s3')->delete('images/spots/' . $this->image);
-        }
-    }
-
-    public function delete()
-    {
-        $this->deleteImage();
-        return parent::delete();
-    }
-
     // *** Relationships ***
     public function user() {
         return $this->belongsTo(User::class);

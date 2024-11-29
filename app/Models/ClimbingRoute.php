@@ -21,24 +21,6 @@ class ClimbingRoute extends Model
         return $this->setter ? $this->setter->username : 'Desconocido';
     }
 
-    public function setImage($image) {
-        if($this->image) {
-            $this->deleteImage();
-        }
-        $this->image = $image;
-    }
-
-    public function deleteImage() {
-        if($this->image && Storage::disk('s3')->exists('images/spots/zones/routes/' . $this->image)) {
-            Storage::disk('s3')->delete('images/spots/zones/routes/' . $this->image);
-        }
-    }
-
-    public function delete() {
-        $this->deleteImage();
-        return parent::delete();
-    }
-
     // *** Relationships ***
     public function zone() {
         return $this->belongsTo(Zone::class);

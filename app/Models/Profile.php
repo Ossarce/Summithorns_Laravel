@@ -24,27 +24,6 @@ class Profile extends Model
         'x',
     ];
 
-    // *** Helper Methods ***
-
-    public function setImage($image) {
-        if($this->avatar) {
-            $this->deleteImage();
-        }
-        $this->avatar = $image;
-    }
-
-    public function deleteImage() {
-        if($this->image && Storage::disk('s3')->exists('/images/profiles/avatars/' . $this->image)) {
-            Storage::disk('s3')->delete('/images/profiles/avatars/' . $this->image);
-        }
-    }
-
-    public function delete()
-    {
-        $this->deleteImage();
-        return parent::delete();
-    }
-
     // *** Relationships ***
 
     public function user() {

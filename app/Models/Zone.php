@@ -12,26 +12,6 @@ class Zone extends Model
 
     protected $fillable = ['spot_id', 'name', 'image', 'details'];
 
-    // *** Helper Methods ***
-
-    public function setImage($image) {
-        if($this->image) {
-            $this->deleteImage();
-        }
-        $this->image = $image;
-    }
-
-    public function deleteImage() {
-        if($this->image && Storage::disk('s3')->exists('images/spots/zones/' . $this->image)) {
-            Storage::disk('s3')->delete('images/spots/zones/' . $this->image);
-        }
-    }
-
-    public function delete() {
-        $this->deleteImage();
-        return parent::delete();
-    }
-
     // *** Relationships ***
 
     public function spot() {
