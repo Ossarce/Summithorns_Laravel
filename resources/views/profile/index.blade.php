@@ -24,7 +24,7 @@
                 @endif
             </div>
             <div class="profile-column fav-border">
-                <h4>Favorite Spots</h4>
+                <h4>Spots Favoritos</h4>
                 <ul>
                     @foreach ($user->favorites as $favorite)
                         @if ($favorite->spot)
@@ -43,13 +43,13 @@
             <div class="socials-container">
                 <div class="profile-content">
                     <a href="#">
-                        <p>Followers</p>
+                        <p>Seguidores</p>
                         <p>10</p>
                     </a>
                 </div>
                 <div class="profile-content">
                     <a href="#">
-                        <p>Following</p>
+                        <p>Seguidos</p>
                         <p>10</p>
                     </a>
                 </div>
@@ -58,7 +58,7 @@
                 <p>{{ $user->profile->bio ? $user->profile->bio  : 'No hay bio aún! Personalízala con tu historia de escalada o déjala en blanco. Hazla única!'}}</p>
             </div>
             <div class="profile-column">
-            <h4>Achievements</h4>
+            <h4>Logros</h4>
             <ul>
                 <li>Escaló a vista Solo Para Cobardes (5.11a)</li> <!-- On sighted = Escalado a vista -->
                 <li>Flasheó Demetrio (V4)</li> <!-- Flashed = Flasheado -->
