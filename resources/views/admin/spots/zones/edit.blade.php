@@ -14,7 +14,7 @@
         <label for="zone-image">Imagen de la Zona</label>
         <input id="zone-image" type="file" name="zone[image]">
         @if ($zone->image)
-            <img src="{{ Storage::disk('s3')->url('images/spots/zones/' . $zone->image)}}" alt="Imagen Zona {{$zone->name}}">
+            <img loading="lazy" src="{{ Storage::disk('s3')->url('summithorns/summithorns/images/spots/zones/' . $zone->image) }}" alt="{{ $zone->image }} Imagen">
         @endif
 
         <label for="zone_details">Detalles</label>
