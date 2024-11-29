@@ -3,20 +3,23 @@
 
 @include m.tablet {
     .us-icons {
-        @include m.grid(3,2);
+        @include m.grid(2,2);
     }
 }
 .icon {
     text-align: center;
+    line-height: 3.5rem;
     img {
         height: 10rem;
     }
     h3 {
         text-transform: uppercase;
         color: v.$negro;
+        margin: .5rem auto;
     }
     p {
         text-align: center;
         padding: .5rem;
+        margin: .5rem auto;
     }
 }

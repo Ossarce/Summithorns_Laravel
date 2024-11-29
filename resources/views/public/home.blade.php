@@ -5,19 +5,23 @@
     <h1>Summit Horns</h1>
     <div class="us-icons">
         <div class="icon">
-            <img src="{{ asset('images/base/iconcompass.svg') }}" alt="compass icon" loading="lazy">
-            <h3>Ubicaciones</h3>
-            <p>Encuentra los mejores spots de escalada para todos los niveles.</p>
+            <a href="{{ route('public.spots') }}">
+                <img src="{{ asset('images/base/iconcompass.svg') }}" alt="compass icon" loading="lazy">
+                <h3>Ubicaciones</h3>
+                <p>Encuentra los mejores spots de escalada para todos los niveles.</p>
+            </a>
         </div>
-        <div class="icon">
+        {{-- <div class="icon">
             <img src="{{ asset('images/base/iconcarabiner.svg') }}" alt="carabiner icon" loading="lazy">
             <h3>Reseña de Equipos</h3>
             <p>Reseñas para mantenerte seguro, preparado e informado.</p>
-        </div>
+        </div> --}}
         <div class="icon">
-            <img src="{{ asset('images/base/icontent.svg') }}" alt="tent icon" loading="lazy">
-            <h3>Consejos Varios</h3>
-            <p>Consejos útiles para mejorar tu escalada y cuidar el entorno.</p>
+            <a href="{{ route('public.blog') }}">
+                <img src="{{ asset('images/base/icontent.svg') }}" alt="tent icon" loading="lazy">
+                <h3>Consejos Varios</h3>
+                <p>Consejos útiles para mejorar tu escalada y cuidar el entorno.</p>
+            </a>
         </div>
     </div>
 </main>
