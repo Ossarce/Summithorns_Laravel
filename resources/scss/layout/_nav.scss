@@ -49,6 +49,10 @@
 }
 
 .mobile-menu {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+    margin: .2rem 0;
     @include m.tablet {
         display: none;
     }
@@ -59,6 +63,19 @@
     i {
         color: v.$blanco;
         font-size: 4.5rem;
+    }
+    .auth-menu {
+        i {
+            font-size: 4rem;
+            margin-top: .2rem;
+        }
+        p {
+            color: v.$blanco;
+            font-size: 1rem;
+            margin: 0;
+            text-align: center;
+            line-height: .2rem;
+        }
     }
     .hide-menu {
         display: none;

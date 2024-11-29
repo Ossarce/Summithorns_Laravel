@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function eventListeners() {
-    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenu = document.querySelector('.hamburguer-menu');
 
     const sidebar = document.querySelector('.sidebar');
     const sidebarBtn = document.querySelector('.sidebar-menu');

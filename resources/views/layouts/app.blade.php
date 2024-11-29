@@ -36,8 +36,19 @@
                         <img class="logo-header" src="{{ asset('images/base/logo.svg')}}" alt="Logo Summit Horns">
                     </a>
                     <div class="mobile-menu">
-                        <i class='bx bx-menu hamburger'></i>
-                        {{-- <i class='bx bx-x close-hamburger hide-menu'></i> --}}
+                        <div class="hamburguer-menu">
+                            <i class='bx bx-menu hamburger'></i>
+                        </div>
+                        <div class="auth-menu">
+                            @auth
+                                <a href="{{ route('profile.index', ['id' => auth()->user()->id]) }}">
+                                    <i class='bx bxs-user'></i>
+                                    <p>{{ auth()->user()->username }}</p>
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}"><i class='bx bx-user'></i></a>
+                            @endauth
+                        </div>
                     </div>
                     <nav class="nav-bar">
                         <a href="{{ route('public.spots') }}">Spots</a>
