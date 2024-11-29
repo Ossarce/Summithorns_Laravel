@@ -23,6 +23,9 @@ class VerifyEmailController extends Controller
         }
 
         if ($user->markEmailAsVerified()) {
+            $user->update([
+                'is_verified' => 1
+            ]);
             notyf()->ripple(false)->success('Cuenta verificada con exito!');
         }
 
