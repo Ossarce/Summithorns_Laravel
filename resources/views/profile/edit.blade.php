@@ -15,9 +15,9 @@
             <label for="last_name">Segundo Nombre</label>
             <input type="text" id="last_name" name="profile[last_name]" value="{{ old('profile.last_name', $profile->last_name) }}">
 
-            <label for="avatar">Avatar</label>
-            <input type="file" name="profile[avatar]" id="avatar" >
             <img src="{{ $profile->avatar ? Storage::disk('s3')->url('summithorns/summithorns/images/profiles/avatars/' . $user->profile->avatar) : Storage::disk('s3')->url('images/base/avatar-default.png') }}" alt="Avatar de {{ $user->username }}" class="avatar-edit">
+            <label for="avatar">Imagen de perfil</label>
+            <input type="file" name="profile[avatar]" id="avatar" >
 
             <div class="edit-container">
                 <label for="private">Perfil Privado?</label>
@@ -28,7 +28,7 @@
             <label for="location">Ubicación</label>
             <input type="text" id="location" name="profile[location]" value="{{ old('profile.location', $profile->location) }}">
 
-            <label for="bio">Bio</label>
+            <label for="bio">Acerca de ti</label>
             <textarea name="profile[bio]" id="bio" cols="30" rows="10">{{ old('profile.bio', $profile->bio) }}</textarea>
 
             <label for="website">Sitio Web</label>
