@@ -26,10 +26,16 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
     public function edit(string $id) {
+        $authUser = Auth::user();
         $user = User::with('profile')->findOrFail($id);
 
-        $profile = $user->profile;
+        if($authUser->id !== $user->id) {
+            notyf()->ripple(false)->error('No tienes permisos para editar este perfil');
 
+            return redirect()->route('public.home');
+        }
+
+        $profile = $user->profile;
         return view('profile.edit', compact('user', 'profile'));
     }
 
