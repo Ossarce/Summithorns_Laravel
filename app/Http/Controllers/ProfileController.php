@@ -30,7 +30,7 @@ class ProfileController extends Controller
         $user = User::with('profile')->findOrFail($id);
 
         if($authUser->id !== $user->id) {
-            notyf()->ripple(false)->error('No tienes permisos para editar este perfil');
+            notyf()->ripple(false)->error('No tienes permisos para visitar esta ruta');
 
             return redirect()->route('public.home');
         }
