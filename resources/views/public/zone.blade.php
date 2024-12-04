@@ -10,7 +10,7 @@
     </picture>
 
     <div class="zone-info">
-        @if ($zone->details)
+        @if ($zone->details !== '<p><br></p>')
             <p>{{ $zone->details }}</p>
         @endif
 
