@@ -23,7 +23,7 @@ class PublicPageController extends Controller
     public function home() {
         $spots = Spot::take(3)->latest()->get();
         foreach($spots as $spot) {
-            $spot->short_description = Str::limit($spot->description, 100, '...');
+            $spot->short_description = Str::limit($spot->description, 150, '...');
         }
 
         $userId = Auth::id();
@@ -90,7 +90,7 @@ class PublicPageController extends Controller
         $entries = Entry::with(['user', 'entryCategory'])->latest()->paginate(2);
         // $entries = Entry::latest()->get();
         foreach($entries as $entry) {
-            $entry->short_description = Str::limit($entry->description, 200, '...');
+            $entry->short_description = Str::limit($entry->description, 150, '...');
         }
 
         return view('public.blog', compact('entries'));
