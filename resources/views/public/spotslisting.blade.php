@@ -18,7 +18,9 @@
                     <p> Boulders: {{ $spot->countBoulders() }}</p>
                 @endif
             </div>
-            {!! $spot->short_description !!}
+            <div class="short-description">
+                {!! $spot->short_description !!}
+            </div>
             <ul class="guide-icons">
                 @if($spot->bus == '1')
                     <li>

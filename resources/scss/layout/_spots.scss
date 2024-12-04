@@ -104,8 +104,15 @@
 
 .spot-info {
     p {
-        padding: 2rem;
+        padding: 0 2rem;
         margin: .5rem;
+    }
+
+    a {
+        color: v.$negro;
+        font-weight: v.$bold;
+        text-decoration: underline;
+        font-style: italic;
     }
 
     .spot-data {

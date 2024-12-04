@@ -23,7 +23,7 @@ class PublicPageController extends Controller
     public function home() {
         $spots = Spot::take(3)->latest()->get();
         foreach($spots as $spot) {
-            $spot->short_description = Str::limit($spot->description, 200, '...');
+            $spot->short_description = Str::limit($spot->description, 100, '...');
         }
 
         $userId = Auth::id();
