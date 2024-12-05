@@ -11,7 +11,7 @@
 
     <div class="zone-info">
         @if ($zone->details !== '<p><br></p>')
-            {{ $zone->details }}
+            {!! $zone->details !!}
         @endif
         <div class="climbing-info">
             <div class="table-container">
