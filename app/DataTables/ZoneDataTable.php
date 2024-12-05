@@ -30,10 +30,9 @@ class ZoneDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function (Zone $zone) {
-                $viewZoneBtn = "<a href='".route('public.zone', ['spot' => $zone->spot_id, 'zone' => $zone->id])."' class='dt-action-link' >Ver</a>";
-
-                return $viewZoneBtn;
+            ->addColumn('name', function(Zone $zone) {
+                $zoneLink = "<a href='".route('public.zone', ['spot' => $zone->spot_id, 'zone' => $zone->id])."' class='dt-action-link'>".$zone->name."</a>";
+                return $zoneLink;
             })
             ->filterColumn('climbing_routes_count', function($query, $keyword) {
                 $query->whereRaw('(SELECT COUNT(*) FROM climbing_routes WHERE climbing_routes.zone_id = zones.id) LIKE ?', ["%{$keyword}%"]);
@@ -41,6 +40,7 @@ class ZoneDataTable extends DataTable
             ->filterColumn('boulders_count', function($query, $keyword) {
                 $query->whereRaw('(SELECT COUNT(*) FROM boulders WHERE boulders.zone_id = zones.id) LIKE ?', ["%{$keyword}%"]);
             })
+            ->rawColumns(['name'])
             ->setRowId('id');
     }
 
@@ -104,7 +104,7 @@ class ZoneDataTable extends DataTable
     public function getColumns(): array
     {
         $columns = [
-            Column::make('name')->addClass('text-center')->title('Zona'),
+            Column::make('name')->addClass('text-center')->title('Zona')->addClass('text-center'),
         ];
 
         $spot = Spot::find($this->spotId);
@@ -116,13 +116,6 @@ class ZoneDataTable extends DataTable
         if($climbingType === 'Boulder') {
             $columns[] = Column::make('boulders_count')->addClass('text-center')->title('Boulders')->orderSequence(['asc', 'desc']);
         }
-
-        $columns[] = Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center')
-                ->title('');
 
         return $columns;
     }
