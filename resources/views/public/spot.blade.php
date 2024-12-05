@@ -42,8 +42,11 @@
                 <p> Boulders: {{ $totalBoulders }}</p>
             @endif
         </div>
-        {!! $spot->description !!}
+        <div class="spot-description">
+            {!! $spot->description !!}
+        </div>
         <div class="table-container">
+            <h2>Listado de Zonas</h2>
             {{ $dataTable->table() }}
         </div>
     </div>

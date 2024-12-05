@@ -7,6 +7,10 @@
     padding: 2rem;
     background-color: v.$gris;
     overflow-x: auto;
+    h2 {
+        margin: 0;
+        font-weight: v.$regular;
+    }
 }
 
 #zones-table,
@@ -40,6 +44,17 @@
         color: v.$dnegro;
         padding: 1rem 1.5rem;
         text-align: left;
+    }
+}
+
+#zones-table {
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 25% !important;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 25% !important;
     }
 }
 
