@@ -139,7 +139,7 @@ function toggleSpotLikeButton(Button) {
         });
         notyf.open({
             type: 'warning',
-            message: 'Inicia Sesión Para Acceder a Esta Función',
+            message: 'Inicia sesión para acceder a esta función',
             background: '#f59e0b',
         });
 
