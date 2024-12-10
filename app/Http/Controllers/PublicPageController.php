@@ -59,8 +59,9 @@ class PublicPageController extends Controller
     }
 
     public function spot(string $id) {
-        $spot = Spot::with('zones', 'climbingType')->findOrFail($id);
+        $spot = Spot::with('zones', 'climbingType', 'comments.user')->findOrFail($id);
         $zones = Zone::find($spot->id);
+        $comments = $spot->comments()->with('user.profile')->get();
 
         $totalRoutes = $spot->zones->sum(fn($zone) => $zone->climbingRoutes()->count());
         $totalBoulders = $spot->zones->sum(fn($zone) => $zone->boulders()->count());
@@ -70,7 +71,7 @@ class PublicPageController extends Controller
 
         $dataTable = new ZoneDataTable($spot->id);
 
-        return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones', 'totalRoutes', 'totalBoulders'));
+        return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones', 'totalRoutes', 'totalBoulders', 'comments'));
         // return view('public.spot', compact('spot', 'isFavorite', 'zones'));
     }
 
