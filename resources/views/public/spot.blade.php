@@ -49,7 +49,37 @@
             <h2>Listado de Zonas</h2>
             {{ $dataTable->table() }}
         </div>
+        <div class="comments-container">
+            <h3>Comentarios</h3>
+            @foreach ($comments as $comment)
+                <div class="comment">
+                    <img src="{{ $comment->user->profile->avatar ? Storage::disk('s3')->url('summithorns/summithorns/images/profiles/avatars/' . $comment->user->profile->avatar) : asset('images/base/avatar-default.png') }}" alt="Avatar de {{ $comment->user->username }}">
+                    <div class="comment-content">
+                        <div class="comment-title">
+                            <a href="{{ route('profile.index', $comment->user->id) }}"><h4>{{ $comment->user->username }}</h4></a>
+                            <p>{{ $comment->created_at->format('d/m/Y') }}</p>
+                        </div>
+                        <p>{{ $comment->comment }}</p>
+                    </div>
+                </div>
+            @endforeach
+            <div class="leave-comment">
+                <h4 for="comment">Deja un comentario</h4>
+                @if (Auth::check())
+                    <form action="{{ route('comment.spot', $spot) }}" method="POST" class="form beauty form">
+                        @csrf
+                        <textarea name="comment[content]" id="comment" rows="3" cols="6"></textarea>
+                        <button type="submit" class="button yellow-button">Comentar</button>
+                    </form>
+                @else
+                    <div class="auth-container">
+                        <p><a href="{{ route('login') }}">Inicia Sesión</a> o <a href="{{ route('register') }}">Regístrate</a> para comentar.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
+
 
     <div class="alinear-derecha spot-button">
         <a href="{{route('public.spots')}}" class="blue-button">Ver todos los spots</a>
