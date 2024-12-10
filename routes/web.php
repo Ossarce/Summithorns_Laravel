@@ -4,6 +4,7 @@ use App\Http\Controllers\BoulderController;
 use App\Http\Controllers\BoulderGradeController;
 use App\Http\Controllers\ClimbingRouteController;
 use App\Http\Controllers\ClimbingTypeController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EntryCategoryController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\LikeController;
@@ -26,6 +27,13 @@ Route::post('contact', [PublicPageController::class, 'submit'])->name('public.su
 Route::get('spots', [PublicPageController::class, 'spots'])->name('public.spots');
 Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
 Route::get('spots/{spot}/zone/{zone}', [PublicPageController::class, 'zone'])->name('public.zone');
+
+// Rutas Comentarios
+Route::middleware('auth')->group(function () {
+    Route::post('entry/{entryId}/comments', [CommentController::class, 'storeEntryComment'])->name('comment.entry');
+    Route::post('spots/{spotId}/comments', [CommentController::class, 'storeSpotComment'])->name('comment.spot');
+    Route::post('spots/{spotId}/zone/{zoneId}/comments', [CommentController::class, 'storeZoneComment'])->name('comment.zone');
+});
 
 // Rutas AJAX
 Route::post('/spots/{id}/like', [LikeController::class, 'toggleLikeSpot'])->name('spots.like');
