@@ -25,4 +25,8 @@ class Zone extends Model
     public function climbingRoutes() {
         return $this->hasMany(ClimbingRoute::class);
     }
+
+    public function comments() {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

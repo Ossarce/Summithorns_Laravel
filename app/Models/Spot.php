@@ -12,6 +12,20 @@ class Spot extends Model
 
     protected $fillable = ['user_id', 'name','climbing_type_id' , 'image', 'bus', 'car', 'bike', 'description'];
 
+    public function countRoutes()
+    {
+        return $this->climbingType->name === 'Deportiva'
+            ? $this->zones->sum(fn($zone) => $zone->climbingRoutes->count())
+            : 0;
+    }
+
+    public function countBoulders()
+    {
+        return $this->climbingType->name === 'Boulder'
+            ? $this->zones->sum(fn($zone) => $zone->boulders->count())
+            : 0;
+    }
+
     // *** Relationships ***
     public function user() {
         return $this->belongsTo(User::class);
@@ -30,17 +44,7 @@ class Spot extends Model
         return $this->hasMany(Favorite::class);
     }
 
-    public function countRoutes()
-    {
-        return $this->climbingType->name === 'Deportiva'
-            ? $this->zones->sum(fn($zone) => $zone->climbingRoutes->count())
-            : 0;
-    }
-
-    public function countBoulders()
-    {
-        return $this->climbingType->name === 'Boulder'
-            ? $this->zones->sum(fn($zone) => $zone->boulders->count())
-            : 0;
+    public function comments() {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }
