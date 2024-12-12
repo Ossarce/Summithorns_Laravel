@@ -73,7 +73,7 @@
                     </form>
                 @else
                     <div class="auth-container">
-                        <p><a href="{{ route('login') }}">Inicia Sesión</a> o <a href="{{ route('register') }}">Regístrate</a> para comentar.</p>
+                        <p><a href="{{ route('login') }}?redirect={{ urlencode(url()->full()) }}">Inicia Sesión</a> para comentar.</p>
                     </div>
                 @endif
             </div>

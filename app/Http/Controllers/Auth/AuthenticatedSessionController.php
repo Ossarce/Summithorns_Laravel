@@ -22,14 +22,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    // public function store(LoginRequest $request): RedirectResponse
+    // {
+    //     $request->authenticate();
+
+    //     $request->session()->regenerate();
+
+    //     notyf("Que bueno verte por acá {$request->user()->username}!");
+    //     return redirect()->intended(route('public.home'));
+    // }
+
+    public function store(LoginRequest $request)
     {
+        $previous_url = $request->session()->pull('previous_url', '/');
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        notyf("Que bueno verte por acá {$request->user()->username}!");
-        return redirect()->intended(route('public.home'));
+        return redirect()->intended($previous_url);
     }
 
     /**

@@ -25,7 +25,7 @@ Route::get('entry/{id}', [PublicPageController::class, 'entry'])->name('public.e
 Route::get('contact', [PublicPageController::class, 'contact'])->name('public.contact');
 Route::post('contact', [PublicPageController::class, 'submit'])->name('public.submit');
 Route::get('spots', [PublicPageController::class, 'spots'])->name('public.spots');
-Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot');
+Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.spot')->middleware('previousUrl');
 Route::get('spots/{spot}/zone/{zone}', [PublicPageController::class, 'zone'])->name('public.zone');
 
 // Rutas Comentarios
