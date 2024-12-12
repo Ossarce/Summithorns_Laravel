@@ -72,7 +72,6 @@ class PublicPageController extends Controller
         $dataTable = new ZoneDataTable($spot->id);
 
         return $dataTable->render('public.spot', compact('spot', 'isFavorite', 'zones', 'totalRoutes', 'totalBoulders', 'comments'));
-        // return view('public.spot', compact('spot', 'isFavorite', 'zones'));
     }
 
     public function zone(Spot $spot, Zone $zone) {
