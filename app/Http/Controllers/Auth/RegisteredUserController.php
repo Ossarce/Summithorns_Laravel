@@ -32,29 +32,29 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse {
-    $request->validate([
-        'username' => ['required', 'string', 'max:255', 'unique:users'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
-
-    DB::transaction(function () use ($request) {
-        $user = User::create([
-            'username' => $request->username,
-            'email' => strtolower($request->email),
-            'password' => Hash::make($request->password),
+        $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        Profile::create([
-            'id' => $user->id,
-            'first_name' => $user->username,
-        ]);
+        DB::transaction(function () use ($request) {
+            $user = User::create([
+                'username' => $request->username,
+                'email' => strtolower($request->email),
+                'password' => Hash::make($request->password),
+            ]);
 
-        SendMail::dispatch(new VerifyEmail($user), $user->email);
-        event(new Registered($user));
-        Auth::login($user);
-    });
+            Profile::create([
+                'id' => $user->id,
+                'first_name' => $user->username,
+            ]);
 
-    return redirect()->route('verification.notice');
-}
+            SendMail::dispatch(new VerifyEmail($user), $user->email);
+            event(new Registered($user));
+            Auth::login($user);
+        });
+
+        return redirect()->route('verification.notice');
+    }
 }
