@@ -61,7 +61,9 @@ class PublicPageController extends Controller
     public function spot(string $id) {
         $spot = Spot::with('zones', 'climbingType', 'comments.user')->findOrFail($id);
         $zones = Zone::find($spot->id);
-        $comments = $spot->comments()->with('user.profile')->get();
+
+        $comments = $spot->comments()->whereNull('parent_id')->with(['user.profile', 'replies.user.profile'])->get();
+        // dd($comments->toArray());
 
         $totalRoutes = $spot->zones->sum(fn($zone) => $zone->climbingRoutes()->count());
         $totalBoulders = $spot->zones->sum(fn($zone) => $zone->boulders()->count());
