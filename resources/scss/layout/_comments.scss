@@ -42,6 +42,25 @@
         }
     }
 }
+
+.reply-form {
+    padding: 1rem;
+    h4 {
+        margin: .5rem auto;
+    }
+    textarea {
+        width: 100%;
+        border: .1rem solid v.$tnegro;
+        padding: 1rem;
+        border-radius: .5rem;
+    }
+    .auth-container {
+        a {
+            color: v.$blue;
+        }
+    }
+}
+
 .comment {
     .comment-content {
         .comment-title {
@@ -66,8 +85,88 @@
         }
 
         p {
-            padding: 1rem 2rem;
+            padding: 1rem 2rem .5rem 2rem;
             line-height: 1.7rem;
         }
+    }
+}
+
+.comment {
+    .comment-content {
+        .comment-actions {
+            display: flex;
+            p {
+                font-size: 1.5rem;
+                padding: 0 0 1rem 2rem;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.comment {
+    .comment-content {
+        .comment-actions-content {
+            .reply-form,
+            .reply-container {
+                display: none;
+                &.show {
+                    display: flex;
+                }
+            }
+        }
+    }
+}
+
+.reply-container {
+    display: flex;
+    flex-direction: column;
+    .reply {
+        display: flex;
+        border-bottom: .1rem solid v.$negro;
+        margin-top: 1rem;
+
+        &:first-child {
+            padding-top: 1rem;
+            margin-top: .5rem;
+            border-top: .1rem solid v.$negro;
+        }
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.reply-container {
+    .comment-content {
+        .reply-comment-title {
+            display: flex;
+            flex-direction: column-reverse;
+            line-height: 1.5rem;
+            h5 {
+                margin: 0 auto 0 1rem;
+                font-size: 2rem;
+                text-decoration: underline;
+                color: v.$negro;
+            }
+            p {
+                font-size: 1.3rem;
+                font-weight: v.$delgada;
+                font-style: italic;
+                padding: 0;
+                margin: 0 auto 0 1rem;
+            }
+        }
+        p {
+            font-size: 1.9rem;
+        }
+    }
+}
+
+.edit-delete-comment {
+    p {
+        text-align: end;
+        margin: 0;
     }
 }
