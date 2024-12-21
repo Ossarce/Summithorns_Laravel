@@ -76,6 +76,24 @@ function eventListeners() {
             .catch(error => console.error('Error:', error));
         });
     }
+
+    const replyButtons = document.querySelectorAll('.reply-btn');
+    replyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const commentId = button.getAttribute('data-comment-id');
+            const replyForm = document.querySelector(`.reply-form[data-reply-form-id="${commentId}"]`);
+            replyForm.classList.toggle('show');
+        });
+    })
+
+    const showRepliesButtons = document.querySelectorAll('.show-replies');
+    showRepliesButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const commentId = button.getAttribute('data-comment-id');
+            const repliesContainer = document.querySelector(`.reply-container[data-replies-container-id="${commentId}"]`);
+            repliesContainer.classList.toggle('show');
+        });
+    })
 }
 
 function responsiveNav() {
