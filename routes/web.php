@@ -29,10 +29,15 @@ Route::get('spots/{id}', [PublicPageController::class, 'spot'])->name('public.sp
 Route::get('spots/{spot}/zone/{zone}', [PublicPageController::class, 'zone'])->name('public.zone');
 
 // Rutas Comentarios
-Route::middleware('auth')->group(function () {
-    Route::post('entry/{entryId}/comments', [CommentController::class, 'storeEntryComment'])->name('comment.entry');
-    Route::post('spots/{spotId}/comments', [CommentController::class, 'storeSpotComment'])->name('comment.spot');
-    Route::post('spots/{spotId}/zone/{zoneId}/comments', [CommentController::class, 'storeZoneComment'])->name('comment.zone');
+Route::prefix('comments')->middleware('auth')->group(function () {
+    // Route::post('entry/{entryID}', [CommentController::class, 'storeEntryComment'])->name('comment.store.entry');
+    Route::post('spots/{spotId}', [CommentController::class, 'storeSpotComment'])->name('comment.store.spot');
+    // Route::post('spots/{spotId}/zone/{zoneId}', [CommentController::class, 'storeZoneComment'])->name('comment.store.zone');
+    Route::post('replies/{commentId}', [CommentController::class, 'storeReplyComment'])->name('comment.store.reply');
+
+    // Route::put('{commentId}', [CommentController::class, 'updateComment'])->name('comment.update');
+
+    Route::delete('{commentId}', [CommentController::class, 'deleteComment'])->name('comment.delete');
 });
 
 // Rutas AJAX
