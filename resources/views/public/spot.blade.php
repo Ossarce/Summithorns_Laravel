@@ -60,13 +60,62 @@
                             <p>{{ $comment->created_at->format('d/m/Y') }}</p>
                         </div>
                         <p>{{ $comment->comment }}</p>
+                        <div class="comment-actions">
+                            <p data-comment-id="{{ $comment->id }}" class="reply-btn">Responder</p>
+                            @if ($comment->replies->isNotEmpty())
+                                <p data-comment-id="{{ $comment->id }}" class="show-replies">Respuestas({{ $comment->replies->count() }})<i class='bx bx-chevron-down' ></i></p>
+                            @endif
+                        </div>
+                        @if (Auth::check() && $comment->isOwnedBy(Auth::id()))
+                                <div class="edit-delete-comment">
+                                    {{-- <a href=""><p>Editar</p></a> --}}
+                                    <a class="delete-comment-btn" data-comment-id="{{ $comment->id }}" href="{{ route('comment.delete', $comment->id) }}"><p><i class='bx bx-trash bx-border'></i></p></a>
+                                </div>
+                        @endif
+                        <div class="comment-actions-content">
+                            @if ($comment->replies->isNotEmpty())
+                                <div class="reply-container" data-replies-container-id="{{ $comment->id }}">
+                                    @foreach ($comment->replies as $reply)
+                                        <div class="reply">
+                                            <img src="{{ $reply->user->profile->avatar ? Storage::disk('s3')->url('summithorns/summithorns/images/profiles/avatars/' . $reply->user->profile->avatar) : asset('images/base/avatar-default.png') }}" alt="Avatar de {{ $reply->user->username }}">
+                                            <div class="comment-content">
+                                                <div class="reply-comment-title">
+                                                    <a href="{{ route('profile.index', $reply->user->id) }}"><h5>{{ $reply->user->username }}</h5></a>
+                                                    <p>{{ $reply->created_at->format('d/m/Y') }}</p>
+                                                </div>
+                                                <p>{{ $reply->comment }}</p>
+                                                @if (Auth::check() && $reply->isOwnedBy(Auth::id()))
+                                                    <div class="edit-delete-comment">
+                                                        <a class="delete-reply-btn" data-reply-id="{{ $reply->id }}" href="{{ route('comment.delete', $reply->id) }}"><p><i class='bx bx-trash bx-border'></i></p></a>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <div class="reply-form" data-reply-form-id="{{ $comment->id }}">
+                                @if (Auth::check())
+                                    <form action="{{ route('comment.store.reply', ['commentId' => $comment->id]) }}" method="POST" class="form beauty form">
+                                        @csrf
+                                        <textarea name="comment[content]" id="comment" rows="3" cols="6"></textarea>
+                                        <button type="submit" class="button yellow-button">Responder</button>
+                                    </form>
+                                @else
+                                    <div class="auth-container">
+                                        <p><a href="{{ route('login') }}?redirect={{ urlencode(url()->full()) }}">Inicia Sesión</a> para responder.</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
             <div class="leave-comment">
                 <h4 for="comment">Deja un comentario</h4>
                 @if (Auth::check())
-                    <form action="{{ route('comment.spot', $spot) }}" method="POST" class="form beauty form">
+                    <form action="{{ route('comment.store.spot', $spot) }}" method="POST" class="form beauty form">
                         @csrf
                         <textarea name="comment[content]" id="comment" rows="3" cols="6"></textarea>
                         <button type="submit" class="button yellow-button">Comentar</button>
