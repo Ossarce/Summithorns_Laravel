@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['user_id', 'comment', 'commentable_id', 'commentable_type'];
+    protected $fillable = ['user_id', 'comment', 'commentable_id', 'commentable_type', 'parent_id'];
 
     public function commentable() {
         return $this->morphTo();
@@ -14,5 +14,17 @@ class Comment extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function parent() {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+
+    public function replies() {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function isOwnedBy($userId) {
+        return $this->user_id === $userId;
     }
 }
