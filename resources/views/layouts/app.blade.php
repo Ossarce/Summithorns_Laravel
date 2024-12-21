@@ -27,6 +27,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
         <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         <header class="header sticky {{ request()->is('/') ? 'inicio' : '' }}">
@@ -94,6 +95,99 @@
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
         <script>
             const isLoggedIn = {{ json_encode(Auth::check()) }};
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('body').on('click', '.delete-comment-btn', function(e) {
+                    e.preventDefault();
+                    let commentId = $(this).data('comment-id');
+                    let deleteUrl = $(this).attr('href');
+
+                    Swal.fire({
+                        title: "Estás Seguro?",
+                        text: "No podrás deshacer esta acción.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, borra el comentario",
+                        cancelButtonText: "No, me arrepentí",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: 'DELETE',
+                                url: deleteUrl,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                },
+                                success: function(data) {
+                                    if (data.status === 'success') {
+                                        Swal.fire({
+                                            title: "Comentario Borrado!",
+                                            text: "Comentario borrado con éxito.",
+                                            icon: "success",
+                                        }).then(() => {
+                                            $(`[data-comment-id="${commentId}"]`).closest('.comment').fadeOut();
+                                        });
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    Swal.fire({
+                                        title: "Error",
+                                        text: "Hubo un problema al intentar eliminar el comentario.",
+                                        icon: "error",
+                                    });
+                                },
+                            });
+                        }
+                    });
+                });
+
+                $('body').on('click', '.delete-reply-btn', function(e) {
+                e.preventDefault();
+                let replyId = $(this).data('reply-id');
+                let deleteUrl = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Estás Seguro?",
+                    text: "No podrás deshacer esta acción.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, borra la respuesta",
+                    cancelButtonText: "No, me arrepentí",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: deleteUrl,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function(data) {
+                                if (data.status === 'success') {
+                                    Swal.fire({
+                                        title: "Respuesta Borrada!",
+                                        text: "Respuesta borrada con éxito.",
+                                        icon: "success",
+                                    }).then(() => {
+                                        $(`[data-reply-id="${replyId}"]`).closest('.reply').fadeOut();
+                                    });
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "Hubo un problema al intentar eliminar la respuesta.",
+                                    icon: "error",
+                                });
+                            },
+                        });
+                    }
+                });
+            });
+            })
         </script>
         @vite('resources/js/app.js')
     </body>
