@@ -40,7 +40,7 @@
         <div class="profile-column timeline">
             <h3>{{ $user->profile->first_name . ' ' . $user->profile->last_name }}</h3>
             <p>{{ $user->profile->location }}</p>
-            <div class="socials-container">
+            {{-- <div class="socials-container">
                 <div class="profile-content">
                     <a href="#">
                         <p>Seguidores</p>
@@ -53,7 +53,7 @@
                         <p>10</p>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <div class="profile-content bio">
                 <p>{{ $user->profile->bio ? $user->profile->bio  : 'No hay bio aún! Personalízala con tu historia de escalada o déjala en blanco. Hazla única!'}}</p>
             </div>
