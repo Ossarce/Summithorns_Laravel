@@ -10,7 +10,7 @@ class Spot extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name','climbing_type_id' , 'image', 'bus', 'car', 'bike', 'description'];
+    protected $fillable = ['user_id', 'name','climbing_type_id' , 'image', 'bus', 'car', 'bike', 'description', 'region', 'latitude', 'longitude'];
 
     public function countRoutes()
     {
