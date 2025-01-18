@@ -52,7 +52,7 @@ class SpotController extends Controller
         $request->validate([
             'spot.name' => 'required|string|unique:spots,name',
             'spot.image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-            'spot.description' => 'required|string|min:50'
+            'spot.description' => 'required|string|min:50',
         ]);
 
         if($request->hasFile('spot.image')) {
@@ -75,8 +75,11 @@ class SpotController extends Controller
         $spot->car = $request->has('spot.car') ? 1 : 0;
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
         $spot->description = $request->input('spot.description');
+        $spot->region = $request->input('spot.region');
+        $spot->latitude = $request->input('spot.latitude');
+        $spot->longitude = $request->input('spot.longitude');
 
-        // dd($request->all(), $spot);ç
+        // dd($request->all(), $spot);
         if($spot->save()) {
             notyf()->ripple(false)->success('Spot creado correctamente!');
         }
@@ -142,6 +145,9 @@ class SpotController extends Controller
         $spot->car = $request->has('spot.car') ? 1 : 0;
         $spot->bike = $request->has('spot.bike') ? 1 : 0;
         $spot->description = $request->input('spot.description');
+        $spot->region = $request->input('spot.region');
+        $spot->latitude = $request->input('spot.latitude');
+        $spot->longitude = $request->input('spot.longitude');
 
         if($spot->save()) {
             notyf()->ripple(false)->success('Spot actualizado correctamente!');
