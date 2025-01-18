@@ -28,6 +28,10 @@
 
 <section class="seccion contenedor">
     <h2 class="section-title">Spots de Escalada</h2>
+    <div class="contenedor">
+        <div id="map"></div>
+    </div>
+    <h3 class="section-title sub-title">Últimos Spots Agregados</h3>
     @include('public.spotslisting')
     <div class="alinear-derecha">
         <a href="{{route('public.spots')}}" class="blue-button">Ver todos los Spots</a>
@@ -44,6 +48,33 @@
     <section class="blog">
         <h3><a class="section-title" href="{{route('public.blog')}}">Más Allá de las Cumbres</a></h3>
         @include('public.bloglisting')
+        <div class="alinear-derecha">
+            <a href="{{route('public.blog')}}" class="blue-button">Ir al Blog</a>
+        </div>
     </section>
 </div>
+<script>
+
+    const spots = @json($clusterSpots);
+    console.log(spots);
+    // Crear el mapa
+    const map = L.map('map').setView([-33.4372, -70.6506], 4);
+
+    // Agregar tiles de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    // Crear el grupo de clusters
+    const markers = L.markerClusterGroup();
+
+    // Agregar los marcadores al cluster
+    spots.forEach(spot => {
+        const marker = L.marker([spot.latitude, spot.longitude]).bindPopup(`<a href="${spot.url}" ><p>${spot.name}</p></a>`);
+        markers.addLayer(marker);
+    });
+
+    // Agregar el grupo de clusters al mapa
+    map.addLayer(markers);
+</script>
 @endsection
