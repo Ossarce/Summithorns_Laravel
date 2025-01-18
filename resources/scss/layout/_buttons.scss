@@ -12,7 +12,7 @@
 }
 
 .blue-button {
-    @include m.button(v.$blue, v.$blanco, inline-block)
+    @include m.button(v.$blue, v.$blanco !important, inline-block);
 }
 .btn {
     width: 100%;
