@@ -21,9 +21,14 @@ use Illuminate\Support\Facades\Auth;
 class PublicPageController extends Controller
 {
     public function home() {
-        $spots = Spot::take(3)->latest()->get();
+        $spots = Spot::latest()->take(3)->get();
         foreach($spots as $spot) {
             $spot->short_description = Str::limit($spot->description, 150, '...');
+        }
+
+        $clusterSpots = Spot::select('id', 'name', 'latitude', 'longitude')->get();
+        foreach($clusterSpots as $clusterSpot) {
+            $clusterSpot->url = route('public.spot', $clusterSpot->id);
         }
 
         $userId = Auth::id();
@@ -38,7 +43,7 @@ class PublicPageController extends Controller
             $entry->short_description = Str::limit($entry->description, 150, '...');
         }
 
-        return view('public.home', compact('spots', 'entries', 'userFavorites'));
+        return view('public.home', compact('spots', 'entries', 'userFavorites', 'clusterSpots'));
     }
 
     public function spots() {
