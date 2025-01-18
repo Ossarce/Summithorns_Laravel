@@ -45,6 +45,9 @@
         <div class="spot-description">
             {!! $spot->description !!}
         </div>
+        <div class="location">
+            <a href="https://www.google.com/maps/dir/?api=1&destination={{$spot->latitude}},{{$spot->longitude}}" target="_blank" class="blue-button">Abrir Maps</a>
+        </div>
         <div class="table-container">
             <h2>Listado de Zonas</h2>
             {{ $dataTable->table() }}
