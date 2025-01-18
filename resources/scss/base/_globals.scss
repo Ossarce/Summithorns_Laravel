@@ -1,4 +1,6 @@
 @use 'variables' as v;
+@use 'mixins' as m;
+
 html {
     font-size: 62.5%;
     box-sizing: border-box;
@@ -83,3 +85,19 @@ main {
 //     bottom: 0;
 //     width: 100%;
 // }
+
+#map {
+    height: 40vh;
+    width: 90%;
+    margin: 1rem auto;
+    z-index: 50;
+    border-radius: .5rem;
+
+    @include m.tablet {
+        height: 50vh;
+    }
+
+    @include m.desktop {
+        width: 100%;
+    }
+}
