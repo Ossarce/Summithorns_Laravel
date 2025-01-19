@@ -65,12 +65,26 @@
         attribution: '© OpenStreetMap contributors',
     }).addTo(map);
 
-    // Crear el grupo de clusters
+    // Crear el grupo de clustersz
     const markers = L.markerClusterGroup();
 
     // Agregar los marcadores al cluster
     spots.forEach(spot => {
-        const marker = L.marker([spot.latitude, spot.longitude]).bindPopup(`<a href="${spot.url}" ><p>${spot.name}</p></a>`);
+        let countInfo = "";
+        if(spot.climbingTypeName === "Deportiva") {
+            countInfo = `Rutas: ${spot.routesCount}`;
+        } else if(spot.climbingTypeName === "Boulder") {
+            countInfo = `Boulders: ${spot.bouldersCount}`;
+        }
+        let content =
+            `<a href="${spot.url}" >
+                <div class="marker-card">
+                    <h4>${spot.name}</h4>
+                    <p>${spot.climbingTypeName}</p>
+                    <p>${countInfo}</p>
+                </div>
+            </a>`;
+        const marker = L.marker([spot.latitude, spot.longitude]).bindPopup(content);
         markers.addLayer(marker);
     });
 

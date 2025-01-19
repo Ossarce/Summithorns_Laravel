@@ -26,10 +26,20 @@ class PublicPageController extends Controller
             $spot->short_description = Str::limit($spot->description, 150, '...');
         }
 
-        $clusterSpots = Spot::select('id', 'name', 'latitude', 'longitude')->get();
+        $clusterSpots = Spot::with('climbingType', 'zones.climbingRoutes', 'zones.boulders')
+            ->select('id', 'name', 'climbing_type_id', 'latitude', 'longitude')
+            ->get();
+
         foreach($clusterSpots as $clusterSpot) {
             $clusterSpot->url = route('public.spot', $clusterSpot->id);
+            $clusterSpot->climbingTypeName = $clusterSpot->climbingType?->name;
+            $clusterSpot->routesCount = $clusterSpot->countRoutes();
+            $clusterSpot->bouldersCount = $clusterSpot->countBoulders();
         }
+        // $clusterSpots = Spot::select('id', 'name', 'climbing_type_id', 'latitude', 'longitude')->get();
+        // foreach($clusterSpots as $clusterSpot) {
+        //     $clusterSpot->url = route('public.spot', $clusterSpot->id);
+        // }
 
         $userId = Auth::id();
         $userFavorites = [];
