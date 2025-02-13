@@ -33,7 +33,6 @@ function eventListeners() {
         mobileMenu.addEventListener('click', responsiveNav);
     }
 
-
     const likeButtons = document.querySelectorAll('.like-icon');
     likeButtons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -94,6 +93,13 @@ function eventListeners() {
             repliesContainer.classList.toggle('show');
         });
     })
+
+    // const filterSpotsBtn = document.querySelector('.filter-spots-btn');
+    // if (filterSpotsBtn) {
+    //     filterSpotsBtn.addEventListener('click', function (e) {
+    //         console.log('Ahora se despliega el sidebar');
+    //     })
+    // }
 }
 
 function responsiveNav() {

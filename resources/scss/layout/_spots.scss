@@ -2,6 +2,34 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 
+// .sidebar-spots {
+//     border: .1rem solid black;
+//     border-top-right-radius: .5rem;
+//     border-bottom-right-radius: .5rem;
+//     h4,
+//     p {
+//         margin: 0 0 0 .5rem;
+//         text-align: left;
+//     }
+//     .filter-box {
+//         border: .1rem solid v.$blue;
+//     }
+// }
+
+// .contenedor-filtros {
+//     border: .1rem solid v.$negro;
+//     border-radius: .5rem;
+//     display: flex;
+//     justify-content: space-between;
+//     padding: .5rem;
+//     p {
+//         margin: .5rem 1rem;
+//     }
+//     select {
+//         padding: .5rem 1rem;
+//     }
+// }
+
 @include m.tablet {
     .contenedor-spots {
         @include m.grid(3,2);
